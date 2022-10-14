@@ -9,14 +9,17 @@ public class Fecha {
     PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
     HashMap<String, Partido> partidos = new HashMap<>();
 
-    public Fecha() {
-
+    public Fecha(String fecha) {
+        this.fecha=fecha;
     }
-
-    public void addPartido(String hora, String local, String visitante) {
+    public Partido crearPartido(String hora, Equipo local, Equipo visitante){
+        Partido partido = new Partido(hora, local, visitante);
+        return partido;
+    }
+    public void addPartido(String hora, Equipo local, Equipo visitante) {
         String nombrePartido = hora + local;
         if (!partidos.containsKey(nombrePartido)) {
-            Partido partido = new Partido(hora, local, visitante);
+            Partido partido = crearPartido(hora, local, visitante);
             partidos.put(nombrePartido, partido);
         }
     }

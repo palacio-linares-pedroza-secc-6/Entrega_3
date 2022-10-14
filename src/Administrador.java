@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 
 public class Administrador extends Usuario {
 
@@ -6,22 +7,14 @@ public class Administrador extends Usuario {
 	}
 
 	public void crearTemporada(String nombreTemporada, String fileTemporada, String fileEquipo,
-			String nombreFileJugadores) {
+			String nombreFileJugadores) throws FileNotFoundException {
 
-		Temporada temporada = new Temporada(nombreTemporada, fileTemporada);
+		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, nombreFileJugadores, nombreFileJugadores);
 
 	}
 
 	public void finalizarPartido(Partido partido, String filePartido) {
 
-	}
-
-	public String getContrasena() {
-		return null;
-	}
-
-	public String getNombre() {
-		return null;
 	}
 
 	public String getFecha() {

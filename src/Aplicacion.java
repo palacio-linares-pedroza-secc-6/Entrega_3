@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,7 +63,7 @@ public class Aplicacion {
 	}
 
 	public void cerrarTemporadaActual(Temporada temporadaNueva) {
-		historialTemporadas.put(temporadaActual.getNombreTorneo(), temporadaActual);
+		historialTemporadas.put(temporadaActual.getNombreTemporada(), temporadaActual);
 		setTemporada(temporadaNueva);
 	}
 
@@ -121,7 +122,7 @@ public class Aplicacion {
 
 	// public static void no se que iria aca por ahora (●'◡'●)
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("Bienvenido a Equipo de Fantasia V1\n");
 		int opcion;
 		boolean continuar = true;
@@ -159,6 +160,7 @@ public class Aplicacion {
 				String contrasena;
 				int opcionUsuario;
 				String resultado;
+				
 
 				nombre = input("Ingrese su nombre de Usuario");
 				contrasena = input("Ingrese su constraseña de Usuario");
@@ -213,7 +215,7 @@ public class Aplicacion {
 								String nombreFileEquipos = input(
 										"Ingrese el nombre de el archivo de los equipos de la temporada");
 								String nombreFileJugadores = input(
-										"Ingrese el nombre de el archivo de los equipos de la temporada");
+										"Ingrese el nombre de el archivo de los jugadores de la temporada");
 								admin.crearTemporada(nombreTemp, nombreFilePartidos, nombreFileEquipos,
 										nombreFileJugadores);
 

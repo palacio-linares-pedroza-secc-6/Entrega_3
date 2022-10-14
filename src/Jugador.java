@@ -1,11 +1,11 @@
 public class Jugador {
 	private String nombre;
-	private String posicion;
+	private Posicion posicion;
 	private Equipo equipo;
 	private int valor;
 	private int valorVenta;
 
-	public Jugador(String nombre, Equipo shortEquipo, String posicion, int precio) {
+	public Jugador(String nombre, Equipo shortEquipo, Posicion posicion, int precio) {
 		this.nombre = nombre;
 		this.posicion = posicion;
 		this.equipo = shortEquipo;

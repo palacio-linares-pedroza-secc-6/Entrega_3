@@ -40,17 +40,20 @@ public class Temporada {
 			String precio = info[4];
 			Equipo equipo = equipos.get(shortEquipo);
 
-			if (info[3].toUpperCase().equals(Posicion.PORTERO)) {
+			if (info[3].toUpperCase().equals("PORTERO")) {
+				System.out.println(info[3].toUpperCase());
+				System.out.println(Posicion.PORTERO);
+
 				Posicion posicion = Posicion.PORTERO;
 				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
 				equipo.addJugador(jugador);
 			} 
-			else if (info[3].toUpperCase().equals(Posicion.DEFENSA)) {
+			else if (info[3].toUpperCase().equals("DEFENSA")) {
 				Posicion posicion = Posicion.DEFENSA;
 				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
 				equipo.addJugador(jugador);
 			}
-			else if (info[3].toUpperCase().equals(Posicion.MEDIOCAMPISTA)){
+			else if (info[3].toUpperCase().equals("MEDIOCAMPISTA")){
 				Posicion posicion = Posicion.MEDIOCAMPISTA;
 				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
 				equipo.addJugador(jugador);
@@ -87,7 +90,7 @@ public class Temporada {
 
 	}
 
-	}
+	
 
 	public String getNombreTemporada() {
 		return nombreTemporada;
