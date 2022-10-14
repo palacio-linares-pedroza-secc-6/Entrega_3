@@ -9,7 +9,7 @@ public class Administrador extends Usuario {
 	public void crearTemporada(String nombreTemporada, String fileTemporada, String fileEquipo,
 			String nombreFileJugadores) throws FileNotFoundException {
 
-		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, nombreFileJugadores, nombreFileJugadores);
+		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, fileEquipo, nombreFileJugadores);
 
 	}
 
