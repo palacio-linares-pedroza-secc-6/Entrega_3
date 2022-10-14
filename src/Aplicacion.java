@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
@@ -10,19 +11,46 @@ public class Aplicacion {
 	private Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
+	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
+	private static HashMap<String, Participante> findParticipantes = new HashMap<>();
 
-	public static void CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo) {
+	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo) {
+		String respuesta;
+
 		switch (tipo) {
 			case ADMINISTRADOR:
+				for (int i = 0; i < administradores.size(); i++) {
+					Administrador adminlista = administradores.get(i);
+					if (adminlista.getNombre().equals(nombre)) {
+						respuesta = "Ese nombre de usuario ya existe";
+						return respuesta;
+					}
+				}
 				Administrador Admin = new Administrador(nombre, contrasena);
 				administradores.add(Admin);
+				findAdministrador.put(nombre, Admin);
+
+				respuesta = "Se ha creado con exito";
+				return respuesta;
+
 			case PARTICIPANTE:
+				for (int i = 0; i < participantes.size(); i++) {
+					Participante userlista = participantes.get(i);
+					if (userlista.getNombre().equals(nombre)) {
+						respuesta = "Ese nombre de usuario ya existe";
+						return respuesta;
+					}
+				}
 				Participante User = new Participante(nombre, contrasena);
 				participantes.add(User);
-			default:
-				break;
-		}
+				findParticipantes.put(nombre, User);
 
+				respuesta = "Se ha creado con exito";
+				return respuesta;
+
+			default:
+				return null;
+		}
 	}
 
 	public Temporada getTemporadaActual() {
@@ -66,12 +94,13 @@ public class Aplicacion {
 		return hora;
 	}
 
-	public String logIn(String nombre, String contrasena, Tipo_Usuario tipo) {
+	public static String logIn(String nombre, String contrasena, Tipo_Usuario tipo) {
 		switch (tipo) {
 			case ADMINISTRADOR:
 				for (int i = 0; i < administradores.size(); i++) {
 					Administrador adminlista = administradores.get(i);
-					if (adminlista.getNombre() == nombre && adminlista.getContrasena() == contrasena) {
+
+					if (adminlista.getNombre().equals(nombre) && adminlista.getContrasena().equals(contrasena)) {
 						return "LogIn Valido";
 					}
 				}
@@ -79,7 +108,8 @@ public class Aplicacion {
 			case PARTICIPANTE:
 				for (int i = 0; i < participantes.size(); i++) {
 					Participante userlista = participantes.get(i);
-					if (userlista.getNombre() == nombre && userlista.getContrasena() == contrasena) {
+
+					if (userlista.getNombre().equals(nombre) && userlista.getContrasena().equals(contrasena)) {
 						return "LogIn Valido";
 					}
 				}
@@ -97,10 +127,9 @@ public class Aplicacion {
 		boolean continuar = true;
 		while (continuar) {
 
-			menuOpciones();
-			System.out.println("Seleccione una opcion valida");
-			opcion = Integer.parseInt(input("Opcion invalida, seleccione una opcion valida"));
-			if (opcion > 6 || opcion < 0) {
+			menuInicial();
+			opcion = Integer.parseInt(input("Seleccione una opcion valida"));
+			if (opcion > 3 || opcion < 0) {
 				System.out.println("Opcion invalida, seleccione una opcion valida");
 			}
 
@@ -117,29 +146,118 @@ public class Aplicacion {
 
 				System.out.println("\nUsted es?");
 				opcionUsuario = Integer.parseInt(input("1.Participante\n2.Administrador\n"));
+
 				if (opcionUsuario == 1)
-					CrearUsuario(nombre, contrasena, Tipo_Usuario.PARTICIPANTE);
+					System.out.println(CrearUsuario(nombre, contrasena, Tipo_Usuario.PARTICIPANTE));
 				else if (opcionUsuario == 2)
-					CrearUsuario(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR);
+					System.out.println(CrearUsuario(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR));
 			}
 
-			else if (opcion == 6) {
+			else if (opcion == 2) {
+
+				String nombre;
+				String contrasena;
+				int opcionUsuario;
+				String resultado;
+
+				nombre = input("Ingrese su nombre de Usuario");
+				contrasena = input("Ingrese su constraseña de Usuario");
+
+				System.out.println("\nUsted es?");
+				opcionUsuario = Integer.parseInt(input("1.Participante\n2.Administrador\n"));
+				if (opcionUsuario == 1) {
+					resultado = logIn(nombre, contrasena, Tipo_Usuario.PARTICIPANTE);
+					System.out.println(resultado);
+					if (resultado.equals("LogIn Valido")) {
+
+						// Menu para el participante
+						System.out.println("\nBienvenido " + nombre);
+						Participante user = findParticipantes.get(nombre);
+						boolean continuarParticipante = true;
+
+						while (continuarParticipante) {
+							menuParticipante();
+							opcion = Integer.parseInt(input("Seleccione una opcion valida"));
+							if (opcion > 3 || opcion < 0) {
+								System.out.println("Opcion invalida, seleccione una opcion valida");
+							}
+
+							else if (opcion == 3) {
+								continuarParticipante = false;
+								System.out.println("Se ha cerrado sesion\n");
+							}
+
+						}
+					}
+
+				} else if (opcionUsuario == 2) {
+					resultado = logIn(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR);
+					System.out.println(resultado);
+					if (resultado.equals("LogIn Valido")) {
+
+						// Menu para el administrador
+						System.out.println("\nBienvenido administrador " + nombre);
+						Administrador admin = findAdministrador.get(nombre);
+						boolean continuarAdministrador = true;
+
+						while (continuarAdministrador) {
+							menuAdministrador();
+							opcion = Integer.parseInt(input("Seleccione una opcion valida"));
+							if (opcion > 3 || opcion < 0) {
+								System.out.println("Opcion invalida, seleccione una opcion valida");
+							}
+
+							else if (opcion == 1) {
+								String nombreTemp = input("Ingrese el nombre de la temporada");
+								String nombreFilePartidos = input("Ingrese el nombre de el archivo de la temporada");
+								String nombreFileEquipos = input(
+										"Ingrese el nombre de el archivo de los equipos de la temporada");
+								String nombreFileJugadores = input(
+										"Ingrese el nombre de el archivo de los equipos de la temporada");
+								admin.crearTemporada(nombreTemp, nombreFilePartidos, nombreFileEquipos,
+										nombreFileJugadores);
+
+							}
+
+							else if (opcion == 3) {
+								continuarAdministrador = false;
+								System.out.println("Se ha cerrado sesion\n");
+							}
+
+						}
+					}
+					// FINAL DE MENU
+				}
+			}
+
+			else if (opcion == 3) {
 				continuar = false;
-				System.out.println("Gracias por usar Equipo de Fantasia V1");
+				System.out.println("Gracias por usar Fantasia V1");
 
 			}
-
-		}
+		} // acaba el while aca
 	}
 
-	public static void menuOpciones() {
+	private static void menuAdministrador() {
+		System.out.println("\nOpciones de la aplicación\n");
+		System.out.println("1. Crear temporada");
+		System.out.println("2. Comprar Jugadores");
+		System.out.println("3. Cerrar programa");
+
+	}
+
+	private static void menuParticipante() {
+		System.out.println("\nOpciones de la aplicación\n");
+		System.out.println("1. Crear Equipo de Fantasia");
+		System.out.println("2. Comprar Jugadores");
+		System.out.println("3. Cerrar programa");
+	}
+
+	public static void menuInicial() {
 		System.out.println("\nOpciones de la aplicación\n");
 		System.out.println("1. Crear Usuario");
-		System.out.println("2. Iniciar un nuevo pedido");
-		System.out.println("3. Agregar un elemento a un pedido");
-		System.out.println("4. Cerrar un pedido y guardar la factura");
-		System.out.println("5. Consultar la información de un pedido dado su id");
-		System.out.println("6. Cerrar programa");
+		System.out.println("2. Iniciar sesion");
+		System.out.println("3. Cerrar programa");
 	}
 
 	public static String input(String mensaje) {

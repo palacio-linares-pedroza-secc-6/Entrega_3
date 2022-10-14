@@ -1,9 +1,10 @@
 
 public class Usuario {
-	private String nombre;
-	private String contrasena;
+	protected String nombre;
+	protected String contrasena;
 
 	public Usuario(String nombre, String contrasena) {
+		super();
 		this.nombre = nombre;
 		this.contrasena = contrasena;
 	}

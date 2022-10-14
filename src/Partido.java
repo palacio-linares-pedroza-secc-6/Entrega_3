@@ -11,10 +11,10 @@ private class Partido {
 
 	private PriorityQueue<Jugador>();
 	
-	public Partido(String hora, Equipo local, Equipo visitante) {
+	public Partido(String hora, String local2, String visitante2) {
 		this.hora=hora;
-		this.local=local;
-		this.visitante=visitante;
+		this.local=local2;
+		this.visitante=visitante2;
 		
 	}
 

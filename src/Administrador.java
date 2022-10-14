@@ -5,7 +5,10 @@ public class Administrador extends Usuario {
 		super(nombre, contrasena);
 	}
 
-	public void crearTemporada(String fileTemporada) {
+	public void crearTemporada(String nombreTemporada, String fileTemporada, String fileEquipo,
+			String nombreFileJugadores) {
+
+		Temporada temporada = new Temporada(nombreTemporada, fileTemporada);
 
 	}
 

@@ -1,24 +1,16 @@
-enum Posicion {
-	Defensa,
-	Mediocampista,
-	Arquero,
-	Delatero
-
-}
-
 public class Jugador {
 	private String nombre;
-	private Posicion posicion;
+	private String posicion;
 	private Equipo equipo;
 	private int valor;
 	private int valorVenta;
 
-	public Jugador(String nombre, Posicion posicion, int valor, Equipo equipo) {
+	public Jugador(String nombre, Equipo shortEquipo, String posicion, int precio) {
 		this.nombre = nombre;
 		this.posicion = posicion;
-		this.equipo = equipo;
-		this.valor = valor;
-		this.valorVenta = (int) (valor * .9);
+		this.equipo = shortEquipo;
+		this.valor = precio;
+		this.valorVenta = (int) (precio * .9);
 	}
 
 	public Posicion getPosicion() {

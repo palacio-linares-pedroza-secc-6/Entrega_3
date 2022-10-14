@@ -2,14 +2,13 @@ import java.util.*;
 
 public class Equipo {
 	private String nombre;
+	private String nombreShort;
 	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
 
-	public Equipo(ArrayList<Jugador> Jugadores) {
+	public Equipo(String nombre, String nombreShort) {
+		this.nombre = nombre;
+		this.nombreShort = nombreShort;
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
-		for (Jugador jug : Jugadores) {
-			addJugador(jug);
-
-		}
 
 	}
 

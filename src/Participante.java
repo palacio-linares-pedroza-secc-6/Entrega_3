@@ -7,11 +7,11 @@ public class Participante extends Usuario {
     }
 
     public String getNombre() {
-        return null;
+        return nombre;
     }
 
     public String getContrasena() {
-        return null;
+        return contrasena;
     }
 
 }

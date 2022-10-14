@@ -1,10 +1,6 @@
-
-Cada equipo real tiene un idEquipo, nombre, y una lista de jugadores
-id;nombre
-1;Barcelona
-2;Real Madrid
-3;Atletico de Madrid
-4;Sevilla
-5;Valencia
-6;Villarreal
-7;Real Sociedad
+nombre;ShortName;;
+Futbol Club Barcelona;FCB;;
+paris saint germain;PSG;;
+Manchester City;MC;;
+Manchester United;MU;;
+;;;
