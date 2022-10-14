@@ -37,16 +37,31 @@ public class Temporada {
 			String[] info = linea.split(";");
 			String nombreJug = info[1];
 			String shortEquipo = info[2];
+			String precio = info[4];
+			Equipo equipo = equipos.get(shortEquipo);
 
 			if (info[3].toUpperCase().equals(Posicion.PORTERO)) {
 				Posicion posicion = Posicion.PORTERO;
-			} else if (info[3].toUpperCase().equals(Posicion.DEFENSA)) {
+				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+				equipo.addJugador(jugador);
+			} 
+			else if (info[3].toUpperCase().equals(Posicion.DEFENSA)) {
 				Posicion posicion = Posicion.DEFENSA;
+				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+				equipo.addJugador(jugador);
 			}
-			else if (info[3].toUpperCase().equals(Posicion.DEFENSA))
-			String precio = info[4];
-			Equipo equipo = equipos.get(shortEquipo);
-			Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+			else if (info[3].toUpperCase().equals(Posicion.MEDIOCAMPISTA)){
+				Posicion posicion = Posicion.MEDIOCAMPISTA;
+				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+				equipo.addJugador(jugador);
+			}
+			else{
+				Posicion posicion = Posicion.DELANTERO;
+				Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+				equipo.addJugador(jugador);
+			}
+			
+			
 		}
 		// Generador de fechas
 		scanner = new Scanner(
@@ -55,10 +70,17 @@ public class Temporada {
 		while (scanner.hasNextLine()) {
 			linea = scanner.nextLine();
 			String[] info = linea.split(";");
-			String fecha = info[0];
-			if (fechas.containsKey(fecha)) {
-				Fecha fechaMod = fechas.get(fecha);
-				fechaMod.addPartido(info[1], info[2], info[3]);
+			String date = info[0];
+			Equipo local= equipos.get(info[2]);
+			Equipo visitante= equipos.get(info[3]);
+			if (fechas.containsKey(date)) {
+				Fecha fechaMod = fechas.get(date);
+				fechaMod.addPartido(date, local, visitante);
+			}
+			else{
+				Fecha fecha = new Fecha(date);
+				fecha.addPartido(date, local, visitante);
+				fechas.put(date, fecha);
 			}
 
 		}
@@ -67,15 +89,15 @@ public class Temporada {
 
 	}
 
-	public String getNombreTorneo() {
-		return nombreTorneo;
+	public String getNombreTemporada() {
+		return nombreTemporada;
 	}
 
 	public String getFileTemporada() {
 		return fileTemporada;
 	}
 
-	public ArrayList<Equipo> getEquipos() {
+	public HashMap<String, Equipo> getEquipos() {
 		return equipos;
 	}
 

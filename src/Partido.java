@@ -2,19 +2,18 @@ import java.util.*;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
-private class Partido {
+public class Partido {
 	private String hora;
 	private Equipo local;
 	private Equipo visitante;
 	private int marcadorLocal;
 	private int marcadorVisitante;
-
-	private PriorityQueue<Jugador>();
+	private PriorityQueue<Jugador> rankingJugadores = new PriorityQueue<Jugador>();
 	
-	public Partido(String hora, String local2, String visitante2) {
+	public Partido(String hora, Equipo local, Equipo visitante) {
 		this.hora=hora;
-		this.local=local2;
-		this.visitante=visitante2;
+		this.local=local;
+		this.visitante=visitante;
 		
 	}
 
