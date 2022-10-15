@@ -18,9 +18,11 @@ public class Administrador extends Usuario {
 	public void finalizarPartido(String fechaBus, String partidoBus, String filePartido) throws FileNotFoundException {
 		Partido partido = getPartido(fechaBus, partidoBus);
 		partido.setfileReporte(filePartido);
-
+		ArrayList<Jugador> jugadoresTotal= new ArrayList<Jugador>();
 		ArrayList<Jugador> jugadoresLocal = partido.getJugadoresLocal();
 		ArrayList<Jugador> jugadoresVisitante = partido.getJugadoresVisitante();
+		jugadoresTotal.addAll(jugadoresLocal);
+		jugadoresTotal.addAll(jugadoresVisitante);
 
 		String shortNameLocal = partido.getLocal().getNombreShort();
 		String shortNameVisitante = partido.getVisitante().getNombreShort();
@@ -35,8 +37,8 @@ public class Administrador extends Usuario {
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
 
-			for (int i = 0; i < jugadoresLocal.size(); i++) {
-				Jugador jugador = jugadoresLocal.get(i);
+			for (int i = 0; i < jugadoresTotal.size(); i++) {
+				Jugador jugador = jugadoresTotal.get(i);
 				if (jugador.getNombre().equals(nombreJugador)) {
 					int minJugados = Integer.parseInt(info[2]);
 					int minIngresado = Integer.parseInt(info[3]);

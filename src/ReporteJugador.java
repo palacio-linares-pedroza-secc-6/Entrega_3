@@ -34,4 +34,43 @@ public class ReporteJugador {
         this.rojas = tarjetasRojas;
 
     }
+public String getNombrePartido(){
+    return nombrePartido;
+}
+public int getminutosJugados(){
+    return minutosJugados;
+}
+public int getminutoIngresado(){
+    return minutoIngresado;
+}
+public int getminutoSalido(){
+    return minutoSalido;
+}
+public int getGoles(){
+    return goles;
+}
+public int getGolesPenaltis(){
+    return golesPenlatis;
+}
+public int getAutogoles(){
+    return autogoles;
+}
+public int getAsistencias(){
+    return asistencias;
+}
+public int getGolesRecibidos(){
+    return golesRecibidos;
+}
+public int getPenaltisDetenidos(){
+    return penaltisDetenidos;
+}
+public int getPenaltisErrados(){
+    return penaltisErrados;
+}
+public int gretTarjetasAmarillas(){
+    return amarillas;
+}
+public int getTarjetasRojas(){
+    return rojas;
+}
 }

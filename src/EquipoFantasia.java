@@ -73,5 +73,13 @@ public class EquipoFantasia extends Equipo {
 	public void setSusDefensa(Jugador susDefensa) {
 		this.susDefensa = susDefensa;
 	}
+	public Mercado crearMercado(){
+		Mercado mercado = new Mercado(this);
+		return mercado;
+	}
+	public void comprarJugador(Jugador jugador){
+		
+
+	}
 
 }
