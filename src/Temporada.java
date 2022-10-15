@@ -6,9 +6,9 @@ public class Temporada {
 	private String nombreTemporada;
 	private String fileTemporada;
 	private HashMap<String, Equipo> equipos = new HashMap<>();
+	private HashMap<String, Fecha> fechas = new HashMap<>();
 	private ArrayList<EquipoFantasia> equiposFantasy;
 	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
-	private HashMap<String, Fecha> fechas = new HashMap<>();
 
 	public Temporada(String nombreTemporada, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
@@ -83,6 +83,12 @@ public class Temporada {
 
 	}
 
+	// Funciones de busqueda
+
+	public Fecha getFecha(String fecha) {
+		return fechas.get(fecha);
+	}
+
 	public String getNombreTemporada() {
 		return nombreTemporada;
 	}
@@ -93,6 +99,10 @@ public class Temporada {
 
 	public HashMap<String, Equipo> getEquipos() {
 		return equipos;
+	}
+
+	public Equipo getEquipo(String equipo) {
+		return equipos.get(equipo);
 	}
 
 	public ArrayList<EquipoFantasia> getEquiposFantasy() {

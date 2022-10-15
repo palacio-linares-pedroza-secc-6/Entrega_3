@@ -7,17 +7,23 @@ public class Administrador extends Usuario {
 	}
 
 	public void crearTemporada(String nombreTemporada, String fileTemporada, String fileEquipo,
-			String nombreFileJugadores) throws FileNotFoundException {
+			String fileJugadores) throws FileNotFoundException {
 
-		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, fileEquipo, nombreFileJugadores);
-
-	}
-
-	public void finalizarPartido(Partido partido, String filePartido) {
+		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, fileEquipo, fileJugadores);
 
 	}
 
-	public String getFecha() {
-		return null;
+	public void finalizarPartido(String fechaBus, String partidoBus, String filePartido) {
+		Partido partido = getPartido(fechaBus, partidoBus);
+		partido.setfileReporte(filePartido);
+
+	}
+
+	public Partido getPartido(String fechaBus, String partidoBus) {
+		Temporada tempo = Aplicacion.getTemporadaActual();
+		Fecha fecha = tempo.getFecha(fechaBus);
+		Partido partido = fecha.getPartido(partidoBus);
+		return partido;
+
 	}
 }

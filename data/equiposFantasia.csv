@@ -1,2 +1,0 @@
-Cada equipoFantasia tiene un idUsuario, idEquipo ,nombre, puntos, presupuesto inicial, presupuesto disponible, una lista de jugadoresFantasia y una alineación actual.
-idEquipo; idUsuario; nombre; puntos; presupuesto; presupuestoInicial;

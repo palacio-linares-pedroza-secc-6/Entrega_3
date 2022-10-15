@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class Aplicacion {
 	// atributos clase
 	private HashMap<String, Temporada> historialTemporadas;
-	private Temporada temporadaActual;
+	private static Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
@@ -19,6 +19,7 @@ public class Aplicacion {
 		String respuesta;
 
 		switch (tipo) {
+
 			case ADMINISTRADOR:
 				for (int i = 0; i < administradores.size(); i++) {
 					Administrador adminlista = administradores.get(i);
@@ -54,7 +55,7 @@ public class Aplicacion {
 		}
 	}
 
-	public Temporada getTemporadaActual() {
+	public static Temporada getTemporadaActual() {
 		return temporadaActual;
 	}
 
@@ -82,7 +83,7 @@ public class Aplicacion {
 
 	}
 
-	public ArrayList getGanadoresPasados(String nombreTemporada) {
+	public ArrayList<String> getGanadoresPasados(String nombreTemporada) {
 		Temporada temporadavieja = historialTemporadas.get(nombreTemporada);
 		PriorityQueue<EquipoFantasia> ganadores = temporadavieja.getRankingEquipoFantasia();
 		ArrayList Ganadores = QueuetoList(ganadores);
@@ -160,7 +161,6 @@ public class Aplicacion {
 				String contrasena;
 				int opcionUsuario;
 				String resultado;
-				
 
 				nombre = input("Ingrese su nombre de Usuario");
 				contrasena = input("Ingrese su constraseña de Usuario");
@@ -211,14 +211,22 @@ public class Aplicacion {
 
 							else if (opcion == 1) {
 								String nombreTemp = input("Ingrese el nombre de la temporada");
-								String nombreFilePartidos = input("Ingrese el nombre de el archivo de la temporada");
-								String nombreFileEquipos = input(
+								String filePartidos = input("Ingrese el nombre de el archivo de la temporada");
+								String fileEquipos = input(
 										"Ingrese el nombre de el archivo de los equipos de la temporada");
-								String nombreFileJugadores = input(
+								String fileJugadores = input(
 										"Ingrese el nombre de el archivo de los jugadores de la temporada");
-								admin.crearTemporada(nombreTemp, nombreFilePartidos, nombreFileEquipos,
-										nombreFileJugadores);
+								admin.crearTemporada(nombreTemp, filePartidos, fileEquipos,
+										fileJugadores);
 
+							}
+
+							else if (opcion == 2) {
+								String fechapartido = input("Ingrese la fecha en la que desea buscar el partido");
+								String localpartido = input(
+										"Ingrese la abreviacion de el equipo local que juega en esa fecha");
+								String nombreFilePartido = input("Ingrese el nombre de el archivo del partido");
+								admin.finalizarPartido(fechapartido, localpartido, nombreFilePartido);
 							}
 
 							else if (opcion == 3) {
@@ -243,7 +251,7 @@ public class Aplicacion {
 	private static void menuAdministrador() {
 		System.out.println("\nOpciones de la aplicación\n");
 		System.out.println("1. Crear temporada");
-		System.out.println("2. Comprar Jugadores");
+		System.out.println("2. Cerrar Partido");
 		System.out.println("3. Cerrar programa");
 
 	}

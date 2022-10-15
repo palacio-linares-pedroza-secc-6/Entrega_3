@@ -5,13 +5,4 @@ public class Participante extends Usuario {
         super(nombre, contrasena);
 
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
 }

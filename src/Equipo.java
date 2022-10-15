@@ -26,4 +26,25 @@ public class Equipo {
 
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getNombreShort() {
+		return nombreShort;
+	}
+
+	public ArrayList<Jugador> getJugadores() {
+		Object[] listallaves = Jugadores.keySet().toArray();
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		for (int i = 0; i < listallaves.length; i++) {
+			ArrayList<Jugador> jugposicon = Jugadores.get(listallaves[i]);
+			jugadores.addAll(jugposicon);
+		}
+		return jugadores;
+	}
+
+	public ArrayList<Jugador> getJugadoresPosicion(Posicion posicion) {
+		return Jugadores.get(posicion);
+	}
 }

@@ -1,0 +1,16 @@
+jugadores ;posicion;min_jugados;min_ingreso;min_salio;goles ;penaltis;autogoles;asistencias;goles_recibidos;penaltis_detenidos;penaltis errados;tarjetas_amariilas;tarjetas_rojas
+Ter Stegen;Porteros;90;1;90;0;0;0;0;0;0;0;0;0
+Iñaki Peña;Porteros;0;null;null;0;0;0;0;0;0;0;0;0
+Héctor Bellerín;Defensas;90;1;90;0;0;0;0;null;null;0;0;0
+Gerard Piqué;Defensas;90;1;90;0;0;0;0;null;null;0;0;0
+Andreas Christensen;Defensas;90;1;90;0;0;0;0;null;null;0;0;0
+Marcos Alonso;Defensas;90;1;90;0;0;0;0;null;null;0;0;0
+Jordi Alba;Defensas;90;1;90;0;0;0;0;null;null;0;1;0
+Oriol Busquets;mediocampistas;90;1;90;0;0;0;1;null;null;0;0;0
+Brahima Fati;mediocampistas;0;null;null;0;0;0;0;null;null;0;0;0
+Sergio Busquets;mediocampistas;90;1;90;0;0;0;0;null;null;0;0;0
+Ansu Fati;mediocampistas;90;1;90;0;0;0;1;null;null;0;0;0
+Yusuf Demir;mediocampistas;90;1;90;0;0;0;0;null;null;0;0;0
+Ousmane Dembélé;Delanteros;40;60;90;1;0;0;0;null;null;0;0;0
+Pedri;Delanteros;60;1;60;0;0;0;1;null;null;0;1;0
+Robert Lewandowski;Delanteros;90;1;90;2;0;0;0;null;null;0;0;0
