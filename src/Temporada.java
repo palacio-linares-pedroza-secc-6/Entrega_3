@@ -68,14 +68,16 @@ public class Temporada {
 			linea = scanner.nextLine();
 			String[] info = linea.split(";");
 			String date = info[0];
+			String hora = info[1];
+			System.out.print(hora);
 			Equipo local = equipos.get(info[2]);
 			Equipo visitante = equipos.get(info[3]);
 			if (fechas.containsKey(date)) {
 				Fecha fechaMod = fechas.get(date);
-				fechaMod.addPartido(date, local, visitante);
+				fechaMod.addPartido(hora, local, visitante);
 			} else {
 				Fecha fecha = new Fecha(date);
-				fecha.addPartido(date, local, visitante);
+				fecha.addPartido(hora, local, visitante);
 				fechas.put(date, fecha);
 			}
 

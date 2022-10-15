@@ -38,12 +38,24 @@ public class Partido {
 		this.fileReporte = fileReporte;
 	}
 
-	public void crearReporteJugadores() {
+	public ArrayList<Jugador> getJugadores() {
 		ArrayList<Jugador> listajugadorestotales = new ArrayList<Jugador>();
 		ArrayList<Jugador> listajugadoreslocal = local.getJugadores();
 		ArrayList<Jugador> listajugadoresvisitante = visitante.getJugadores();
 		listajugadorestotales.addAll(listajugadoreslocal);
 		listajugadorestotales.addAll(listajugadoresvisitante);
+		return listajugadorestotales;
+	}
+
+	public ArrayList<Jugador> getJugadoresLocal() {
+		ArrayList<Jugador> listajugadoreslocal = local.getJugadores();
+		return listajugadoreslocal;
+	}
+
+	public ArrayList<Jugador> getJugadoresVisitante() {
+		ArrayList<Jugador> listajugadoreslocal = visitante.getJugadores();
+		return listajugadoreslocal;
 
 	}
+
 }

@@ -1,9 +1,12 @@
+import java.util.*;
+
 public class Jugador {
 	private String nombre;
 	private Posicion posicion;
 	private Equipo equipo;
 	private int valor;
 	private int valorVenta;
+	private HashMap<String, ReporteJugador> reportes;
 
 	public Jugador(String nombre, Equipo shortEquipo, Posicion posicion, int precio) {
 		this.nombre = nombre;
@@ -11,6 +14,10 @@ public class Jugador {
 		this.equipo = shortEquipo;
 		this.valor = precio;
 		this.valorVenta = (int) (precio * .9);
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 
 	public Posicion getPosicion() {
@@ -27,6 +34,10 @@ public class Jugador {
 
 	public Equipo getEquipo() {
 		return equipo;
+	}
+
+	public void addReporte(ReporteJugador reporte, String nombrePartido) {
+		reportes.put(nombrePartido, reporte);
 	}
 
 }

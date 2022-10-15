@@ -59,8 +59,8 @@ public class Aplicacion {
 		return temporadaActual;
 	}
 
-	public void setTemporada(Temporada temporada) {
-		this.temporadaActual = temporada;
+	public static void setTemporada(Temporada temporada) {
+		temporadaActual = temporada;
 	}
 
 	public void cerrarTemporadaActual(Temporada temporadaNueva) {
@@ -216,8 +216,9 @@ public class Aplicacion {
 										"Ingrese el nombre de el archivo de los equipos de la temporada");
 								String fileJugadores = input(
 										"Ingrese el nombre de el archivo de los jugadores de la temporada");
-								admin.crearTemporada(nombreTemp, filePartidos, fileEquipos,
+								Temporada temporada = admin.crearTemporada(nombreTemp, filePartidos, fileEquipos,
 										fileJugadores);
+								setTemporada(temporada);
 
 							}
 
@@ -225,8 +226,10 @@ public class Aplicacion {
 								String fechapartido = input("Ingrese la fecha en la que desea buscar el partido");
 								String localpartido = input(
 										"Ingrese la abreviacion de el equipo local que juega en esa fecha");
+								String horaPartido = input("Ingrese la hora a la que inicia el partido");
 								String nombreFilePartido = input("Ingrese el nombre de el archivo del partido");
-								admin.finalizarPartido(fechapartido, localpartido, nombreFilePartido);
+								String nombrePartido = horaPartido + localpartido;
+								admin.finalizarPartido(fechapartido, nombrePartido, nombreFilePartido);
 							}
 
 							else if (opcion == 3) {
