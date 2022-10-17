@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class EquipoFantasia extends Equipo {
+public class EquipoFantasia {
 	private String nombre;
 	private int presupuesto;
 	private ArrayList<Fecha> fechasJugadas;
@@ -9,9 +9,11 @@ public class EquipoFantasia extends Equipo {
 	private Jugador susDelantero;
 	private Jugador susArquero;
 	private Jugador susDefensa;
+	private Temporada temporada;
 
 	public EquipoFantasia(String nombre, Temporada temporada) {
 		this.nombre = nombre;
+		this.temporada = temporada;
 	}
 
 	public String getNombre() {
@@ -73,12 +75,8 @@ public class EquipoFantasia extends Equipo {
 	public void setSusDefensa(Jugador susDefensa) {
 		this.susDefensa = susDefensa;
 	}
-	public Mercado crearMercado(){
-		Mercado mercado = new Mercado(this);
-		return mercado;
-	}
-	public void comprarJugador(Jugador jugador){
-		
+
+	public void comprarJugador(Jugador jugador) {
 
 	}
 

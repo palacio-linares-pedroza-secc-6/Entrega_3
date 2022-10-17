@@ -18,9 +18,10 @@ public class Administrador extends Usuario {
 	public void finalizarPartido(String fechaBus, String partidoBus, String filePartido) throws FileNotFoundException {
 		Partido partido = getPartido(fechaBus, partidoBus);
 		partido.setfileReporte(filePartido);
-		ArrayList<Jugador> jugadoresTotal= new ArrayList<Jugador>();
+		ArrayList<Jugador> jugadoresTotal = new ArrayList<Jugador>();
 		ArrayList<Jugador> jugadoresLocal = partido.getJugadoresLocal();
 		ArrayList<Jugador> jugadoresVisitante = partido.getJugadoresVisitante();
+		System.out.println(jugadoresLocal.size() + " " + jugadoresVisitante.size());
 		jugadoresTotal.addAll(jugadoresLocal);
 		jugadoresTotal.addAll(jugadoresVisitante);
 
@@ -37,8 +38,8 @@ public class Administrador extends Usuario {
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
 
-			for (int i = 0; i < jugadoresTotal.size(); i++) {
-				Jugador jugador = jugadoresTotal.get(i);
+			for (int i = 0; i < jugadoresLocal.size(); i++) {
+				Jugador jugador = jugadoresLocal.get(i);
 				if (jugador.getNombre().equals(nombreJugador)) {
 					int minJugados = Integer.parseInt(info[2]);
 					int minIngresado = Integer.parseInt(info[3]);
@@ -56,7 +57,6 @@ public class Administrador extends Usuario {
 					ReporteJugador reporte = new ReporteJugador(partidoBus, minJugados, minIngresado, minSalido, goles,
 							golesPenaltis, autogoles, asistencias, golesRecibidos, penaltisDetenidos, penaltisErrados,
 							tarjetasAmarillas, tarjetasRojas);
-
 					jugador.addReporte(reporte, partidoBus);
 				}
 			}
@@ -65,7 +65,7 @@ public class Administrador extends Usuario {
 		// visitante
 		scanner = new Scanner(
 				new FileReader(
-						System.getProperty("user.dir") + "/data/partido/" + filePartido + "/" + shortNameVisitante
+						System.getProperty("user.dir") + "/data/partidos/" + filePartido + "/" + shortNameVisitante
 								+ ".csv"));
 		linea = scanner.nextLine();
 		while (scanner.hasNextLine()) {
@@ -73,8 +73,8 @@ public class Administrador extends Usuario {
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
 
-			for (int i = 0; i < jugadoresLocal.size(); i++) {
-				Jugador jugador = jugadoresLocal.get(i);
+			for (int i = 0; i < jugadoresVisitante.size(); i++) {
+				Jugador jugador = jugadoresVisitante.get(i);
 				if (jugador.getNombre().equals(nombreJugador)) {
 					int minJugados = Integer.parseInt(info[2]);
 					int minIngresado = Integer.parseInt(info[3]);

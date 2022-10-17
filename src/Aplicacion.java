@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class Aplicacion {
 	// atributos clase
 	private HashMap<String, Temporada> historialTemporadas;
-	private static Temporada temporadaActual;
+	private static Temporada temporadaActual = null;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
@@ -184,6 +184,50 @@ public class Aplicacion {
 								System.out.println("Opcion invalida, seleccione una opcion valida");
 							}
 
+							else if (opcion == 1) {
+
+								if (temporadaActual == null) {
+									System.out.println("No existe una tempoarada actual para jugar");
+								}
+
+								else {
+									String nombreEquipo = input("Ingrese el nombre de su equipo:");
+									EquipoFantasia equipoFantasia = user.crearEquipoFantasia(nombreEquipo,
+											temporadaActual);
+									System.out.println("Se ha creado con exito el equipo: " + nombreEquipo);
+
+								}
+							} else if (opcion == 2) {
+								if (user.equipoFantansia == null) {
+									System.out.println(
+											"No tiene un equipos de fantsia por favor cree uno antes de ir al mercado");
+								} else {
+									System.out.println("Bienvenido al Mercado de jugadores");
+									int posicion = Integer.parseInt(input(
+											"Que posicion le gustaria revisar: 1.Portero 2.Defensa 3.MedioCampista 4.Delantero"));
+
+									if (posicion == 1) {
+										Mercado mercado = temporadaActual.getMercado();
+										mercado.mostrarJugadores(Posicion.PORTERO);
+
+									} else if (posicion == 2) {
+										Mercado mercado = temporadaActual.getMercado();
+										mercado.mostrarJugadores(Posicion.PORTERO);
+									}
+
+									else if (posicion == 3) {
+										Mercado mercado = temporadaActual.getMercado();
+										mercado.mostrarJugadores(Posicion.PORTERO);
+									}
+
+									else if (posicion == 4) {
+										Mercado mercado = temporadaActual.getMercado();
+										mercado.mostrarJugadores(Posicion.PORTERO);
+									}
+
+								}
+							}
+
 							else if (opcion == 3) {
 								continuarParticipante = false;
 								System.out.println("Se ha cerrado sesion\n");
@@ -220,6 +264,8 @@ public class Aplicacion {
 										fileJugadores);
 								setTemporada(temporada);
 
+								temporada.crearMercado();
+
 							}
 
 							else if (opcion == 2) {
@@ -249,6 +295,7 @@ public class Aplicacion {
 
 			}
 		} // acaba el while aca
+
 	}
 
 	private static void menuAdministrador() {
