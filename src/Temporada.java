@@ -7,8 +7,9 @@ public class Temporada {
 	private String fileTemporada;
 	private HashMap<String, Equipo> equipos = new HashMap<>();
 	private HashMap<String, Fecha> fechas = new HashMap<>();
-	private ArrayList<EquipoFantasia> equiposFantasy;
+	private ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<>();
 	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
+	private Mercado mercado;
 
 	public Temporada(String nombreTemporada, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
@@ -69,7 +70,6 @@ public class Temporada {
 			String[] info = linea.split(";");
 			String date = info[0];
 			String hora = info[1];
-			System.out.print(hora);
 			Equipo local = equipos.get(info[2]);
 			Equipo visitante = equipos.get(info[3]);
 			if (fechas.containsKey(date)) {
@@ -81,6 +81,78 @@ public class Temporada {
 				fechas.put(date, fecha);
 			}
 
+		}
+
+	}
+
+	public void crearMercado() {
+		this.mercado = new Mercado();
+		Object[] listaEquipos = equipos.keySet().toArray();
+		for (int i = 0; i < listaEquipos.length; i++) {
+			Equipo equipo = equipos.get(listaEquipos[i]);
+			ArrayList<Jugador> jugadoresPosi = equipo.getJugadoresPosicion(Posicion.PORTERO);
+
+			if (mercado.mercadoPosiciones.get(Posicion.PORTERO) == null) {
+
+				mercado.mercadoPosiciones.put(Posicion.PORTERO, jugadoresPosi);
+			}
+
+			else {
+				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.PORTERO);
+				listaJugadores.addAll(jugadoresPosi);
+				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+
+			}
+
+			jugadoresPosi = equipo.getJugadoresPosicion(Posicion.DEFENSA);
+
+			if (mercado.mercadoPosiciones.get(Posicion.DEFENSA) == null) {
+
+				mercado.mercadoPosiciones.put(Posicion.DEFENSA, jugadoresPosi);
+			}
+
+			else {
+				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.DEFENSA);
+				listaJugadores.addAll(jugadoresPosi);
+				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+
+			}
+
+			jugadoresPosi = equipo.getJugadoresPosicion(Posicion.MEDIOCAMPISTA);
+
+			if (mercado.mercadoPosiciones.get(Posicion.MEDIOCAMPISTA) == null) {
+
+				mercado.mercadoPosiciones.put(Posicion.MEDIOCAMPISTA, jugadoresPosi);
+			}
+
+			else {
+				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.MEDIOCAMPISTA);
+				listaJugadores.addAll(jugadoresPosi);
+				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+
+			}
+
+			jugadoresPosi = equipo.getJugadoresPosicion(Posicion.DELANTERO);
+
+			if (mercado.mercadoPosiciones.get(Posicion.DELANTERO) == null) {
+
+				mercado.mercadoPosiciones.put(Posicion.DELANTERO, jugadoresPosi);
+			}
+
+			else {
+				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.DELANTERO);
+				listaJugadores.addAll(jugadoresPosi);
+				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+
+			}
+
+			ArrayList<Jugador> jugadores = equipo.getJugadores();
+			for (int a = 0; a < jugadores.size(); a++) {
+				Jugador jugador = jugadores.get(a);
+				String nombre = jugador.getNombre();
+				mercado.mercadoJugadores.put(nombre, jugador);
+
+			}
 		}
 
 	}
@@ -113,6 +185,14 @@ public class Temporada {
 
 	public PriorityQueue<EquipoFantasia> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
+	}
+
+	public void addEquiposFantasia(EquipoFantasia equipoFantasia) {
+		equiposFantasy.add(equipoFantasia);
+	}
+
+	public Mercado getMercado() {
+		return mercado;
 	}
 
 }

@@ -6,7 +6,7 @@ public class Jugador {
 	private Equipo equipo;
 	private int valor;
 	private int valorVenta;
-	private HashMap<String, ReporteJugador> reportes;
+	private HashMap<String, ReporteJugador> reportes = new HashMap<>();
 
 	public Jugador(String nombre, Equipo shortEquipo, Posicion posicion, int precio) {
 		this.nombre = nombre;
