@@ -222,19 +222,19 @@ public class Aplicacion {
 											"Porfavor escoga "+String.valueOf(2-equipoFantasia.getJugadores().size())+" arqueros"));
 
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
-										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 
-										if (jugadoresfantasy.isEmpty()){
-											equipoFantasia.addJugador(jugadorescogido);
-											jugadoresfantasy.add(jugadorescogido);
-										}
-										else if (!jugadoresfantasy.contains(jugadorescogido)){
-											equipoFantasia.addJugador(jugadorescogido);
-											jugadoresfantasy.add(jugadorescogido);
-										}
-										else{
-											System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
-										}
+											if (jugadoresfantasy.isEmpty()){
+												equipoFantasia.addJugador(jugadorescogido);
+												jugadoresfantasy.add(jugadorescogido);
+											}
+											else if (!jugadoresfantasy.contains(jugadorescogido)){
+												equipoFantasia.addJugador(jugadorescogido);
+												jugadoresfantasy.add(jugadorescogido);
+											}
+											else{
+												System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
+											}
 										System.out.println("\nLe quedan "+ String.valueOf(equipoFantasia.getPresupuesto())+" dolares\n");
 										
 									}
@@ -249,7 +249,7 @@ public class Aplicacion {
 											"Porfavor escoga "+String.valueOf(7-equipoFantasia.getJugadores().size())+" defensas"));
 
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
-										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (!jugadoresfantasy.contains(jugadorescogido)){
 											equipoFantasia.addJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);
@@ -270,7 +270,7 @@ public class Aplicacion {
 											"Porfavor escoga "+String.valueOf(12-equipoFantasia.getJugadores().size())+" medios"));
 
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
-										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (!jugadoresfantasy.contains(jugadorescogido)){
 											equipoFantasia.addJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);
@@ -292,7 +292,7 @@ public class Aplicacion {
 											"Porfavor escoga "+String.valueOf(15-equipoFantasia.getJugadores().size())+" delanteros"));
 
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
-										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (jugadoresfantasy.contains(jugadorescogido)==false){
 											equipoFantasia.addJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);

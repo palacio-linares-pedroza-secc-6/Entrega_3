@@ -90,17 +90,14 @@ public class EquipoFantasia extends Equipo {
 		Mercado mercado = new Mercado();
 		return mercado;
 	}
-	@Override
-	public void addJugador(Jugador jugador){
-		ArrayList<Jugador> players = Jugadores.get(jugador.getPosicion());
-		setPresupuesto(presupuesto-jugador.getValor());
-
-	}
+	
+	
 	public void removeJugador(Jugador jugador){
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = Jugadores.get(pos);
 		setPresupuesto(presupuesto+jugador.getValorVenta());
 		players.remove(jugador);
+		Jugadores.put(pos, players);
 	}
 
 }
