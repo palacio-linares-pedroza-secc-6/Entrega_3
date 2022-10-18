@@ -6,7 +6,7 @@ public class Jugador {
 	private Equipo equipo;
 	private int valor;
 	private int valorVenta;
-	private HashMap<String, ReporteJugador> reportes = new HashMap<>();
+	private HashMap<String, ReporteJugador> reportes = new HashMap<String, ReporteJugador>();
 
 	public Jugador(String nombre, Equipo shortEquipo, Posicion posicion, int precio) {
 		this.nombre = nombre;
@@ -34,6 +34,9 @@ public class Jugador {
 
 	public Equipo getEquipo() {
 		return equipo;
+	}
+	public ReporteJugador getReporte(String nombrePartido){
+		return reportes.get(nombrePartido);
 	}
 
 	public void addReporte(ReporteJugador reporte, String nombrePartido) {

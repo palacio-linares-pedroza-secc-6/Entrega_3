@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class Aplicacion {
 	// atributos clase
 	private HashMap<String, Temporada> historialTemporadas;
-	private static Temporada temporadaActual = null;
+	private static Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
@@ -68,25 +68,41 @@ public class Aplicacion {
 		setTemporada(temporadaNueva);
 	}
 
-	public ArrayList QueuetoList(PriorityQueue<EquipoFantasia> queue) {
+	public ArrayList<EquipoFantasia> QueuetoList(PriorityQueue<EquipoFantasia> queue) {
 		ArrayList<EquipoFantasia> lista = new ArrayList<EquipoFantasia>(queue.size());
 		while (!queue.isEmpty()) {
 			lista.add(queue.poll());
 		}
 		return lista;
 	}
+	public static void crearMapa(HashMap<Posicion, ArrayList<Jugador>> hashmap, ArrayList<Jugador> lista){
+		for (int i=0; i<lista.size(); i++){
+            Jugador jugadoract = lista.get(i);
+            if (hashmap.containsKey(jugadoract.getPosicion())){
+                ArrayList<Jugador> listaposicion = hashmap.get(jugadoract.getPosicion());
+                listaposicion.add(jugadoract);
+            }
+            else{
+                ArrayList<Jugador> listanuevaposicion = new ArrayList<Jugador>();
+                listanuevaposicion.add(jugadoract);
+                hashmap.put(jugadoract.getPosicion(), listanuevaposicion);
+            }
+        }
 
-	public ArrayList getGanadores() {
+
+	}
+
+	public ArrayList<EquipoFantasia> getGanadores() {
 		PriorityQueue<EquipoFantasia> ganadores = temporadaActual.getRankingEquipoFantasia();
-		ArrayList listaganadores = QueuetoList(ganadores);
+		ArrayList<EquipoFantasia> listaganadores = QueuetoList(ganadores);
 		return listaganadores;
 
 	}
 
-	public ArrayList<String> getGanadoresPasados(String nombreTemporada) {
+	public ArrayList<EquipoFantasia> getGanadoresPasados(String nombreTemporada) {
 		Temporada temporadavieja = historialTemporadas.get(nombreTemporada);
 		PriorityQueue<EquipoFantasia> ganadores = temporadavieja.getRankingEquipoFantasia();
-		ArrayList Ganadores = QueuetoList(ganadores);
+		ArrayList<EquipoFantasia> Ganadores = QueuetoList(ganadores);
 		return Ganadores;
 
 	}
@@ -183,7 +199,6 @@ public class Aplicacion {
 							if (opcion > 3 || opcion < 0) {
 								System.out.println("Opcion invalida, seleccione una opcion valida");
 							}
-
 							else if (opcion == 1) {
 
 								if (temporadaActual == null) {
@@ -191,41 +206,144 @@ public class Aplicacion {
 								}
 
 								else {
+									if (user.getEquipo()!=null){
+										System.out.println("Ya tiene un equipo para esta temporada");
+									}
+									else{
 									String nombreEquipo = input("Ingrese el nombre de su equipo:");
 									EquipoFantasia equipoFantasia = user.crearEquipoFantasia(nombreEquipo,
 											temporadaActual);
-									System.out.println("Se ha creado con exito el equipo: " + nombreEquipo);
+									Mercado mercado = temporadaActual.getMercado();
+									ArrayList<Jugador> jugadoresfantasy = equipoFantasia.getJugadores();
+									while (jugadoresfantasy.size()<2){
+										mercado.mostrarJugadores(Posicion.PORTERO);
+										ArrayList<Jugador> jugadoresMercado = mercado.getJugadoresporPosicion(Posicion.PORTERO);
+										int posicionjugador = Integer.parseInt(input(
+											"Porfavor escoga "+String.valueOf(2-equipoFantasia.getJugadores().size())+" arqueros"));
+
+										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
+										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+
+										if (jugadoresfantasy.isEmpty()){
+											equipoFantasia.addJugador(jugadorescogido);
+											jugadoresfantasy.add(jugadorescogido);
+										}
+										else if (!jugadoresfantasy.contains(jugadorescogido)){
+											equipoFantasia.addJugador(jugadorescogido);
+											jugadoresfantasy.add(jugadorescogido);
+										}
+										else{
+											System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
+										}
+										System.out.println("\nLe quedan "+ String.valueOf(equipoFantasia.getPresupuesto())+" dolares\n");
+										
+									}
+									else{
+										System.out.println("No tienes suficiente presupuesto para este jugador\nFaltan "+ String.valueOf(jugadorescogido.getValor()-equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+								}
+									while (jugadoresfantasy.size()<7){
+										mercado.mostrarJugadores(Posicion.DEFENSA);
+										ArrayList<Jugador> jugadoresMercado = mercado.getJugadoresporPosicion(Posicion.DEFENSA);
+										int posicionjugador = Integer.parseInt(input(
+											"Porfavor escoga "+String.valueOf(7-equipoFantasia.getJugadores().size())+" defensas"));
+
+										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
+										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (!jugadoresfantasy.contains(jugadorescogido)){
+											equipoFantasia.addJugador(jugadorescogido);
+											jugadoresfantasy.add(jugadorescogido);
+										}
+										else{
+											System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
+										}
+										System.out.println("\nLe quedan "+ String.valueOf(equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+									else{
+										System.out.println("No tienes suficiente presupuesto para este jugador\nFaltan "+ String.valueOf(jugadorescogido.getValor()-equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+								}
+									while (jugadoresfantasy.size()<12){
+										mercado.mostrarJugadores(Posicion.MEDIOCAMPISTA);
+										ArrayList<Jugador> jugadoresMercado = mercado.getJugadoresporPosicion(Posicion.MEDIOCAMPISTA);
+										int posicionjugador = Integer.parseInt(input(
+											"Porfavor escoga "+String.valueOf(12-equipoFantasia.getJugadores().size())+" medios"));
+
+										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
+										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (!jugadoresfantasy.contains(jugadorescogido)){
+											equipoFantasia.addJugador(jugadorescogido);
+											jugadoresfantasy.add(jugadorescogido);
+										}
+										else{
+											System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
+										}
+										System.out.println("\nLe quedan "+ String.valueOf(equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+									else{
+										System.out.println("No tienes suficiente presupuesto para este jugador\nFaltan "+ String.valueOf(jugadorescogido.getValor()-equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+								}
+									while (jugadoresfantasy.size()<15){
+
+										mercado.mostrarJugadores(Posicion.DELANTERO);
+										ArrayList<Jugador> jugadoresMercado = mercado.getJugadoresporPosicion(Posicion.DELANTERO);
+										int posicionjugador = Integer.parseInt(input(
+											"Porfavor escoga "+String.valueOf(15-equipoFantasia.getJugadores().size())+" delanteros"));
+
+										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
+										if (equipoFantasia.getPresupuesto()<=jugadorescogido.getValor()){
+										if (jugadoresfantasy.contains(jugadorescogido)==false){
+											equipoFantasia.addJugador(jugadorescogido);
+											jugadoresfantasy.add(jugadorescogido);
+										}
+										else{
+											System.out.println("\nYa tiene a el jugador "+jugadorescogido.getNombre()+" en su equipo\n");
+										}
+										System.out.println("\nLe quedan "+ String.valueOf(equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+									else{
+										System.out.println("No tienes suficiente presupuesto para este jugador\nFaltan "+ String.valueOf(jugadorescogido.getValor()-equipoFantasia.getPresupuesto())+" dolares\n");
+									}
+									System.out.println("\nSe ha creado con exito el equipo: " + nombreEquipo);
 
 								}
-							} else if (opcion == 2) {
-								if (user.equipoFantansia == null) {
+							}
+							} }
+							else if (opcion == 2) {
+								if (user.getEquipo() == null) {
 									System.out.println(
-											"No tiene un equipos de fantsia por favor cree uno antes de ir al mercado");
+											"No tiene un equipos de fantasia por favor cree uno antes de ir al mercado");
 								} else {
+									EquipoFantasia equipofantasy = user.getEquipo();
+									ArrayList<Jugador> jugadoresequipofantasy = equipofantasy.getJugadores();
+									System.out.println("Jugadores del Equipo de Fantasia");
+									for (int i=0; i<jugadoresequipofantasy.size(); i++){
+										Jugador jugador = jugadoresequipofantasy.get(i);
+										String nombreplayer = jugador.getNombre();
+										int valor = jugador.getValor();
+										System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+									}
+									int posicionjugador = Integer.parseInt(input(
+											"Que jugador le gustaria vender"));
+									Jugador jugadoravender = jugadoresequipofantasy.get(posicionjugador-1);
+									Posicion posicion = jugadoravender.getPosicion();
+									equipofantasy.removeJugador(jugadoravender);
+
+									
 									System.out.println("Bienvenido al Mercado de jugadores");
-									int posicion = Integer.parseInt(input(
-											"Que posicion le gustaria revisar: 1.Portero 2.Defensa 3.MedioCampista 4.Delantero"));
-
-									if (posicion == 1) {
-										Mercado mercado = temporadaActual.getMercado();
-										mercado.mostrarJugadores(Posicion.PORTERO);
-
-									} else if (posicion == 2) {
-										Mercado mercado = temporadaActual.getMercado();
-										mercado.mostrarJugadores(Posicion.PORTERO);
-									}
-
-									else if (posicion == 3) {
-										Mercado mercado = temporadaActual.getMercado();
-										mercado.mostrarJugadores(Posicion.PORTERO);
-									}
-
-									else if (posicion == 4) {
-										Mercado mercado = temporadaActual.getMercado();
-										mercado.mostrarJugadores(Posicion.PORTERO);
-									}
-
+									Mercado mercado = temporadaActual.getMercado();
+									ArrayList<Jugador> jugadoresmercado = mercado.getJugadoresporPosicion(posicion);
+									mercado.mostrarJugadores(posicion);
+									int posicionjugadorcompra = Integer.parseInt(input(
+											"Que jugador le gustaria comprar"));
+									Jugador jugadoracomprar = jugadoresmercado.get(posicionjugadorcompra-1);
+									equipofantasy.addJugador(jugadoracomprar);
+									
 								}
+								
+									
+								
 							}
 
 							else if (opcion == 3) {
@@ -260,12 +378,11 @@ public class Aplicacion {
 										"Ingrese el nombre de el archivo de los equipos de la temporada");
 								String fileJugadores = input(
 										"Ingrese el nombre de el archivo de los jugadores de la temporada");
-								Temporada temporada = admin.crearTemporada(nombreTemp, filePartidos, fileEquipos,
+								int presupuesto = Integer.parseInt(input("Ingrese el presupuesto para los equipos de esta temporada"));
+								Temporada temporada = admin.crearTemporada(nombreTemp, presupuesto, filePartidos, fileEquipos,
 										fileJugadores);
 								setTemporada(temporada);
-
 								temporada.crearMercado();
-
 							}
 
 							else if (opcion == 2) {
@@ -295,7 +412,6 @@ public class Aplicacion {
 
 			}
 		} // acaba el while aca
-
 	}
 
 	private static void menuAdministrador() {

@@ -17,6 +17,11 @@ public class Partido {
 		this.visitante = visitante;
 
 	}
+	public String getNombre(){
+		String nombrelocal = local.getNombreShort();
+        String nombrePartido = hora + nombrelocal;
+		return nombrePartido;
+	}
 
 	public String getHora() {
 		return hora;
@@ -31,7 +36,7 @@ public class Partido {
 	}
 
 	public Pair getMarcador() {
-		return Pair<marcadorLocal,marcadorVisitante>;
+		return Pair <marcadorLocal , marcadorVisitante> sapo;
 	}
 
 	public void setfileReporte(String fileReporte) {

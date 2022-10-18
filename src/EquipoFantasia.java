@@ -1,19 +1,24 @@
 import java.util.*;
 
-public class EquipoFantasia {
+public class EquipoFantasia extends Equipo {
 	private String nombre;
 	private int presupuesto;
+	private Alineacion alineacionpasada;
 	private ArrayList<Fecha> fechasJugadas;
 	private ArrayList<Alineacion> alineacionesPasadas;
+	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
 	private Jugador susMedio;
 	private Jugador susDelantero;
 	private Jugador susArquero;
 	private Jugador susDefensa;
-	private Temporada temporada;
 
 	public EquipoFantasia(String nombre, Temporada temporada) {
-		this.nombre = nombre;
-		this.temporada = temporada;
+		super(nombre, temporada);
+		this.presupuesto = temporada.getPresupuesto();
+		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
+		this.fechasJugadas = new ArrayList<Fecha>();
+		this.alineacionesPasadas = new ArrayList<Alineacion>();
+
 	}
 
 	public String getNombre() {
@@ -22,6 +27,9 @@ public class EquipoFantasia {
 
 	public int getPresupuesto() {
 		return presupuesto;
+	}
+	public HashMap<Posicion, ArrayList<Jugador>> getMapa(){
+		return Jugadores;
 	}
 
 	public void setPresupuesto(int presupuesto) {
@@ -75,9 +83,24 @@ public class EquipoFantasia {
 	public void setSusDefensa(Jugador susDefensa) {
 		this.susDefensa = susDefensa;
 	}
+	public Alineacion getAlineacion(){
+		return alineacionpasada;
+	}
+	public Mercado crearMercado(){
+		Mercado mercado = new Mercado();
+		return mercado;
+	}
+	@Override
+	public void addJugador(Jugador jugador){
+		ArrayList<Jugador> players = Jugadores.get(jugador.getPosicion());
+		setPresupuesto(presupuesto-jugador.getValor());
 
-	public void comprarJugador(Jugador jugador) {
-
+	}
+	public void removeJugador(Jugador jugador){
+		Posicion pos = jugador.getPosicion();
+		ArrayList<Jugador> players = Jugadores.get(pos);
+		setPresupuesto(presupuesto+jugador.getValorVenta());
+		players.remove(jugador);
 	}
 
 }

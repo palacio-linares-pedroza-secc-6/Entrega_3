@@ -5,16 +5,18 @@ import java.util.*;
 public class Temporada {
 	private String nombreTemporada;
 	private String fileTemporada;
-	private HashMap<String, Equipo> equipos = new HashMap<>();
-	private HashMap<String, Fecha> fechas = new HashMap<>();
-	private ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<>();
-	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
 	private Mercado mercado;
+	private int presupuesto;
+	private static HashMap<String, Equipo> equipos = new HashMap<>();
+	private HashMap<String, Fecha> fechas = new HashMap<>();
+	private static ArrayList<EquipoFantasia> equiposFantasy;
+	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
 
-	public Temporada(String nombreTemporada, String fileTemporada, String fileEquipo,
+	public Temporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
 		Scanner scanner;
 		this.nombreTemporada = nombreTemporada;
+		this.presupuesto = presupuesto;
 		this.fileTemporada = fileTemporada;
 
 		// Generador de Equipos
@@ -26,7 +28,7 @@ public class Temporada {
 			String[] info = linea.split(";");
 			String nombre = info[0];
 			String nombreShort = info[1];
-			Equipo equipo = new Equipo(nombre, nombreShort);
+			Equipo equipo = new Equipo(nombre, nombreShort, this);
 			equipos.put(nombreShort, equipo);
 		}
 		// Generador de jugadores
@@ -70,6 +72,7 @@ public class Temporada {
 			String[] info = linea.split(";");
 			String date = info[0];
 			String hora = info[1];
+			System.out.print(hora);
 			Equipo local = equipos.get(info[2]);
 			Equipo visitante = equipos.get(info[3]);
 			if (fechas.containsKey(date)) {
@@ -84,7 +87,6 @@ public class Temporada {
 		}
 
 	}
-
 	public void crearMercado() {
 		this.mercado = new Mercado();
 		Object[] listaEquipos = equipos.keySet().toArray();
@@ -170,8 +172,11 @@ public class Temporada {
 	public String getFileTemporada() {
 		return fileTemporada;
 	}
+	public int getPresupuesto(){
+		return presupuesto;
+	}
 
-	public HashMap<String, Equipo> getEquipos() {
+	public static HashMap<String, Equipo> getEquipos() {
 		return equipos;
 	}
 
@@ -179,7 +184,7 @@ public class Temporada {
 		return equipos.get(equipo);
 	}
 
-	public ArrayList<EquipoFantasia> getEquiposFantasy() {
+	public static ArrayList<EquipoFantasia> getEquiposFantasy() {
 		return equiposFantasy;
 	}
 
@@ -187,12 +192,8 @@ public class Temporada {
 		return rankingEquipoFantasia;
 	}
 
-	public void addEquiposFantasia(EquipoFantasia equipoFantasia) {
-		equiposFantasy.add(equipoFantasia);
-	}
-
-	public Mercado getMercado() {
-		return mercado;
-	}
+    public Mercado getMercado() {
+        return mercado;
+    }
 
 }

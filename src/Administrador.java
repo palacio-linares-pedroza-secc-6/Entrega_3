@@ -8,10 +8,10 @@ public class Administrador extends Usuario {
 		super(nombre, contrasena);
 	}
 
-	public Temporada crearTemporada(String nombreTemporada, String fileTemporada, String fileEquipo,
+	public Temporada crearTemporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
 
-		Temporada temporada = new Temporada(nombreTemporada, fileTemporada, fileEquipo, fileJugadores);
+		Temporada temporada = new Temporada(nombreTemporada, presupuesto, fileTemporada, fileEquipo, fileJugadores);
 		return temporada;
 	}
 

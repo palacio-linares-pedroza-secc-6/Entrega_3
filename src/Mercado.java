@@ -13,16 +13,20 @@ public class Mercado {
     }
 
     public void mostrarJugadores(Posicion posicion) {
-        ArrayList<Jugador> lista = mercadoPosiciones.get(posicion);
+        ArrayList<Jugador> lista = getJugadoresporPosicion(posicion);
         System.out.println(posicion);
-        System.out.println("Nombre.....||Equipo.....||Precio.....");
+        System.out.println("Opcion||Nombre.....||Equipo.....||Precio.....");
         for (int a = 0; a < lista.size(); a++) {
             Jugador jugador = lista.get(a);
             String nombre = jugador.getNombre();
             String equipoShort = jugador.getEquipo().getNombreShort();
             int valor = jugador.getValor();
-            System.out.println(nombre + "||" + equipoShort + "||" + valor);
+            System.out.println(String.valueOf(a+1)+"||"+nombre + "||" + equipoShort + "||" + valor);
 
         }
+    }
+    public ArrayList<Jugador> getJugadoresporPosicion(Posicion pos){
+        ArrayList<Jugador> lista = mercadoPosiciones.get(pos);
+        return lista;
     }
 }

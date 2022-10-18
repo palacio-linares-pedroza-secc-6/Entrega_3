@@ -3,13 +3,19 @@ import java.util.*;
 public class Equipo {
 	private String nombre;
 	private String nombreShort;
+	private Temporada temporada;
 	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
 
-	public Equipo(String nombre, String nombreShort) {
+	public Equipo(String nombre, String nombreShort, Temporada temporada) {
 		this.nombre = nombre;
 		this.nombreShort = nombreShort;
+		this.temporada = temporada;
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
-
+	}
+	public Equipo (String nombre, Temporada temporada){
+		this.nombre = nombre;
+		this.temporada = temporada;
+		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
 	}
 
 	public void addJugador(Jugador player) {
@@ -33,7 +39,9 @@ public class Equipo {
 	public String getNombreShort() {
 		return nombreShort;
 	}
-
+	public Temporada getTemporada(){
+		return temporada;
+	}
 	public ArrayList<Jugador> getJugadores() {
 		Object[] listallaves = Jugadores.keySet().toArray();
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
