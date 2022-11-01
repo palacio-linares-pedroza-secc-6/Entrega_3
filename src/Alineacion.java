@@ -55,28 +55,39 @@ public class Alineacion {
     private void Sustituir(Jugador jugadoractual) {
         Posicion posicion = jugadoractual.getPosicion();
         ArrayList<Jugador> players = jugadores.get(posicion);
-        switch(posicion){
-            case PORTERO:
+            if (posicion== Posicion.PORTERO){
                 Jugador sustituto = equipo.getSusArquero();
                 equipo.setSusArquero(jugadoractual);
                 players.remove(jugadoractual);
-                players.add(sustituto);
-            case DEFENSA:
+                if (sustituto!=null){
+                    players.add(sustituto);
+                }
+            }
+            else if (posicion== Posicion.DEFENSA){
                 Jugador sustituto = equipo.getSusDefensa();
                 equipo.setSusDefensa(jugadoractual);
                 players.remove(jugadoractual);
-                players.add(sustituto);
-            case MEDIOCAMPISTA:
+                if (sustituto!=null){
+                    players.add(sustituto);
+                }
+            }
+            else if (posicion == Posicion.MEDIOCAMPISTA){
                 Jugador sustituto = equipo.getSusMedio();
                 equipo.setSusMedio(jugadoractual);
                 players.remove(jugadoractual);
-            players.add(sustituto);
-            case DELANTERO:
+                if (sustituto!=null){
+                    players.add(sustituto);
+                }
+            }
+            else{
                 Jugador sustituto = equipo.getSusDelantero();
                 equipo.setSusDelantero(jugadoractual); 
                 players.remove(jugadoractual);
-                players.add(sustituto); 
+                if (sustituto!=null){
+                    players.add(sustituto);
+                }
+            }
         }
 
         
-    }}
+    }
