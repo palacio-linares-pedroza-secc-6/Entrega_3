@@ -225,11 +225,11 @@ public class Aplicacion {
 										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 
 											if (jugadoresfantasy.isEmpty()){
-												equipoFantasia.addJugador(jugadorescogido);
+												user.comprarJugador(jugadorescogido);
 												jugadoresfantasy.add(jugadorescogido);
 											}
 											else if (!jugadoresfantasy.contains(jugadorescogido)){
-												equipoFantasia.addJugador(jugadorescogido);
+												user.comprarJugador(jugadorescogido);
 												jugadoresfantasy.add(jugadorescogido);
 											}
 											else{
@@ -251,7 +251,7 @@ public class Aplicacion {
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
 										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (!jugadoresfantasy.contains(jugadorescogido)){
-											equipoFantasia.addJugador(jugadorescogido);
+											user.comprarJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);
 										}
 										else{
@@ -272,7 +272,7 @@ public class Aplicacion {
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
 										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (!jugadoresfantasy.contains(jugadorescogido)){
-											equipoFantasia.addJugador(jugadorescogido);
+											user.comprarJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);
 										}
 										else{
@@ -294,7 +294,7 @@ public class Aplicacion {
 										Jugador jugadorescogido =jugadoresMercado.get(posicionjugador-1);
 										if (equipoFantasia.getPresupuesto()>=jugadorescogido.getValor()){
 										if (jugadoresfantasy.contains(jugadorescogido)==false){
-											equipoFantasia.addJugador(jugadorescogido);
+											user.comprarJugador(jugadorescogido);
 											jugadoresfantasy.add(jugadorescogido);
 										}
 										else{
@@ -328,7 +328,7 @@ public class Aplicacion {
 											"Que jugador le gustaria vender"));
 									Jugador jugadoravender = jugadoresequipofantasy.get(posicionjugador-1);
 									Posicion posicion = jugadoravender.getPosicion();
-									equipofantasy.removeJugador(jugadoravender);
+									user.venderJugador(jugadoravender);
 
 									
 									System.out.println("Bienvenido al Mercado de jugadores");
@@ -338,15 +338,49 @@ public class Aplicacion {
 									int posicionjugadorcompra = Integer.parseInt(input(
 											"Que jugador le gustaria comprar"));
 									Jugador jugadoracomprar = jugadoresmercado.get(posicionjugadorcompra-1);
-									equipofantasy.addJugador(jugadoracomprar);
-									
+									user.comprarJugador(jugadoracomprar);
+									System.out.println("Jugadores del Equipo de Fantasia");
+									for (int i=0; i<jugadoresequipofantasy.size(); i++){
+										Jugador jugador = jugadoresequipofantasy.get(i);
+										String nombreplayer = jugador.getNombre();
+										int valor = jugador.getValor();
+										System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+									}
 								}
 								
 									
 								
 							}
+							else if (opcion == 3){
+								EquipoFantasia equipofantasy = user.getEquipo();
+								ArrayList<Jugador> jugadoresequipofantasy = equipofantasy.getJugadores();
+								if (equipofantasy.getAlineacion()!=null){
+									System.out.println("Selecione una opcion: \n");
+									int opcionAlineacion = Integer.parseInt(input("1. Crear Nueva Alineacion\n2. Cambiar Sustituto"));
+									if (opcionAlineacion == 1){
+										System.out.println("Jugadores del Equipo de Fantasia");
+										equipofantasy.crearAlineacion(jugadoresequipofantasy);
+										while (equipofantasy.getSusArquero()!=null || equipofantasy.getSusDefensa()!= null || equipofantasy.getSusDelantero()!= null || equipofantasy.getSusMedio() != null){
+										for (int i=0; i<jugadoresequipofantasy.size(); i++){
+											Jugador jugador = jugadoresequipofantasy.get(i);
+											String nombreplayer = jugador.getNombre();
+											int valor = jugador.getValor();
+											System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+										}
+									}
 
-							else if (opcion == 3) {
+									}
+									else if (opcionAlineacion == 2){
+
+									}
+									else {
+
+									}
+									
+								}
+							}
+
+							else if (opcion == 4) {
 								continuarParticipante = false;
 								System.out.println("Se ha cerrado sesion\n");
 							}
@@ -426,7 +460,8 @@ public class Aplicacion {
 		System.out.println("\nOpciones de la aplicación\n");
 		System.out.println("1. Crear Equipo de Fantasia");
 		System.out.println("2. Comprar Jugadores");
-		System.out.println("3. Cerrar programa");
+		System.out.println("3. Editar Alineacion");
+		System.out.println("4. Cerrar programa");
 	}
 
 	public static void menuInicial() {
