@@ -360,21 +360,124 @@ public class Aplicacion {
 									if (opcionAlineacion == 1){
 										System.out.println("Jugadores del Equipo de Fantasia");
 										equipofantasy.crearAlineacion(jugadoresequipofantasy);
-										while (equipofantasy.getSusArquero()!=null || equipofantasy.getSusDefensa()!= null || equipofantasy.getSusDelantero()!= null || equipofantasy.getSusMedio() != null){
-										for (int i=0; i<jugadoresequipofantasy.size(); i++){
-											Jugador jugador = jugadoresequipofantasy.get(i);
-											String nombreplayer = jugador.getNombre();
-											int valor = jugador.getValor();
-											System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
-										}
-									}
+										Alineacion alineacion = equipofantasy.getAlineacion();
+										while (equipofantasy.getSusDefensa()== null){
+											ArrayList<Jugador> defensasfantasy = equipofantasy.getJugadoresPosicion(Posicion.DEFENSA);
+											for (int i=0; i<defensasfantasy.size(); i++){
+												Jugador jugador = defensasfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_defensa = Integer.parseInt(input("Escoga su defensa suplente: "));
+											Jugador defensa_sus = defensasfantasy.get(num_defensa-1);
+											alineacion.Sustituir(defensa_sus);
+											}	
+										while (equipofantasy.getSusArquero()== null){
+											ArrayList<Jugador> arquerosfantasy = equipofantasy.getJugadoresPosicion(Posicion.PORTERO);
+											for (int i=0; i<arquerosfantasy.size(); i++){
+												Jugador jugador = arquerosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_arquero = Integer.parseInt(input("Escoga su portero suplente: "));
+											Jugador arquero_sus = arquerosfantasy.get(num_arquero-1);
+											alineacion.Sustituir(arquero_sus);
+											}
+										while (equipofantasy.getSusDelantero()== null){
+											ArrayList<Jugador> delanterosfantasy = equipofantasy.getJugadoresPosicion(Posicion.DELANTERO);
+											for (int i=0; i<delanterosfantasy.size(); i++){
+												Jugador jugador = delanterosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_delantero = Integer.parseInt(input("Escoga su delantero suplente: "));
+											Jugador delantero_sus = delanterosfantasy.get(num_delantero-1);
+											alineacion.Sustituir(delantero_sus);
+											}
+										while (equipofantasy.getSusMedio()== null){
+											ArrayList<Jugador> mediosfantasy = equipofantasy.getJugadoresPosicion(Posicion.MEDIOCAMPISTA);
+											for (int i=0; i<mediosfantasy.size(); i++){
+												Jugador jugador = mediosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_medio = Integer.parseInt(input("Escoga su mediocampista suplente: "));
+											Jugador medio_sus = mediosfantasy.get(num_medio-1);
+											alineacion.Sustituir(medio_sus);
+											}
+										System.out.println(alineacion.checkAlineacioncompleta());
 
 									}
 									else if (opcionAlineacion == 2){
-
+										Alineacion alineacion = equipofantasy.getAlineacion();
+										System.out.println("Escoga la posicion del sustituto al cual quiere cambiar: ");
+										int poooos = Integer.parseInt(input("\n1. PORTERO\n2. DEFENSA\n3. MEDIOCAMPISTA\n4. DELANTERO"));
+										if (poooos==1){
+											ArrayList<Jugador> arquerosfantasy = equipofantasy.getJugadoresPosicion(Posicion.PORTERO);
+											for (int i=0; i<arquerosfantasy.size(); i++){
+												Jugador jugador = arquerosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_arquero = Integer.parseInt(input("Escoga su portero suplente: "));
+											Jugador arquero_sus = arquerosfantasy.get(num_arquero-1);
+											alineacion.Sustituir(arquero_sus);
+										}
+										else if (poooos==2){
+											ArrayList<Jugador> defensasfantasy = equipofantasy.getJugadoresPosicion(Posicion.DEFENSA);
+											for (int i=0; i<defensasfantasy.size(); i++){
+												Jugador jugador = defensasfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_defensa = Integer.parseInt(input("Escoga su defensa suplente: "));
+											Jugador defensa_sus = defensasfantasy.get(num_defensa-1);
+											alineacion.Sustituir(defensa_sus);
+										}
+										else if(poooos==3){
+											ArrayList<Jugador> mediosfantasy = equipofantasy.getJugadoresPosicion(Posicion.MEDIOCAMPISTA);
+											for (int i=0; i<mediosfantasy.size(); i++){
+												Jugador jugador = mediosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_medio = Integer.parseInt(input("Escoga su mediocampista suplente: "));
+											Jugador medio_sus = mediosfantasy.get(num_medio-1);
+											alineacion.Sustituir(medio_sus);
+										}
+										else if(poooos==4){
+											ArrayList<Jugador> delanterosfantasy = equipofantasy.getJugadoresPosicion(Posicion.DELANTERO);
+											for (int i=0; i<delanterosfantasy.size(); i++){
+												Jugador jugador = delanterosfantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(String.valueOf(i+1) + ".||" +nombreplayer + "||" + valor);
+											}
+											
+											int num_delantero = Integer.parseInt(input("Escoga su delantero suplente: "));
+											Jugador delantero_sus = delanterosfantasy.get(num_delantero-1);
+											alineacion.Sustituir(delantero_sus);
+										}
+										else{
+											System.out.println("Escoga una opcion valida");
+										}
 									}
 									else {
-
+										System.out.println("Escoga una opcion valida");
 									}
 									
 								}
