@@ -4,6 +4,12 @@ import java.util.*;
 
 public class DataDam {
 
+    public void archivoParticipantes()
+
+    {
+
+    }
+
     public void cargarTemporada(String fileTemporada) throws FileNotFoundException {
         Scanner scanner = new Scanner(
                 new FileReader(System.getProperty("user.dir") + "/Entrega_3/data/" + fileTemporada + ".csv"));
