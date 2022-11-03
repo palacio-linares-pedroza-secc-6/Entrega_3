@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 public class Aplicacion {
 	// atributos clase
+	static DataDam dataDam = new DataDam();
 	private HashMap<String, Temporada> historialTemporadas;
 	private static Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
@@ -15,7 +16,8 @@ public class Aplicacion {
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
 	private static HashMap<String, Participante> findParticipantes = new HashMap<>();
 
-	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo) {
+	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo)
+			throws IOException {
 		String respuesta;
 
 		switch (tipo) {
@@ -31,6 +33,7 @@ public class Aplicacion {
 				Administrador Admin = new Administrador(nombre, contrasena);
 				administradores.add(Admin);
 				findAdministrador.put(nombre, Admin);
+				dataDam.addAdministrador(nombre, contrasena);
 
 				respuesta = "Se ha creado con exito";
 				return respuesta;
@@ -46,6 +49,7 @@ public class Aplicacion {
 				Participante User = new Participante(nombre, contrasena);
 				participantes.add(User);
 				findParticipantes.put(nombre, User);
+				dataDam.addParticipante(nombre, contrasena);
 
 				respuesta = "Se ha creado con exito";
 				return respuesta;
@@ -140,12 +144,14 @@ public class Aplicacion {
 
 	// public static void no se que iria aca por ahora (●'◡'●)
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 
 		int opcion;
 		boolean continuar = true;
 
-		System.out.println("Bienvenido a Equipo de Fantasia V1\n");
+		dataDam.creatFilesUsuarios();
+		dataDam.loadUsuarios();
+		System.out.println("Bienvenido a Equipo de Fantasia V1");
 
 		while (continuar) {
 			menuInicial();
@@ -171,13 +177,13 @@ public class Aplicacion {
 
 				opcionUsuario = Integer.parseInt(input("\nUsted es?\n1.Participante\n2.Administrador\nOpcion"));
 
-				if (opcionUsuario == 1)
+				if (opcionUsuario == 1) {
 					System.out.println(CrearUsuario(nombre, contrasena, Tipo_Usuario.PARTICIPANTE));
-				else if (opcionUsuario == 2)
+				} else if (opcionUsuario == 2) {
 					System.out.println(CrearUsuario(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR));
-				else if (opcionUsuario > 2 || opcionUsuario <= 0)
-					;
-				System.out.println("\n!Error...Eliga una opcion valida");
+				} else if (opcionUsuario > 2 || opcionUsuario <= 0) {
+					System.out.println("\n!Error...Eliga una opcion valida");
+				}
 			}
 
 			else if (opcion == 2) {
