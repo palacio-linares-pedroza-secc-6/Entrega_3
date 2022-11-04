@@ -18,7 +18,6 @@ public class Aplicacion {
 
 	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo)
 			throws IOException {
-		String respuesta;
 
 		switch (tipo) {
 
@@ -26,8 +25,7 @@ public class Aplicacion {
 				for (int i = 0; i < administradores.size(); i++) {
 					Administrador adminlista = administradores.get(i);
 					if (adminlista.getNombre().equals(nombre)) {
-						respuesta = "Ese nombre de usuario ya existe";
-						return respuesta;
+						return "Ese nombre de usuario ya existe";
 					}
 				}
 				Administrador Admin = new Administrador(nombre, contrasena);
@@ -35,15 +33,14 @@ public class Aplicacion {
 				findAdministrador.put(nombre, Admin);
 				dataDam.addAdministrador(nombre, contrasena);
 
-				respuesta = "Se ha creado con exito";
-				return respuesta;
+				return "Se ha creado con exito";
 
 			case PARTICIPANTE:
 				for (int i = 0; i < participantes.size(); i++) {
 					Participante userlista = participantes.get(i);
 					if (userlista.getNombre().equals(nombre)) {
-						respuesta = "Ese nombre de usuario ya existe";
-						return respuesta;
+						return "Ese nombre de usuario ya existe";
+
 					}
 				}
 				Participante User = new Participante(nombre, contrasena);
@@ -51,12 +48,29 @@ public class Aplicacion {
 				findParticipantes.put(nombre, User);
 				dataDam.addParticipante(nombre, contrasena);
 
-				respuesta = "Se ha creado con exito";
-				return respuesta;
+				return "Se ha creado con exito";
 
 			default:
 				return null;
+
 		}
+	}
+
+	public static void reCrearUsuarios(String nombre, String contrasena, Tipo_Usuario tipo) {
+
+		switch (tipo) {
+
+			case ADMINISTRADOR:
+				Administrador Admin = new Administrador(nombre, contrasena);
+				administradores.add(Admin);
+				findAdministrador.put(nombre, Admin);
+
+			case PARTICIPANTE:
+				Participante User = new Participante(nombre, contrasena);
+				participantes.add(User);
+				findParticipantes.put(nombre, User);
+		}
+
 	}
 
 	public static String logIn(String nombre, String contrasena, Tipo_Usuario tipo) {
@@ -67,10 +81,10 @@ public class Aplicacion {
 					Administrador adminlista = administradores.get(i);
 
 					if (adminlista.getNombre().equals(nombre) && adminlista.getContrasena().equals(contrasena)) {
-						return "LogIn Valido";
+						return "\nLogIn Valido";
 					}
 				}
-				return "LogIn NO Valido";
+				return "\nLogIn NO Valido";
 
 			case PARTICIPANTE:
 				for (int i = 0; i < participantes.size(); i++) {
@@ -80,9 +94,9 @@ public class Aplicacion {
 						return "LogIn Valido";
 					}
 				}
-				return "LogIn NO Valido";
+				return "\nLogIn NO Valido";
 			default:
-				return "Ingrese un tipo Valido";
+				return "\nIngrese un tipo Valido";
 		}
 	}
 
@@ -389,8 +403,7 @@ public class Aplicacion {
 										System.out.println(String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
 									}
 								}
-								} 
-								else if (opcion == 3) {
+							} else if (opcion == 3) {
 								EquipoFantasia equipofantasy = user.getEquipo();
 								ArrayList<Jugador> jugadoresequipofantasy = equipofantasy.getJugadores();
 								if (equipofantasy.getAlineacion() != null) {
@@ -535,8 +548,7 @@ public class Aplicacion {
 										System.out.println("Escoga una opcion valida");
 									}
 
-								}
-								else{
+								} else {
 									System.out.println("Jugadores del Equipo de Fantasia");
 									equipofantasy.crearAlineacion(jugadoresequipofantasy);
 									Alineacion alineacion = equipofantasy.getAlineacion();
@@ -657,14 +669,13 @@ public class Aplicacion {
 								Partido partido = temporadaActual.getFecha(fechapartido).getPartido(nombrePartido);
 								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido);
 								ArrayList<EquipoFantasia> lista_fantasy = temporadaActual.getEquiposFantasy();
-								if (lista_fantasy != null){
-									for (int c=0; c<lista_fantasy.size(); c++){
+								if (lista_fantasy != null) {
+									for (int c = 0; c < lista_fantasy.size(); c++) {
 										EquipoFantasia equipo_fantasy = lista_fantasy.get(c);
 										Alineacion all = equipo_fantasy.getAlineacion();
 										all.jugarPartido(partido);
 									}
-								}
-								else{
+								} else {
 									System.out.println("No hay equipos Fantasy");
 								}
 							}

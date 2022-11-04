@@ -55,7 +55,7 @@ public class DataDam {
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
             String[] info = linea.split(",");
-            Aplicacion.CrearUsuario(info[0], info[1], Tipo_Usuario.PARTICIPANTE);
+            Aplicacion.reCrearUsuarios(info[0], info[1], Tipo_Usuario.PARTICIPANTE);
         }
         scanner = new Scanner(
                 new FileReader(System.getProperty("user.dir") + "/data/usuarios/administradores.csv"));
@@ -63,7 +63,7 @@ public class DataDam {
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
             String[] info = linea.split(",");
-            Aplicacion.CrearUsuario(info[0], info[1], Tipo_Usuario.ADMINISTRADOR);
+            Aplicacion.reCrearUsuarios(info[0], info[1], Tipo_Usuario.ADMINISTRADOR);
         }
 
     }
