@@ -17,14 +17,17 @@ public class Alineacion {
             switch (posicion) {
                 case PORTERO:
                     if (listaporposicion.size() != 1) {
+                        System.out.println("PORTERO "+ listaporposicion.size());
                         return false;
                     }
                 case DELANTERO:
                     if (listaporposicion.size() != 2) {
+                        System.out.println("DELANTERO"+ listaporposicion.size());
                         return false;
                     }
                 default:
                     if (listaporposicion.size() != 4) {
+                        System.out.println("SAPOOO " + listaporposicion.size()+" "+posicion);
                         return false;
                     }
             }

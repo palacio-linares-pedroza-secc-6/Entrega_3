@@ -176,15 +176,21 @@ public class Temporada {
 		return presupuesto;
 	}
 
-	public static HashMap<String, Equipo> getEquipos() {
-		return equipos;
+	public static ArrayList<Equipo> getEquipos() {
+		Object[] listallaves = equipos.keySet().toArray();
+		ArrayList<Equipo> EQUIPOS = new ArrayList<Equipo>();
+		for (int i = 0; i < listallaves.length; i++) {
+			Equipo equipo = equipos.get(listallaves[i]);
+			EQUIPOS.add(equipo);
+		}
+		return EQUIPOS;
 	}
 
 	public Equipo getEquipo(String equipo) {
 		return equipos.get(equipo);
 	}
 
-	public static ArrayList<EquipoFantasia> getEquiposFantasy() {
+	public ArrayList<EquipoFantasia> getEquiposFantasy() {
 		return equiposFantasy;
 	}
 

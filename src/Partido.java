@@ -44,6 +44,7 @@ public class Partido {
 	}
 
 	public ArrayList<Jugador> getJugadores() {
+		System.out.println("HPTAAA SAPO"+local.getNombre()+" "+visitante.getNombre());
 		ArrayList<Jugador> listajugadorestotales = new ArrayList<Jugador>();
 		ArrayList<Jugador> listajugadoreslocal = local.getJugadores();
 		ArrayList<Jugador> listajugadoresvisitante = visitante.getJugadores();

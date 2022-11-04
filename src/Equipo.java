@@ -43,10 +43,15 @@ public class Equipo {
 		return temporada;
 	}
 	public ArrayList<Jugador> getJugadores() {
+		System.out.println(this.getNombre()+"---------------");
 		Object[] listallaves = Jugadores.keySet().toArray();
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		for (int i = 0; i < listallaves.length; i++) {
+			System.out.println(listallaves[i]+"\n\n\n\n\n\n");
 			ArrayList<Jugador> jugposicon = Jugadores.get(listallaves[i]);
+			for (int j=0; j< jugposicon.size(); j++){
+				System.out.println(jugposicon.get(j).getNombre()+" "+jugposicon.get(j).getEquipo().getNombre()+"\n\n\n");
+			}
 			jugadores.addAll(jugposicon);
 		}
 		return jugadores;
