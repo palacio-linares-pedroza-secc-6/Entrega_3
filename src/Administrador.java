@@ -15,11 +15,12 @@ public class Administrador extends Usuario {
 		return temporada;
 	}
 
-	public void finalizarPartido(Partido partido, String partidoBus, String filePartido) throws FileNotFoundException {
+	public void finalizarPartido(Partido partido, String partidoBus, String filePartido, Fecha fecha)
+			throws FileNotFoundException {
 		partido.setfileReporte(filePartido);
 		ArrayList<Jugador> jugadoresTotal = partido.getJugadores();
-		for (int i=0; i<jugadoresTotal.size(); i++){
-			System.out.println(jugadoresTotal.get(i).getNombre()+" "+jugadoresTotal.get(i).getEquipo().getNombre());
+		for (int i = 0; i < jugadoresTotal.size(); i++) {
+			System.out.println(jugadoresTotal.get(i).getNombre() + " " + jugadoresTotal.get(i).getEquipo().getNombre());
 		}
 		// local
 		Scanner scanner = new Scanner(
@@ -51,12 +52,9 @@ public class Administrador extends Usuario {
 							golesPenaltis, autogoles, asistencias, golesRecibidos, penaltisDetenidos, penaltisErrados,
 							tarjetasAmarillas, tarjetasRojas);
 					jugador.addReporte(reporte, partidoBus);
+					fecha.addJugadoresRanking(partido.getJugadoresRanking());
 				}
 			}
 		}
 	}
 }
-		
-	
-
-

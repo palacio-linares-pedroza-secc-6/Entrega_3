@@ -35,7 +35,7 @@ public class DataDam {
         File fileParticipantes = new File(System.getProperty("user.dir") + "/data/usuarios/participantes.csv");
 
         Writer out = new BufferedWriter(new FileWriter(fileParticipantes, true));
-        out.append(nombre + "," + contrasena + "\n");
+        out.append(nombre + ";" + contrasena + "\n");
         out.close();
     }
 
@@ -43,7 +43,7 @@ public class DataDam {
         File fileAdministrador = new File(System.getProperty("user.dir") + "/data/usuarios/administradores.csv");
 
         Writer out = new BufferedWriter(new FileWriter(fileAdministrador, true));
-        out.append(nombre + "," + contrasena + "\n");
+        out.append(nombre + ";" + contrasena + "\n");
         out.close();
     }
 
@@ -54,7 +54,7 @@ public class DataDam {
         String linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
-            String[] info = linea.split(",");
+            String[] info = linea.split(";");
             Aplicacion.reCrearUsuarios(info[0], info[1], Tipo_Usuario.PARTICIPANTE);
         }
         scanner = new Scanner(
@@ -62,22 +62,98 @@ public class DataDam {
         linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
-            String[] info = linea.split(",");
+            String[] info = linea.split(";");
             Aplicacion.reCrearUsuarios(info[0], info[1], Tipo_Usuario.ADMINISTRADOR);
         }
 
     }
 
-    public void cargarTemporada(String fileTemporada) throws FileNotFoundException {
-        Scanner scanner = new Scanner(
-                new FileReader(System.getProperty("user.dir") + "/Entrega_3/data/" + fileTemporada + ".csv"));
+    public static HashMap<String, Equipo> cargarEquipos(String fileEquipo, Temporada temporadaActual)
+            throws FileNotFoundException {
+
+        HashMap<String, Equipo> equipos = new HashMap<>();
+        Scanner scanner;
+        scanner = new Scanner(
+                new FileReader(System.getProperty("user.dir") + "/data/" + fileEquipo + ".csv"));
+
         String linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
             String[] info = linea.split(";");
-            String fecha = info[0];
+            String nombre = info[0];
+            String nombreShort = info[1];
+            Equipo equipo = new Equipo(nombre, nombreShort, temporadaActual);
+            equipos.put(nombreShort, equipo);
+        }
+        return equipos;
+
+    }
+
+    public static void cargarJugadores(String fileJugadores, Temporada temporadaActual) throws FileNotFoundException {
+
+        Scanner scanner;
+        scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/data/" + fileJugadores + ".csv"));
+        String linea = scanner.nextLine();
+        while (scanner.hasNextLine())
+
+        {
+            linea = scanner.nextLine();
+            String[] info = linea.split(";");
+            String nombreJug = info[1];
+            String shortEquipo = info[2];
+            String precio = info[4];
+            Equipo equipo = temporadaActual.getEquiposMap().get(shortEquipo);
+
+            if (info[3].toUpperCase().equals("PORTERO")) {
+
+                Posicion posicion = Posicion.PORTERO;
+                Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+                equipo.addJugador(jugador);
+            } else if (info[3].toUpperCase().equals("DEFENSA")) {
+                Posicion posicion = Posicion.DEFENSA;
+                Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+                equipo.addJugador(jugador);
+            } else if (info[3].toUpperCase().equals("MEDIOCAMPISTA")) {
+                Posicion posicion = Posicion.MEDIOCAMPISTA;
+                Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+                equipo.addJugador(jugador);
+            } else {
+                Posicion posicion = Posicion.DELANTERO;
+                Jugador jugador = new Jugador(nombreJug, equipo, posicion, Integer.parseInt(precio));
+                equipo.addJugador(jugador);
+            }
+
         }
 
+    }
+
+    public static HashMap<String, Fecha> cargarFechas(String fileTemporada, Temporada temporadaActual)
+            throws FileNotFoundException {
+
+        HashMap<String, Fecha> fechas = new HashMap<>();
+        Scanner scanner;
+        scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/data/" + fileTemporada + ".csv"));
+        String linea = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            linea = scanner.nextLine();
+            String[] info = linea.split(";");
+            String date = info[0];
+            String hora = info[1];
+            System.out.print(hora);
+            Equipo local = temporadaActual.getEquiposMap().get(info[2]);
+            Equipo visitante = temporadaActual.getEquiposMap().get(info[3]);
+            if (fechas.containsKey(date)) {
+                Fecha fechaMod = fechas.get(date);
+                fechaMod.addPartido(hora, local, visitante);
+            } else {
+                Fecha fecha = new Fecha(date);
+                fecha.addPartido(hora, local, visitante);
+                fechas.put(date, fecha);
+            }
+
+        }
+
+        return fechas;
     }
 
 }

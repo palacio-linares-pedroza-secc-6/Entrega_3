@@ -8,18 +8,19 @@ public class Partido {
 	private Equipo visitante;
 	private int marcadorLocal;
 	private int marcadorVisitante;
-	private PriorityQueue<Pair<Jugador, Integer>> rankingJugadores;
+	private PriorityQueue<Pair<Integer, Jugador>> rankingJugadores;
 	private String fileReporte;
 
 	public Partido(String hora, Equipo local, Equipo visitante) {
 		this.hora = hora;
 		this.local = local;
 		this.visitante = visitante;
-		this.rankingJugadores = new PriorityQueue<>(this.getJugadores().size(), new PlayerComparator());
+		this.rankingJugadores = new PriorityQueue<Pair<Integer, Jugador>>(this.getJugadores().size(), new Comparador());
 	}
-	public String getNombre(){
+
+	public String getNombre() {
 		String nombrelocal = local.getNombreShort();
-        String nombrePartido = hora + nombrelocal;
+		String nombrePartido = hora + nombrelocal;
 		return nombrePartido;
 	}
 
@@ -35,8 +36,13 @@ public class Partido {
 		return visitante;
 	}
 
-	public Pair getMarcador() {
-		return Pair <marcadorLocal , marcadorVisitante> sapo;
+	public PriorityQueue<Pair<Integer, Jugador>> getJugadoresRanking() {
+		return rankingJugadores;
+	}
+
+	public Pair<Integer, Integer> getMarcador() {
+		Pair<Integer, Integer> resultado = new Pair<Integer, Integer>(marcadorLocal, marcadorVisitante);
+		return resultado;
 	}
 
 	public void setfileReporte(String fileReporte) {
@@ -44,7 +50,7 @@ public class Partido {
 	}
 
 	public ArrayList<Jugador> getJugadores() {
-		System.out.println("HPTAAA SAPO"+local.getNombre()+" "+visitante.getNombre());
+		System.out.println("HPTAAA SAPO" + local.getNombre() + " " + visitante.getNombre());
 		ArrayList<Jugador> listajugadorestotales = new ArrayList<Jugador>();
 		ArrayList<Jugador> listajugadoreslocal = local.getJugadores();
 		ArrayList<Jugador> listajugadoresvisitante = visitante.getJugadores();
@@ -64,18 +70,8 @@ public class Partido {
 
 	}
 
-}
-class PlayerComparator implements Comparator {
-
-	@Override
-	public int compare(Pair<Jugador, Integer> jug1, Pair<Jugador, Integer> jug2) {
-		if (jug1.getValue1() < jug2.getValue1()){
-			return 1;
-		}
-		else if (jug1.getValue1() > jug2.getValue1()){
-			return -1;
-		}
-		return 0;
+	public void addJugadorRanking(Pair<Integer, Jugador> jugador) {
+		rankingJugadores.add(jugador);
 	}
-	
+
 }
