@@ -67,7 +67,7 @@ public int getPenaltisDetenidos(){
 public int getPenaltisErrados(){
     return penaltisErrados;
 }
-public int gretTarjetasAmarillas(){
+public int getTarjetasAmarillas(){
     return amarillas;
 }
 public int getTarjetasRojas(){
