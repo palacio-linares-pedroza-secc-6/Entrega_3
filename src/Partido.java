@@ -8,14 +8,14 @@ public class Partido {
 	private Equipo visitante;
 	private int marcadorLocal;
 	private int marcadorVisitante;
-	private PriorityQueue<Jugador> rankingJugadores = new PriorityQueue<Jugador>();
+	private PriorityQueue<Pair<Jugador, Integer>> rankingJugadores;
 	private String fileReporte;
 
 	public Partido(String hora, Equipo local, Equipo visitante) {
 		this.hora = hora;
 		this.local = local;
 		this.visitante = visitante;
-
+		this.rankingJugadores = new PriorityQueue<>(this.getJugadores().size(), new PlayerComparator());
 	}
 	public String getNombre(){
 		String nombrelocal = local.getNombreShort();
@@ -64,4 +64,18 @@ public class Partido {
 
 	}
 
+}
+class PlayerComparator implements Comparator {
+
+	@Override
+	public int compare(Pair<Jugador, Integer> jug1, Pair<Jugador, Integer> jug2) {
+		if (jug1.getValue1() < jug2.getValue1()){
+			return 1;
+		}
+		else if (jug1.getValue1() > jug2.getValue1()){
+			return -1;
+		}
+		return 0;
+	}
+	
 }
