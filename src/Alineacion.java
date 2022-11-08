@@ -3,6 +3,7 @@ import java.util.*;
 public class Alineacion {
     private HashMap<Posicion, ArrayList<Jugador>> jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
     private EquipoFantasia equipo;
+    private Jugador capitan;
 
     public Alineacion(ArrayList<Jugador> listajugadores, EquipoFantasia equipo) {
         Aplicacion.crearMapa(jugadores, listajugadores);
@@ -55,7 +56,7 @@ public class Alineacion {
 
             }
         }
-
+        calcularPuntos(partido);
     }
 
     public void Sustituir(Jugador jugadoractual) {
@@ -91,5 +92,58 @@ public class Alineacion {
             }
         }
     }
+    public void calcularPuntos(Partido partido){
+        if (checkAlineacioncompleta()) {
+            int puntospartido = 0;
+            Object[] posiciones = jugadores.keySet().toArray();
+            for(int i=0; i<posiciones.length; i++){
+                for (Jugador jugador : jugadores.get(posiciones[i])) {
+                   int puntos =0;
+                   ReporteJugador reporte = jugador.getReporte(partido.getNombre());
+                if (reporte.getminutosJugados()>0){
+                   if(jugador ==capitan && reporte.getGoles()>reporte.getGolesRecibidos()){
+                      puntos+=5;
+                   }
+                   puntos = puntos + reporte.getAsistencias()*3;
+                   puntos = puntos - reporte.getAutogoles()*2;
+                   puntos = puntos - reporte.getPenaltisErrados()*2;
+                   puntos = puntos - reporte.getTarjetasRojas()*3;
+                   puntos = puntos - reporte.getTarjetasAmarillas();
+                   if(reporte.getminutosJugados()<=60){
+                        puntos+=1;
+                   }
+                   else{
+                        puntos+=2;
+                    }
+                   if (jugador.getPosicion()==Posicion.DELANTERO){
+                    puntos= puntos + reporte.getGoles()*4;
+                   }
+                   else if (jugador.getPosicion()==Posicion.MEDIOCAMPISTA){
+                    puntos = puntos + reporte.getGoles()*5;
+                   }
+                   else{
+                    puntos = puntos + reporte.getGoles()*6;
+                    if (reporte.getGolesRecibidos() ==0){
+                        puntos += 4;
+                    }
+                    if (jugador.getPosicion()==Posicion.PORTERO){
+                        puntos = puntos + reporte.getPenaltisDetenidos()*5;
+                    }
+                   }
+                   Pair<Jugador, Integer> playerpuntos = new Pair<>(jugador, puntos);
+                   puntospartido+=puntos;
+                }
+            } 
+        }
+        }
 
+}
+
+    public Object getCapitan() {
+        return capitan;
+    }
+
+    public void setCapitan(Jugador capitan) {
+        this.capitan= capitan;
+    }
 }
