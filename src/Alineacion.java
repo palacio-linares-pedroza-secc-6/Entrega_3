@@ -9,33 +9,43 @@ public class Alineacion {
         Aplicacion.crearMapa(jugadores, listajugadores);
         this.equipo = equipo;
     }
-
+    /**
+     * Confirma si la alineacion de un equipo tiene el numero de jugadores esperados en las posiciones esperadas
+     * <b> pre: </b> La alineacion tiene jugadores añadidos <br>
+     * @return Valor booleano depictando el estado de la alineacion. False significando incompleta y True significando completa
+     */
     public Boolean checkAlineacioncompleta() {
         Object[] posiciones = jugadores.keySet().toArray();
         for (int i = 0; i < 4; i++) {
             Posicion posicion = (Posicion) posiciones[i];
             ArrayList<Jugador> listaporposicion = jugadores.get(posicion);
-            switch (posicion) {
-                case PORTERO:
+            if (capitan==null){
+                return false;
+            }
+            if (posicion==Posicion.PORTERO){
                     if (listaporposicion.size() != 1) {
-                        System.out.println("PORTERO " + listaporposicion.size());
                         return false;
                     }
-                case DELANTERO:
+            }
+            else if (posicion==Posicion.DELANTERO){
                     if (listaporposicion.size() != 2) {
-                        System.out.println("DELANTERO" + listaporposicion.size());
-                        return false;
-                    }
-                default:
+                       return false;
+                     }
+            }
+            else{
                     if (listaporposicion.size() != 4) {
-                        System.out.println("SAPOOO " + listaporposicion.size() + " " + posicion);
                         return false;
                     }
             }
         }
         return true;
     }
-
+    /**
+     * Utiliza la alineacion para jugar el partido especificado, sustituyendo jugadores si es necesario y calculando los puntos para los jugadores de dicha alineacion
+     * <b> pre:</b> La alineacion debe estar inicializada antes de entrar.
+     * <b> post:</b> La alineacion es modificada para se realizen las sustituciones necesarias
+     * @param partido
+     */
     public void jugarPartido(Partido partido) {
 
         Object[] posiciones = jugadores.keySet().toArray();
@@ -94,7 +104,7 @@ public class Alineacion {
     }
 
     public void calcularPuntos(Partido partido) {
-        if (checkAlineacioncompleta()) {
+        if (!checkAlineacioncompleta()) {
             Object[] posiciones = jugadores.keySet().toArray();
             for (int i = 0; i < posiciones.length; i++) {
                 for (Jugador jugador : jugadores.get(posiciones[i])) {
@@ -128,6 +138,7 @@ public class Alineacion {
                             }
                         }
                         Pair<Integer, Jugador> playerpuntos = new Pair<Integer, Jugador>(puntos, jugador);
+                        System.out.println(playerpuntos.getKey()+" "+playerpuntos.getValue());
                         partido.addJugadorRanking(playerpuntos);
                     }
                 }
@@ -135,15 +146,27 @@ public class Alineacion {
         }
 
     }
-
-    public Object getCapitan() {
+    /**
+     * Devuelve el capitan del equipo
+     * <b> pre </b> Se debe haber inicializado la alineacion antes <br>
+     * @return El capitan del equipo, null si el capitan no ha sido puesto
+     */
+    public Jugador getCapitan() {
         return capitan;
     }
-
+    /**
+     * Pone el capitan del equipo
+     * <b> post:</b> La alineacion queda con el jugador indicado como capitan
+     * @param capitan El jugador cual quiere poner como capitan
+     */
     public void setCapitan(Jugador capitan) {
         this.capitan = capitan;
     }
-
+    /**
+     * Devuelve una lista de todos los jugadores de la alineacion
+     * <b> pre </b> Se debe haber inicializado la alineacion primero. Debe haber minimo un jugador en cada posicion <br>
+     * @return La lista de jugadores que se tiene en la alineacion
+     */
     public ArrayList<Jugador> getJugadores() {
 
         ArrayList<Jugador> jugadoresList = new ArrayList<Jugador>();

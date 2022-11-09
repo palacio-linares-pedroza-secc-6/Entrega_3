@@ -1,6 +1,4 @@
 import java.util.*;
-//import org.javatuples.Pair;
-//import org.javatuples.Triplet;
 
 public class Partido {
 	private String hora;
@@ -15,7 +13,9 @@ public class Partido {
 		this.hora = hora;
 		this.local = local;
 		this.visitante = visitante;
-		this.rankingJugadores = new PriorityQueue<Pair<Integer, Jugador>>(this.getJugadores().size(), new Comparador());
+		Comparator<Pair<Integer, Object>> comparator = new Comparador();
+		this.rankingJugadores = new PriorityQueue<Pair<Integer, Jugador>>(this.getJugadores().size());
+		System.out.println(this.rankingJugadores);
 	}
 
 	public String getNombre() {

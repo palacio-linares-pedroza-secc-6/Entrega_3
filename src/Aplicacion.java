@@ -15,7 +15,14 @@ public class Aplicacion {
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
 	private static HashMap<String, Participante> findParticipantes = new HashMap<>();
-
+	/**
+	 * Crea un usuario y lo guarda en la aplicación
+	 * @param nombre Nombre con el que desea guardar al usuario
+	 * @param contrasena Contraseña con la que quiere relacionar al usuario
+	 * @param tipo Tipo de Usuario (Administrador o Participante)
+	 * @return Retorna un string dependiendo del caso. Si ya existe el nombre de usuario devuelve "Ese nombre de usuario ya existe"
+	 * @throws IOException
+	 */
 	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo)
 			throws IOException {
 
@@ -91,7 +98,7 @@ public class Aplicacion {
 					Participante userlista = participantes.get(i);
 
 					if (userlista.getNombre().equals(nombre) && userlista.getContrasena().equals(contrasena)) {
-						return "LogIn Valido";
+						return "\nLogIn Valido";
 					}
 				}
 				return "\nLogIn NO Valido";
@@ -135,6 +142,7 @@ public class Aplicacion {
 		}
 
 	}
+	
 
 	public ArrayList<EquipoFantasia> getGanadores() {
 		PriorityQueue<EquipoFantasia> ganadores = temporadaActual.getRankingEquipoFantasia();
@@ -214,7 +222,7 @@ public class Aplicacion {
 				if (opcionUsuario == 1) {
 					resultado = logIn(nombre, contrasena, Tipo_Usuario.PARTICIPANTE);
 					System.out.println(resultado);
-					if (resultado.equals("LogIn Valido")) {
+					if (resultado.equals("\nLogIn Valido")) {
 
 						// Menu para el participante
 						System.out.println("\nBienvenido " + nombre);
@@ -224,7 +232,7 @@ public class Aplicacion {
 						while (continuarParticipante) {
 							menuParticipante();
 							opcion = Integer.parseInt(input("Seleccione una opcion valida"));
-							if (opcion > 3 || opcion < 0) {
+							if (opcion > 4 || opcion < 0) {
 								System.out.println("Opcion invalida, seleccione una opcion valida");
 							}
 
@@ -541,7 +549,19 @@ public class Aplicacion {
 											int num_defensa = Integer.parseInt(input("Escoga su defensa suplente: "));
 											Jugador defensa_sus = defensasfantasy.get(num_defensa - 1);
 											alineacion.Sustituir(defensa_sus);
-										}
+											System.out.println("Jugadores del Equipo de Fantasia");
+											for (int i = 0; i < jugadoresequipofantasy.size(); i++) {
+												Jugador jugador = jugadoresequipofantasy.get(i);
+												String nombreplayer = jugador.getNombre();
+												int valor = jugador.getValor();
+												System.out.println(
+														String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+											}
+											int num = Integer
+													.parseInt(input("Escoga su capitan: "));
+											Jugador capitan = jugadoresequipofantasy.get(num - 1);
+											alineacion.setCapitan(capitan);
+											}
 
 										else if (poooos == 3) {
 											ArrayList<Jugador> mediosfantasy = equipofantasy
@@ -597,10 +617,12 @@ public class Aplicacion {
 										alineacion.setCapitan(capitan);
 									}
 
+									
+									}
 									else {
 										System.out.println("Jugadores del Equipo de Fantasia");
 										equipofantasy.crearAlineacion(jugadoresequipofantasy);
-										alineacion = equipofantasy.getAlineacion();
+										Alineacion alineacion = equipofantasy.getAlineacion();
 										while (equipofantasy.getSusDefensa() == null) {
 											ArrayList<Jugador> defensasfantasy = equipofantasy
 													.getJugadoresPosicion(Posicion.DEFENSA);
@@ -662,12 +684,24 @@ public class Aplicacion {
 													.parseInt(input("Escoga su mediocampista suplente: "));
 											Jugador medio_sus = mediosfantasy.get(num_medio - 1);
 											alineacion.Sustituir(medio_sus);
+											while (alineacion.getCapitan() == null) {
+												System.out.println("Jugadores del Equipo de Fantasia");
+												for (int i = 0; i < jugadoresequipofantasy.size(); i++) {
+													Jugador jugador = jugadoresequipofantasy.get(i);
+													String nombreplayer = jugador.getNombre();
+													int valor = jugador.getValor();
+													System.out.println(
+															String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+												}
+												int num = Integer
+														.parseInt(input("Escoga su capitan: "));
+												Jugador capitan = jugadoresequipofantasy.get(num - 1);
+												alineacion.setCapitan(capitan);
+											}
 										}
 										System.out.println(alineacion.checkAlineacioncompleta());
-									}
 								}
 							}
-
 							else if (opcion == 4) {
 								continuarParticipante = false;
 								System.out.println("Se ha cerrado sesion\n");
@@ -676,10 +710,11 @@ public class Aplicacion {
 						}
 					}
 
-				} else if (opcionUsuario == 2) {
+				}
+				else if (opcionUsuario == 2) {
 					resultado = logIn(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR);
 					System.out.println(resultado);
-					if (resultado.equals("LogIn Valido")) {
+					if (resultado.equals("\nLogIn Valido")) {
 
 						// Menu para el administrador
 						System.out.println("\nBienvenido administrador " + nombre);
@@ -721,7 +756,7 @@ public class Aplicacion {
 								Partido partido = temporadaActual.getFecha(fechapartido).getPartido(nombrePartido);
 								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido,
 										temporadaActual.getFecha(fechapartido));
-								ArrayList<EquipoFantasia> lista_fantasy = temporadaActual.getEquiposFantasy();
+								ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
 								if (lista_fantasy != null) {
 									for (int c = 0; c < lista_fantasy.size(); c++) {
 										EquipoFantasia equipo_fantasy = lista_fantasy.get(c);

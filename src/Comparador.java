@@ -1,9 +1,8 @@
 import java.util.Comparator;
 
-public class Comparador implements Comparator<Pair<Integer, Object>> {
-
+public class Comparador implements Comparator<Pair<Integer,Object>> {
     @Override
-    public int compare(Pair<Integer, Object> jug1, Pair<Integer, Object> jug2) {
+    public int compare(Pair<Integer,Object> jug1, Pair<Integer,Object> jug2) {
 
         if (jug1.getKey() < jug2.getKey()) {
             return 1;
@@ -12,7 +11,9 @@ public class Comparador implements Comparator<Pair<Integer, Object>> {
         else if (jug1.getKey() > jug2.getKey()) {
             return -1;
         }
-        return 0;
+        else{
+            return 0;
+        }
     }
 
 }

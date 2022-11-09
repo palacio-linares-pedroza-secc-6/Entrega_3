@@ -34,12 +34,24 @@ public class ReporteJugador {
         this.rojas = tarjetasRojas;
 
     }
+/**
+ * Retorna el nombre del partido del cual es el reporte
+ * @return Nombre del partido relacionado al reporte
+ */
 public String getNombrePartido(){
     return nombrePartido;
 }
+/**
+ * Retorna los minutos jugados por el jugador asociado
+ * @return Numero de minutos jugados por el jugador asociado
+ */
 public int getminutosJugados(){
     return minutosJugados;
 }
+/**
+ * 
+ * @return
+ */
 public int getminutoIngresado(){
     return minutoIngresado;
 }
