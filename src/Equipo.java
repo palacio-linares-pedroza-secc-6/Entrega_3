@@ -47,10 +47,10 @@ public class Equipo {
 		Object[] listallaves = Jugadores.keySet().toArray();
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		for (int i = 0; i < listallaves.length; i++) {
-			System.out.println(listallaves[i]+"\n\n\n\n\n\n");
+			System.out.println(listallaves[i]);
 			ArrayList<Jugador> jugposicon = Jugadores.get(listallaves[i]);
 			for (int j=0; j< jugposicon.size(); j++){
-				System.out.println(jugposicon.get(j).getNombre()+" "+jugposicon.get(j).getEquipo().getNombre()+"\n\n\n");
+				System.out.println(jugposicon.get(j).getNombre()+" "+jugposicon.get(j).getEquipo().getNombre());
 			}
 			jugadores.addAll(jugposicon);
 		}

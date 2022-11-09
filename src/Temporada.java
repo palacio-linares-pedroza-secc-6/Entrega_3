@@ -58,7 +58,7 @@ public class Temporada {
 			else {
 				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.DEFENSA);
 				listaJugadores.addAll(jugadoresPosi);
-				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+				mercado.mercadoPosiciones.put(Posicion.DEFENSA, listaJugadores);
 
 			}
 
@@ -72,7 +72,7 @@ public class Temporada {
 			else {
 				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.MEDIOCAMPISTA);
 				listaJugadores.addAll(jugadoresPosi);
-				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+				mercado.mercadoPosiciones.put(Posicion.MEDIOCAMPISTA, listaJugadores);
 
 			}
 
@@ -86,7 +86,7 @@ public class Temporada {
 			else {
 				ArrayList<Jugador> listaJugadores = mercado.mercadoPosiciones.get(Posicion.DELANTERO);
 				listaJugadores.addAll(jugadoresPosi);
-				mercado.mercadoPosiciones.put(Posicion.PORTERO, listaJugadores);
+				mercado.mercadoPosiciones.put(Posicion.DELANTERO, listaJugadores);
 
 			}
 

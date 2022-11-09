@@ -412,6 +412,7 @@ public class Aplicacion {
 									Jugador jugadoracomprar = jugadoresmercado.get(posicionjugadorcompra - 1);
 									user.comprarJugador(jugadoracomprar);
 									System.out.println("Jugadores del Equipo de Fantasia");
+									jugadoresequipofantasy = equipofantasy.getJugadores();
 									for (int i = 0; i < jugadoresequipofantasy.size(); i++) {
 										Jugador jugador = jugadoresequipofantasy.get(i);
 										String nombreplayer = jugador.getNombre();
