@@ -5,6 +5,8 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
+import javax.swing.*;
+import GUI.Ventana;
 
 public class Aplicacion {
 	// atributos clase
@@ -15,12 +17,15 @@ public class Aplicacion {
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
 	private static HashMap<String, Participante> findParticipantes = new HashMap<>();
+
 	/**
 	 * Crea un usuario y lo guarda en la aplicación
-	 * @param nombre Nombre con el que desea guardar al usuario
+	 * 
+	 * @param nombre     Nombre con el que desea guardar al usuario
 	 * @param contrasena Contraseña con la que quiere relacionar al usuario
-	 * @param tipo Tipo de Usuario (Administrador o Participante)
-	 * @return Retorna un string dependiendo del caso. Si ya existe el nombre de usuario devuelve "Ese nombre de usuario ya existe"
+	 * @param tipo       Tipo de Usuario (Administrador o Participante)
+	 * @return Retorna un string dependiendo del caso. Si ya existe el nombre de
+	 *         usuario devuelve "Ese nombre de usuario ya existe"
 	 * @throws IOException
 	 */
 	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo)
@@ -142,7 +147,6 @@ public class Aplicacion {
 		}
 
 	}
-	
 
 	public ArrayList<EquipoFantasia> getGanadores() {
 		PriorityQueue<EquipoFantasia> ganadores = temporadaActual.getRankingEquipoFantasia();
@@ -167,6 +171,10 @@ public class Aplicacion {
 	// public static void no se que iria aca por ahora (●'◡'●)
 
 	public static void main(String[] args) throws IOException {
+
+		Ventana ventana = new Ventana();
+		ventana.MiVentana();
+		;
 
 		int opcion;
 		boolean continuar = true;
@@ -562,7 +570,7 @@ public class Aplicacion {
 													.parseInt(input("Escoga su capitan: "));
 											Jugador capitan = jugadoresequipofantasy.get(num - 1);
 											alineacion.setCapitan(capitan);
-											}
+										}
 
 										else if (poooos == 3) {
 											ArrayList<Jugador> mediosfantasy = equipofantasy
@@ -618,92 +626,89 @@ public class Aplicacion {
 										alineacion.setCapitan(capitan);
 									}
 
-									
+								} else {
+									System.out.println("Jugadores del Equipo de Fantasia");
+									equipofantasy.crearAlineacion(jugadoresequipofantasy);
+									Alineacion alineacion = equipofantasy.getAlineacion();
+									while (equipofantasy.getSusDefensa() == null) {
+										ArrayList<Jugador> defensasfantasy = equipofantasy
+												.getJugadoresPosicion(Posicion.DEFENSA);
+										for (int i = 0; i < defensasfantasy.size(); i++) {
+											Jugador jugador = defensasfantasy.get(i);
+											String nombreplayer = jugador.getNombre();
+											int valor = jugador.getValor();
+											System.out.println(
+													String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+										}
+
+										int num_defensa = Integer.parseInt(input("Escoga su defensa suplente: "));
+										Jugador defensa_sus = defensasfantasy.get(num_defensa - 1);
+										alineacion.Sustituir(defensa_sus);
 									}
-									else {
-										System.out.println("Jugadores del Equipo de Fantasia");
-										equipofantasy.crearAlineacion(jugadoresequipofantasy);
-										Alineacion alineacion = equipofantasy.getAlineacion();
-										while (equipofantasy.getSusDefensa() == null) {
-											ArrayList<Jugador> defensasfantasy = equipofantasy
-													.getJugadoresPosicion(Posicion.DEFENSA);
-											for (int i = 0; i < defensasfantasy.size(); i++) {
-												Jugador jugador = defensasfantasy.get(i);
+									while (equipofantasy.getSusArquero() == null) {
+										ArrayList<Jugador> arquerosfantasy = equipofantasy
+												.getJugadoresPosicion(Posicion.PORTERO);
+										for (int i = 0; i < arquerosfantasy.size(); i++) {
+											Jugador jugador = arquerosfantasy.get(i);
+											String nombreplayer = jugador.getNombre();
+											int valor = jugador.getValor();
+											System.out.println(
+													String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+										}
+
+										int num_arquero = Integer.parseInt(input("Escoga su portero suplente: "));
+										Jugador arquero_sus = arquerosfantasy.get(num_arquero - 1);
+										alineacion.Sustituir(arquero_sus);
+									}
+									while (equipofantasy.getSusDelantero() == null) {
+										ArrayList<Jugador> delanterosfantasy = equipofantasy
+												.getJugadoresPosicion(Posicion.DELANTERO);
+										for (int i = 0; i < delanterosfantasy.size(); i++) {
+											Jugador jugador = delanterosfantasy.get(i);
+											String nombreplayer = jugador.getNombre();
+											int valor = jugador.getValor();
+											System.out.println(
+													String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+										}
+
+										int num_delantero = Integer
+												.parseInt(input("Escoga su delantero suplente: "));
+										Jugador delantero_sus = delanterosfantasy.get(num_delantero - 1);
+										alineacion.Sustituir(delantero_sus);
+									}
+									while (equipofantasy.getSusMedio() == null) {
+										ArrayList<Jugador> mediosfantasy = equipofantasy
+												.getJugadoresPosicion(Posicion.MEDIOCAMPISTA);
+										for (int i = 0; i < mediosfantasy.size(); i++) {
+											Jugador jugador = mediosfantasy.get(i);
+											String nombreplayer = jugador.getNombre();
+											int valor = jugador.getValor();
+											System.out.println(
+													String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
+										}
+
+										int num_medio = Integer
+												.parseInt(input("Escoga su mediocampista suplente: "));
+										Jugador medio_sus = mediosfantasy.get(num_medio - 1);
+										alineacion.Sustituir(medio_sus);
+										while (alineacion.getCapitan() == null) {
+											System.out.println("Jugadores del Equipo de Fantasia");
+											for (int i = 0; i < jugadoresequipofantasy.size(); i++) {
+												Jugador jugador = jugadoresequipofantasy.get(i);
 												String nombreplayer = jugador.getNombre();
 												int valor = jugador.getValor();
 												System.out.println(
 														String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
 											}
-
-											int num_defensa = Integer.parseInt(input("Escoga su defensa suplente: "));
-											Jugador defensa_sus = defensasfantasy.get(num_defensa - 1);
-											alineacion.Sustituir(defensa_sus);
+											int num = Integer
+													.parseInt(input("Escoga su capitan: "));
+											Jugador capitan = jugadoresequipofantasy.get(num - 1);
+											alineacion.setCapitan(capitan);
 										}
-										while (equipofantasy.getSusArquero() == null) {
-											ArrayList<Jugador> arquerosfantasy = equipofantasy
-													.getJugadoresPosicion(Posicion.PORTERO);
-											for (int i = 0; i < arquerosfantasy.size(); i++) {
-												Jugador jugador = arquerosfantasy.get(i);
-												String nombreplayer = jugador.getNombre();
-												int valor = jugador.getValor();
-												System.out.println(
-														String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
-											}
-
-											int num_arquero = Integer.parseInt(input("Escoga su portero suplente: "));
-											Jugador arquero_sus = arquerosfantasy.get(num_arquero - 1);
-											alineacion.Sustituir(arquero_sus);
-										}
-										while (equipofantasy.getSusDelantero() == null) {
-											ArrayList<Jugador> delanterosfantasy = equipofantasy
-													.getJugadoresPosicion(Posicion.DELANTERO);
-											for (int i = 0; i < delanterosfantasy.size(); i++) {
-												Jugador jugador = delanterosfantasy.get(i);
-												String nombreplayer = jugador.getNombre();
-												int valor = jugador.getValor();
-												System.out.println(
-														String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
-											}
-
-											int num_delantero = Integer
-													.parseInt(input("Escoga su delantero suplente: "));
-											Jugador delantero_sus = delanterosfantasy.get(num_delantero - 1);
-											alineacion.Sustituir(delantero_sus);
-										}
-										while (equipofantasy.getSusMedio() == null) {
-											ArrayList<Jugador> mediosfantasy = equipofantasy
-													.getJugadoresPosicion(Posicion.MEDIOCAMPISTA);
-											for (int i = 0; i < mediosfantasy.size(); i++) {
-												Jugador jugador = mediosfantasy.get(i);
-												String nombreplayer = jugador.getNombre();
-												int valor = jugador.getValor();
-												System.out.println(
-														String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
-											}
-
-											int num_medio = Integer
-													.parseInt(input("Escoga su mediocampista suplente: "));
-											Jugador medio_sus = mediosfantasy.get(num_medio - 1);
-											alineacion.Sustituir(medio_sus);
-											while (alineacion.getCapitan() == null) {
-												System.out.println("Jugadores del Equipo de Fantasia");
-												for (int i = 0; i < jugadoresequipofantasy.size(); i++) {
-													Jugador jugador = jugadoresequipofantasy.get(i);
-													String nombreplayer = jugador.getNombre();
-													int valor = jugador.getValor();
-													System.out.println(
-															String.valueOf(i + 1) + ".||" + nombreplayer + "||" + valor);
-												}
-												int num = Integer
-														.parseInt(input("Escoga su capitan: "));
-												Jugador capitan = jugadoresequipofantasy.get(num - 1);
-												alineacion.setCapitan(capitan);
-											}
-										}
-										System.out.println(alineacion.checkAlineacioncompleta());
+									}
+									System.out.println(alineacion.checkAlineacioncompleta());
 								}
-							}
-							else if (opcion == 4) {
+							} else if (opcion == 4) {
 								continuarParticipante = false;
 								System.out.println("Se ha cerrado sesion\n");
 							}
@@ -711,8 +716,7 @@ public class Aplicacion {
 						}
 					}
 
-				}
-				else if (opcionUsuario == 2) {
+				} else if (opcionUsuario == 2) {
 					resultado = logIn(nombre, contrasena, Tipo_Usuario.ADMINISTRADOR);
 					System.out.println(resultado);
 					if (resultado.equals("\nLogIn Valido")) {

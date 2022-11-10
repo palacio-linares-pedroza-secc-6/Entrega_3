@@ -1,22 +1,27 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import javax.swing.*;
 
 public class Administrador extends Usuario {
 
 	public Administrador(String nombre, String contrasena) {
 		super(nombre, contrasena);
 	}
+
 	/**
 	 * Crea una nueva temporada en la aplicacion
+	 * 
 	 * @param nombreTemporada nombre que se le quiere dar a la nueva temporada
-	 * @param presupuesto presupuesto para los equipos de esta temporada
-	 * @param fileTemporada nombre del archivo de la nueva temporada
-	 * @param fileEquipo nombre del archivo de los equiposReales de la temporada
-	 * @param fileJugadores nombre del archivo de los Jugadores de la temporada
+	 * @param presupuesto     presupuesto para los equipos de esta temporada
+	 * @param fileTemporada   nombre del archivo de la nueva temporada
+	 * @param fileEquipo      nombre del archivo de los equiposReales de la
+	 *                        temporada
+	 * @param fileJugadores   nombre del archivo de los Jugadores de la temporada
 	 * @return Objeto de la clase temporada con los datos especificados
 	 * @throws FileNotFoundException <br>
-	 * 		   1. Si no se encuentran los archivos indicados por parametro
+	 *                               1. Si no se encuentran los archivos indicados
+	 *                               por parametro
 	 */
 	public Temporada crearTemporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
@@ -24,14 +29,20 @@ public class Administrador extends Usuario {
 		Temporada temporada = new Temporada(nombreTemporada, presupuesto, fileTemporada, fileEquipo, fileJugadores);
 		return temporada;
 	}
+
 	/**
-	 * Cierra un partido y calcula los puntos de los jugadores que jugaron en ese partido 
-	 * <b>pre:</b> El partido a cerrar ya esta inicializado. La fecha del partido ya contiene a ese partido <br>
-	 * <b>post:</b> El partido se cierra con los puntos de cada jugador calculados por los datos dados
-	 * @param partido El partido a cerrar
-	 * @param partidoBus El nombre del partido
-	 * @param filePartido archivo con la informacion de las estadisticas de los jugadores de ese partido 
-	 * @param fecha La fecha en la cual se juega el partido
+	 * Cierra un partido y calcula los puntos de los jugadores que jugaron en ese
+	 * partido
+	 * <b>pre:</b> El partido a cerrar ya esta inicializado. La fecha del partido ya
+	 * contiene a ese partido <br>
+	 * <b>post:</b> El partido se cierra con los puntos de cada jugador calculados
+	 * por los datos dados
+	 * 
+	 * @param partido     El partido a cerrar
+	 * @param partidoBus  El nombre del partido
+	 * @param filePartido archivo con la informacion de las estadisticas de los
+	 *                    jugadores de ese partido
+	 * @param fecha       La fecha en la cual se juega el partido
 	 * @throws FileNotFoundException Si no se encuentra el archivo del partido
 	 *
 	 */
