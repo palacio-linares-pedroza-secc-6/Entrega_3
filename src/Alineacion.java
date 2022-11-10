@@ -46,8 +46,7 @@ public class Alineacion {
      * <b> post:</b> La alineacion es modificada para se realizen las sustituciones necesarias
      * @param partido
      */
-    public void jugarPartido(Partido partido) {
-
+    public void jugarPartido(Partido partido, Fecha fecha) {
         Object[] posiciones = jugadores.keySet().toArray();
         HashMap<Posicion, Integer> sustituciones = new HashMap<Posicion, Integer>();
         for (int i = 0; i < 4; i++) {
@@ -57,15 +56,26 @@ public class Alineacion {
             for (int j = 0; j < listaporposicion.size(); i++) {
                 Jugador jugadoractual = listaporposicion.get(j);
                 ReporteJugador reporte = jugadoractual.getReporte(partido.getNombre());
-                int minutosJugados = reporte.getminutosJugados();
                 int numsustituciones = sustituciones.get(posicion);
-                if (minutosJugados == 0 && numsustituciones < 1) {
-                    Sustituir(jugadoractual);
-                    numsustituciones++;
+                if (reporte==null){
+                    if (numsustituciones<1){
+                        Sustituir(jugadoractual);
+                        numsustituciones+=1;
+                    }
+                    else{
+                        continue;   
+                    }
                 }
-
+                else{
+                    int minutosJugados = reporte.getminutosJugados();
+                    if (minutosJugados == 0 && numsustituciones < 1) {
+                        Sustituir(jugadoractual);
+                        numsustituciones+=1;
+                    }
+                }
             }
         }
+        equipo.addFechaJugadas(fecha, this);
         calcularPuntos(partido);
     }
 
@@ -104,13 +114,14 @@ public class Alineacion {
     }
 
     public void calcularPuntos(Partido partido) {
-        if (!checkAlineacioncompleta()) {
+        if (checkAlineacioncompleta()) {
             Object[] posiciones = jugadores.keySet().toArray();
             for (int i = 0; i < posiciones.length; i++) {
                 for (Jugador jugador : jugadores.get(posiciones[i])) {
                     int puntos = 0;
                     ReporteJugador reporte = jugador.getReporte(partido.getNombre());
-                    if (reporte.getminutosJugados() > 0) {
+                    System.out.println(reporte+" "+jugador.getNombre());
+                    if (reporte.getminutosJugados() > 0 || reporte==null) {
                         if (jugador == capitan && reporte.getGoles() > reporte.getGolesRecibidos()) {
                             puntos += 5;
                         }
@@ -137,10 +148,10 @@ public class Alineacion {
                                 puntos = puntos + reporte.getPenaltisDetenidos() * 5;
                             }
                         }
-                        Pair<Integer, Jugador> playerpuntos = new Pair<Integer, Jugador>(puntos, jugador);
-                        System.out.println(playerpuntos.getKey()+" "+playerpuntos.getValue());
-                        partido.addJugadorRanking(playerpuntos);
                     }
+                    Pair<Integer, Jugador> playerpuntos = new Pair<Integer, Jugador>(puntos, jugador);
+                    System.out.println(playerpuntos.getKey()+" "+playerpuntos.getValue());
+                    partido.addJugadorRanking(playerpuntos);
                 }
             }
         }

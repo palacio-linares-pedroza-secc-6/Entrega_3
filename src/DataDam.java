@@ -13,7 +13,7 @@ public class DataDam {
     public void creatFilesUsuarios() throws FileNotFoundException {
 
         File fileParticipantes = new File(System.getProperty("user.dir") + "/data/usuarios/participantes.csv");
-        File fielAdmin = new File(System.getProperty("user.dir") + "/data/usuarios/administradores.csv");
+        File fileAdmin = new File(System.getProperty("user.dir") + "/data/usuarios/administradores.csv");
 
         if (!fileParticipantes.exists()) {
 
@@ -22,9 +22,9 @@ public class DataDam {
             out.close();
         }
 
-        if (!fielAdmin.exists()) {
+        if (!fileAdmin.exists()) {
 
-            PrintWriter out = new PrintWriter(fielAdmin);
+            PrintWriter out = new PrintWriter(fileAdmin);
             out.printf("%s,%s\n", "Nombre", "Contrasena");
             out.close();
         }

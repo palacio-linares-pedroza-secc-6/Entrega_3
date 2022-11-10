@@ -9,7 +9,7 @@ public class Temporada {
 	private int presupuesto;
 	private static HashMap<String, Equipo> equipos;
 	private HashMap<String, Fecha> fechas;
-	private static ArrayList<EquipoFantasia> equiposFantasy;
+	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
@@ -168,6 +168,9 @@ public class Temporada {
 	 */
 	public Mercado getMercado() {
 		return mercado;
+	}
+	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
+		equiposFantasy.add(equipoFantasia);
 	}
 
 }

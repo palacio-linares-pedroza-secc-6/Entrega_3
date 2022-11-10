@@ -4,8 +4,7 @@ public class EquipoFantasia extends Equipo {
 	private String nombre;
 	private int presupuesto;
 	private Alineacion alineacionpasada;
-	private ArrayList<Fecha> fechasJugadas;
-	private ArrayList<Alineacion> alineacionesPasadas;
+	private HashMap<Fecha, Alineacion> fechasJugadas;
 	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
 	private Jugador susMedio;
 	private Jugador susDelantero;
@@ -16,13 +15,8 @@ public class EquipoFantasia extends Equipo {
 		super(nombre, temporada);
 		this.presupuesto = temporada.getPresupuesto();
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
-		this.fechasJugadas = new ArrayList<Fecha>();
-		this.alineacionesPasadas = new ArrayList<Alineacion>();
+		this.fechasJugadas = new HashMap<Fecha, Alineacion>();
 
-	}
-
-	public String getNombre() {
-		return nombre;
 	}
 
 	public int getPresupuesto() {
@@ -37,20 +31,12 @@ public class EquipoFantasia extends Equipo {
 		this.presupuesto = presupuesto;
 	}
 
-	public ArrayList<Fecha> getFechasJugadas() {
-		return fechasJugadas;
+	public Alineacion getFechaJugadas(Fecha fecha) {
+		return fechasJugadas.get(fecha);
 	}
 
-	public void addFechaJugadas(Fecha fechajugada) {
-		fechasJugadas.add(fechajugada);
-	}
-
-	public ArrayList<Alineacion> getAlineacionesPasadas() {
-		return alineacionesPasadas;
-	}
-
-	public void addAlineacionPasada(Alineacion alineacionpasada) {
-		alineacionesPasadas.add(alineacionpasada);
+	public void addFechaJugadas(Fecha fechajugada, Alineacion alineacion) {
+		fechasJugadas.put(fechajugada, alineacion);
 	}
 
 	public Jugador getSusMedio() {

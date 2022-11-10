@@ -83,7 +83,6 @@ public class Administrador extends Usuario {
 							golesPenaltis, autogoles, asistencias, golesRecibidos, penaltisDetenidos, penaltisErrados,
 							tarjetasAmarillas, tarjetasRojas);
 					jugador.addReporte(reporte, partidoBus);
-					fecha.addJugadoresRanking(partido.getJugadoresRanking());
 				}
 			}
 		}

@@ -11,7 +11,7 @@ import GUI.Ventana;
 public class Aplicacion {
 	// atributos clase
 	static DataDam dataDam = new DataDam();
-	private HashMap<String, Temporada> historialTemporadas;
+	private HashMap<String, Temporada > historialTemporadas;
 	private static Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
@@ -31,9 +31,7 @@ public class Aplicacion {
 	public static String CrearUsuario(String nombre, String contrasena, Tipo_Usuario tipo)
 			throws IOException {
 
-		switch (tipo) {
-
-			case ADMINISTRADOR:
+		if (tipo==Tipo_Usuario.ADMINISTRADOR){
 				for (int i = 0; i < administradores.size(); i++) {
 					Administrador adminlista = administradores.get(i);
 					if (adminlista.getNombre().equals(nombre)) {
@@ -46,8 +44,8 @@ public class Aplicacion {
 				dataDam.addAdministrador(nombre, contrasena);
 
 				return "Se ha creado con exito";
-
-			case PARTICIPANTE:
+			}
+			else if (tipo== Tipo_Usuario.PARTICIPANTE){
 				for (int i = 0; i < participantes.size(); i++) {
 					Participante userlista = participantes.get(i);
 					if (userlista.getNombre().equals(nombre)) {
@@ -61,34 +59,32 @@ public class Aplicacion {
 				dataDam.addParticipante(nombre, contrasena);
 
 				return "Se ha creado con exito";
-
-			default:
+			}
+			else{
 				return null;
-
+			}
 		}
-	}
 
 	public static void reCrearUsuarios(String nombre, String contrasena, Tipo_Usuario tipo) {
 
-		switch (tipo) {
+		if (tipo==Tipo_Usuario.ADMINISTRADOR){
 
-			case ADMINISTRADOR:
 				Administrador Admin = new Administrador(nombre, contrasena);
 				administradores.add(Admin);
 				findAdministrador.put(nombre, Admin);
-
-			case PARTICIPANTE:
+		}
+		else if(tipo==Tipo_Usuario.PARTICIPANTE){
 				Participante User = new Participante(nombre, contrasena);
 				participantes.add(User);
 				findParticipantes.put(nombre, User);
 		}
-
 	}
 
-	public static String logIn(String nombre, String contrasena, Tipo_Usuario tipo) {
-		switch (tipo) {
+	
 
-			case ADMINISTRADOR:
+	public static String logIn(String nombre, String contrasena, Tipo_Usuario tipo) {
+
+			if (tipo==Tipo_Usuario.ADMINISTRADOR){
 				for (int i = 0; i < administradores.size(); i++) {
 					Administrador adminlista = administradores.get(i);
 
@@ -97,8 +93,8 @@ public class Aplicacion {
 					}
 				}
 				return "\nLogIn NO Valido";
-
-			case PARTICIPANTE:
+			}
+			else if (tipo==Tipo_Usuario.PARTICIPANTE){
 				for (int i = 0; i < participantes.size(); i++) {
 					Participante userlista = participantes.get(i);
 
@@ -107,9 +103,10 @@ public class Aplicacion {
 					}
 				}
 				return "\nLogIn NO Valido";
-			default:
+			}
+			else{
 				return "\nIngrese un tipo Valido";
-		}
+			}
 	}
 
 	public static Temporada getTemporadaActual() {
@@ -383,6 +380,7 @@ public class Aplicacion {
 																		- equipoFantasia.getPresupuesto())
 																+ " dolares\n");
 											}
+											temporadaActual.addEquipoFantasy(equipoFantasia);
 											System.out.println("\nSe ha creado con exito el equipo: " + nombreEquipo);
 
 										}
@@ -758,15 +756,15 @@ public class Aplicacion {
 								String horaPartido = input("Ingrese la hora a la que inicia el partido");
 								String nombreFilePartido = input("Ingrese el nombre de el archivo del partido");
 								String nombrePartido = horaPartido + localpartido;
-								Partido partido = temporadaActual.getFecha(fechapartido).getPartido(nombrePartido);
-								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido,
-										temporadaActual.getFecha(fechapartido));
+								Fecha fecha =temporadaActual.getFecha(fechapartido);
+								Partido partido = fecha.getPartido(nombrePartido);
+								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido, fecha);
 								ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
 								if (lista_fantasy != null) {
 									for (int c = 0; c < lista_fantasy.size(); c++) {
 										EquipoFantasia equipo_fantasy = lista_fantasy.get(c);
 										Alineacion all = equipo_fantasy.getAlineacion();
-										all.jugarPartido(partido);
+										all.jugarPartido(partido, fecha);
 									}
 								} else {
 									System.out.println("No hay equipos Fantasy");
