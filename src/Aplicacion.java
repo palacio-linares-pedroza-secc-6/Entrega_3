@@ -219,7 +219,7 @@ public class Aplicacion {
 				String contrasena;
 				int opcionUsuario;
 				String resultado;
-
+				JOptionPane.showMessageDialog(null, "NO SE ENCONTRO UN ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
 				nombre = input("Ingrese su nombre de Usuario");
 				contrasena = input("Ingrese su constraseña de Usuario");
 
@@ -759,6 +759,7 @@ public class Aplicacion {
 								Fecha fecha =temporadaActual.getFecha(fechapartido);
 								Partido partido = fecha.getPartido(nombrePartido);
 								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido, fecha);
+								partido.setfileReporte(nombreFilePartido);
 								ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
 								if (lista_fantasy != null) {
 									for (int c = 0; c < lista_fantasy.size(); c++) {

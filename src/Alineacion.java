@@ -51,16 +51,21 @@ public class Alineacion {
         HashMap<Posicion, Integer> sustituciones = new HashMap<Posicion, Integer>();
         for (int i = 0; i < 4; i++) {
             Posicion posicion = (Posicion) posiciones[i];
+            System.out.println(posicion);
             sustituciones.put(posicion, 0);
             ArrayList<Jugador> listaporposicion = jugadores.get(posicion);
-            for (int j = 0; j < listaporposicion.size(); i++) {
+            System.out.println(listaporposicion.size());
+            for (int j = 0; j < listaporposicion.size(); j++) {
                 Jugador jugadoractual = listaporposicion.get(j);
+                System.out.println(jugadoractual.getNombre()+" "+ jugadoractual.getEquipo().getNombre());
                 ReporteJugador reporte = jugadoractual.getReporte(partido.getNombre());
                 int numsustituciones = sustituciones.get(posicion);
                 if (reporte==null){
                     if (numsustituciones<1){
+                        System.out.println(jugadoractual.getNombre());
                         Sustituir(jugadoractual);
                         numsustituciones+=1;
+                        sustituciones.put(posicion, numsustituciones);
                     }
                     else{
                         continue;   
@@ -117,41 +122,54 @@ public class Alineacion {
         if (checkAlineacioncompleta()) {
             Object[] posiciones = jugadores.keySet().toArray();
             for (int i = 0; i < posiciones.length; i++) {
-                for (Jugador jugador : jugadores.get(posiciones[i])) {
+                Posicion posicion = (Posicion) posiciones[i];
+                for (Jugador jugador : jugadores.get(posicion)) {
                     int puntos = 0;
                     ReporteJugador reporte = jugador.getReporte(partido.getNombre());
                     System.out.println(reporte+" "+jugador.getNombre());
-                    if (reporte.getminutosJugados() > 0 || reporte==null) {
-                        if (jugador == capitan && reporte.getGoles() > reporte.getGolesRecibidos()) {
-                            puntos += 5;
-                        }
-                        puntos = puntos + reporte.getAsistencias() * 3;
-                        puntos = puntos - reporte.getAutogoles() * 2;
-                        puntos = puntos - reporte.getPenaltisErrados() * 2;
-                        puntos = puntos - reporte.getTarjetasRojas() * 3;
-                        puntos = puntos - reporte.getTarjetasAmarillas();
-                        if (reporte.getminutosJugados() <= 60) {
-                            puntos += 1;
-                        } else {
-                            puntos += 2;
-                        }
-                        if (jugador.getPosicion() == Posicion.DELANTERO) {
-                            puntos = puntos + reporte.getGoles() * 4;
-                        } else if (jugador.getPosicion() == Posicion.MEDIOCAMPISTA) {
-                            puntos = puntos + reporte.getGoles() * 5;
-                        } else {
-                            puntos = puntos + reporte.getGoles() * 6;
-                            if (reporte.getGolesRecibidos() == 0) {
-                                puntos += 4;
+                    if (reporte!=null){
+                        if (reporte.getminutosJugados() > 0) {
+                            if (jugador == capitan) {
+                                if (partido.getLocal()==jugador.getEquipo()){
+                                    if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()){
+                                        puntos += 5;
+                                    }
+                                }
+                                else{
+                                    if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()){
+                                        puntos += 5;
+                                    }
+                                }
+                                
                             }
-                            if (jugador.getPosicion() == Posicion.PORTERO) {
-                                puntos = puntos + reporte.getPenaltisDetenidos() * 5;
+                            puntos = puntos + reporte.getAsistencias() * 3;
+                            puntos = puntos - reporte.getAutogoles() * 2;
+                            puntos = puntos - reporte.getPenaltisErrados() * 2;
+                            puntos = puntos - reporte.getTarjetasRojas() * 3;
+                            puntos = puntos - reporte.getTarjetasAmarillas();
+                            if (reporte.getminutosJugados() <= 60) {
+                                puntos += 1;
+                            } else {
+                                puntos += 2;
+                            }
+                            if (jugador.getPosicion() == Posicion.DELANTERO) {
+                                puntos = puntos + reporte.getGoles() * 4;
+                            } else if (jugador.getPosicion() == Posicion.MEDIOCAMPISTA) {
+                                puntos = puntos + reporte.getGoles() * 5;
+                            } else {
+                                puntos = puntos + reporte.getGoles() * 6;
+                                if (reporte.getGolesRecibidos() == 0) {
+                                    puntos += 4;
+                                }
+                                if (jugador.getPosicion() == Posicion.PORTERO) {
+                                    puntos = puntos + reporte.getPenaltisDetenidos() * 5;
+                                }
                             }
                         }
                     }
-                    Pair<Integer, Jugador> playerpuntos = new Pair<Integer, Jugador>(puntos, jugador);
+                    Pair playerpuntos = new Pair(puntos, jugador);
                     System.out.println(playerpuntos.getKey()+" "+playerpuntos.getValue());
-                    partido.addJugadorRanking(playerpuntos);
+                    equipo.addJugadorRanking(playerpuntos);
                 }
             }
         }

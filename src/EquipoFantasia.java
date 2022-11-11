@@ -6,6 +6,7 @@ public class EquipoFantasia extends Equipo {
 	private Alineacion alineacionpasada;
 	private HashMap<Fecha, Alineacion> fechasJugadas;
 	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
+	private PriorityQueue<Pair> rankingJugadores = new PriorityQueue<>(new Comparador());
 	private Jugador susMedio;
 	private Jugador susDelantero;
 	private Jugador susArquero;
@@ -93,6 +94,27 @@ public class EquipoFantasia extends Equipo {
 		setPresupuesto(presupuesto + jugador.getValorVenta());
 		players.remove(jugador);
 		Jugadores.put(pos, players);
+	}
+
+	public void addJugadorRanking(Pair playerpuntos) {
+		Jugador jugador = (Jugador) playerpuntos.getValue();
+		int puntos = playerpuntos.getKey();
+		Iterator<Pair> value = rankingJugadores.iterator();
+		boolean playerfound = false;
+		while(value.hasNext()){
+			Pair pair = value.next();
+			Jugador player = (Jugador) pair.getValue();
+			if (jugador==player){
+				int puntos1 = pair.getKey();
+				puntos1= puntos1+puntos;
+				pair.setKey(puntos1);
+				playerfound=true;
+			}
+		}
+		if (playerfound==false){
+			rankingJugadores.add(playerpuntos);
+		}
+		
 	}
 
 }

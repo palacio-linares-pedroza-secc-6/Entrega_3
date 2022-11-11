@@ -1,9 +1,9 @@
-public class Pair<K, V> {
+public class Pair {
 
-    private K key;
-    private V value;
+    private int key;
+    private Object value;
 
-    public Pair(K key, V value) {
+    public Pair(int key, Object value) {
         this.key = key;
         this.value = value;
     }
@@ -11,14 +11,17 @@ public class Pair<K, V> {
      * Retorna el primer valor de la pareja
      * @return El primer valor de la pareja, null si no hay nada
      */
-    public K getKey() {
+    public int getKey() {
         return key;
+    }
+    public void setKey(int num){
+        this.key = num;
     }
     /**
      * Retorna el segundo valor de la pareja
      * @return El segundo valor de la pareja, null si no hay nada
      */
-    public V getValue() {
+    public Object getValue() {
         return value;
     }
 }

@@ -62,7 +62,9 @@ public class Administrador extends Usuario {
 			linea = scanner.nextLine();
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
-
+			HashMap<Equipo, Integer> golesMap = new HashMap<Equipo, Integer>();
+			golesMap.put(partido.getLocal(),0);
+			golesMap.put(partido.getVisitante(),0);
 			for (int i = 0; i < jugadoresTotal.size(); i++) {
 				Jugador jugador = jugadoresTotal.get(i);
 				if (jugador.getNombre().equals(nombreJugador)) {
@@ -78,7 +80,9 @@ public class Administrador extends Usuario {
 					int penaltisErrados = Integer.parseInt(info[11]);
 					int tarjetasAmarillas = Integer.parseInt(info[12]);
 					int tarjetasRojas = Integer.parseInt(info[13]);
-
+					Integer num_goles = golesMap.get(jugador.getEquipo());
+					num_goles += goles;
+					golesMap.put(jugador.getEquipo(), num_goles);
 					ReporteJugador reporte = new ReporteJugador(partidoBus, minJugados, minIngresado, minSalido, goles,
 							golesPenaltis, autogoles, asistencias, golesRecibidos, penaltisDetenidos, penaltisErrados,
 							tarjetasAmarillas, tarjetasRojas);
