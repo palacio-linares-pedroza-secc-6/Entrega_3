@@ -6,15 +6,15 @@ public class Partido {
 	private Equipo visitante;
 	private int marcadorLocal;
 	private int marcadorVisitante;
-	private PriorityQueue<Pair<Integer, Jugador>> rankingJugadores;
+	private PriorityQueue<Pair> rankingJugadores;
 	private String fileReporte;
 
 	public Partido(String hora, Equipo local, Equipo visitante) {
 		this.hora = hora;
 		this.local = local;
 		this.visitante = visitante;
-		Comparator<Pair<Integer, Object>> comparator = new Comparador();
-		this.rankingJugadores = new PriorityQueue<Pair<Integer, Jugador>>(this.getJugadores().size());
+		Comparator<Pair> comparator = new Comparador();
+		this.rankingJugadores = new PriorityQueue<Pair>(this.getJugadores().size(), comparator);
 		System.out.println(this.rankingJugadores);
 	}
 
@@ -36,12 +36,12 @@ public class Partido {
 		return visitante;
 	}
 
-	public PriorityQueue<Pair<Integer, Jugador>> getJugadoresRanking() {
+	public PriorityQueue<Pair> getJugadoresRanking() {
 		return rankingJugadores;
 	}
 
-	public Pair<Integer, Integer> getMarcador() {
-		Pair<Integer, Integer> resultado = new Pair<Integer, Integer>(marcadorLocal, marcadorVisitante);
+	public Pair getMarcador() {
+		Pair resultado = new Pair(marcadorLocal, marcadorVisitante);
 		return resultado;
 	}
 
@@ -70,7 +70,7 @@ public class Partido {
 
 	}
 
-	public void addJugadorRanking(Pair<Integer, Jugador> jugador) {
+	public void addJugadorRanking(Pair jugador) {
 		rankingJugadores.add(jugador);
 	}
 

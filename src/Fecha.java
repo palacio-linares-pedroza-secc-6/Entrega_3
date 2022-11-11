@@ -1,10 +1,10 @@
 import java.util.*;
-
+@SuppressWarnings("unchecked")
 public class Fecha {
 
     String fecha;
-    PriorityQueue<Pair<Integer, Jugador>> rankingJugadores;
-    PriorityQueue<Pair<Integer, EquipoFantasia>> rankingEquipoFantasia;
+    PriorityQueue<Pair> rankingJugadores;
+    PriorityQueue<Pair> rankingEquipoFantasia;
     HashMap<String, Partido> partidos = new HashMap<String, Partido>();
 
     public Fecha(String fecha) {
@@ -29,27 +29,27 @@ public class Fecha {
         return partidos.get(nombrePartido);
     }
 
-    public Pair<Integer, EquipoFantasia>[] calcularRankingEquipos() {
+    public Pair[] calcularRankingEquipos() {
         ArrayList<EquipoFantasia> equipos = Temporada.getEquiposFantasy();
-        Iterable<Pair<Integer, Jugador>> pares = (Iterable<Pair<Integer, Jugador>>) rankingJugadores.iterator();
+        Iterable<Pair> pares = (Iterable<Pair>) rankingJugadores.iterator();
         for (EquipoFantasia equipo : equipos) {
             int puntosEquipo = 0;
             for (Jugador jugador : equipo.getAlineacion().getJugadores()) {
-                while (((Iterator<Pair<Integer, Jugador>>) pares).hasNext()) {
-                    if (((Iterator<Pair<Integer, Jugador>>) pares).next().getValue() == jugador) {
-                        puntosEquipo += ((Iterator<Pair<Integer, Jugador>>) pares).next().getKey();
+                while (((Iterator<Pair>) pares).hasNext()) {
+                    if (((Iterator<Pair>) pares).next().getValue() == jugador) {
+                        puntosEquipo += ((Iterator<Pair>) pares).next().getKey();
                     }
                 }
             }
 
-            Pair<Integer, EquipoFantasia> equipoFantasia = new Pair<Integer, EquipoFantasia>(puntosEquipo, equipo);
+            Pair equipoFantasia = new Pair(puntosEquipo, equipo);
             rankingEquipoFantasia.add(equipoFantasia);
         }
 
         return null;
     }
 
-    public void addJugadoresRanking(PriorityQueue<Pair<Integer, Jugador>> jugadores) {
+    public void addJugadoresRanking(PriorityQueue<Pair> jugadores) {
         rankingJugadores.addAll(jugadores);
     }
 
