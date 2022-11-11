@@ -77,7 +77,9 @@ public class EquipoFantasia extends Equipo {
 		this.alineacionpasada = alineacion;
 
 	}
-
+	public PriorityQueue<Pair> getRankingJugadores(){
+		return rankingJugadores;
+	}
 	public Alineacion getAlineacion() {
 		return alineacionpasada;
 	}

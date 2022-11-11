@@ -380,10 +380,10 @@ public class Aplicacion {
 																		- equipoFantasia.getPresupuesto())
 																+ " dolares\n");
 											}
-											temporadaActual.addEquipoFantasy(equipoFantasia);
-											System.out.println("\nSe ha creado con exito el equipo: " + nombreEquipo);
 
 										}
+										temporadaActual.addEquipoFantasy(equipoFantasia);
+										System.out.println("\nSe ha creado con exito el equipo: " + nombreEquipo);
 									}
 								}
 							}
@@ -440,6 +440,10 @@ public class Aplicacion {
 									if (opcionAlineacion == 1) {
 										System.out.println("Jugadores del Equipo de Fantasia");
 										equipofantasy.crearAlineacion(jugadoresequipofantasy);
+										equipofantasy.setSusArquero(null);
+										equipofantasy.setSusDefensa(null);
+										equipofantasy.setSusDelantero(null);
+										equipofantasy.setSusMedio(null);
 										while (equipofantasy.getSusDefensa() == null) {
 											ArrayList<Jugador> defensasfantasy = equipofantasy
 													.getJugadoresPosicion(Posicion.DEFENSA);
@@ -762,10 +766,18 @@ public class Aplicacion {
 								partido.setfileReporte(nombreFilePartido);
 								ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
 								if (lista_fantasy != null) {
+									System.out.println(lista_fantasy.size());
 									for (int c = 0; c < lista_fantasy.size(); c++) {
 										EquipoFantasia equipo_fantasy = lista_fantasy.get(c);
+										System.out.println(equipo_fantasy.getNombre());
 										Alineacion all = equipo_fantasy.getAlineacion();
 										all.jugarPartido(partido, fecha);
+										PriorityQueue<Pair> pq = equipo_fantasy.getRankingJugadores();
+										while(!pq.isEmpty()){
+											Pair pareja = pq.poll();
+											Jugador ppplayer = (Jugador) pareja.getValue();
+											System.out.println(ppplayer.getNombre()+" "+pareja.getKey());
+										}
 									}
 								} else {
 									System.out.println("No hay equipos Fantasy");
