@@ -139,7 +139,6 @@ public class DataDam {
             String[] info = linea.split(";");
             String date = info[0];
             String hora = info[1];
-            System.out.print(hora);
             Equipo local = temporadaActual.getEquiposMap().get(info[2]);
             Equipo visitante = temporadaActual.getEquiposMap().get(info[3]);
             if (fechas.containsKey(date)) {

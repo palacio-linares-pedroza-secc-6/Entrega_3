@@ -92,7 +92,6 @@ public class EquipoFantasia extends Equipo {
 	public void removeJugador(Jugador jugador) {
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = this.getJugadoresPosicion(pos);
-		System.out.println(pos);
 		setPresupuesto(presupuesto + jugador.getValorVenta());
 		players.remove(jugador);
 		Jugadores.put(pos, players);

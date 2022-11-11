@@ -58,11 +58,11 @@ public class Administrador extends Usuario {
 				new FileReader(System.getProperty("user.dir") + "/data/partidos/" + filePartido
 						+ ".csv"));
 		String linea = scanner.nextLine();
+		HashMap<Equipo, Integer> golesMap = new HashMap<Equipo, Integer>();
 		while (scanner.hasNextLine()) {
 			linea = scanner.nextLine();
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
-			HashMap<Equipo, Integer> golesMap = new HashMap<Equipo, Integer>();
 			golesMap.put(partido.getLocal(),0);
 			golesMap.put(partido.getVisitante(),0);
 			for (int i = 0; i < jugadoresTotal.size(); i++) {
@@ -90,5 +90,8 @@ public class Administrador extends Usuario {
 				}
 			}
 		}
+		Integer marcadorlocal = golesMap.get(partido.getLocal());
+		Integer maracdorVisit = golesMap.get(partido.getVisitante());
+		partido.setMarcador(marcadorlocal, maracdorVisit);
 	}
 }
