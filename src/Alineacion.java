@@ -158,8 +158,15 @@ public class Alineacion {
                                 puntos = puntos + reporte.getGoles() * 5;
                             } else {
                                 puntos = puntos + reporte.getGoles() * 6;
-                                if (reporte.getGolesRecibidos() == 0) {
-                                    puntos += 4;
+                                if (partido.getLocal()==jugador.getEquipo()){
+                                    if ((int) partido.getMarcador().getValue() ==0){
+                                        puntos += 4;
+                                    }
+                                }
+                                else{
+                                    if (partido.getMarcador().getKey() == 0){
+                                        puntos += 4;
+                                    }
                                 }
                                 if (jugador.getPosicion() == Posicion.PORTERO) {
                                     puntos = puntos + reporte.getPenaltisDetenidos() * 5;
