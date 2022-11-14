@@ -122,10 +122,10 @@ public class Aplicacion {
 		setTemporada(temporadaNueva);
 	}
 
-	public ArrayList<EquipoFantasia> QueuetoList(PriorityQueue<EquipoFantasia> queue) {
-		ArrayList<EquipoFantasia> lista = new ArrayList<EquipoFantasia>(queue.size());
-		while (!queue.isEmpty()) {
-			lista.add(queue.poll());
+	public ArrayList<EquipoFantasia> QueuetoList(PriorityQueue<Pair> ganadores) {
+		ArrayList<EquipoFantasia> lista = new ArrayList<EquipoFantasia>(ganadores.size());
+		while (!ganadores.isEmpty()) {
+			lista.add((EquipoFantasia) ganadores.poll().getValue());
 		}
 		return lista;
 	}
@@ -146,7 +146,7 @@ public class Aplicacion {
 	}
 
 	public ArrayList<EquipoFantasia> getGanadores() {
-		PriorityQueue<EquipoFantasia> ganadores = temporadaActual.getRankingEquipoFantasia();
+		PriorityQueue<Pair> ganadores = temporadaActual.getRankingEquipoFantasia();
 		ArrayList<EquipoFantasia> listaganadores = QueuetoList(ganadores);
 		return listaganadores;
 
@@ -154,7 +154,7 @@ public class Aplicacion {
 
 	public ArrayList<EquipoFantasia> getGanadoresPasados(String nombreTemporada) {
 		Temporada temporadavieja = historialTemporadas.get(nombreTemporada);
-		PriorityQueue<EquipoFantasia> ganadores = temporadavieja.getRankingEquipoFantasia();
+		PriorityQueue<Pair> ganadores = temporadavieja.getRankingEquipoFantasia();
 		ArrayList<EquipoFantasia> Ganadores = QueuetoList(ganadores);
 		return Ganadores;
 
@@ -772,11 +772,21 @@ public class Aplicacion {
 										System.out.println(equipo_fantasy.getNombre());
 										Alineacion all = equipo_fantasy.getAlineacion();
 										all.jugarPartido(partido, fecha);
+										int puntos_equipo=0;
 										PriorityQueue<Pair> pq = equipo_fantasy.getRankingJugadores();
-										while(!pq.isEmpty()){
-											Pair pareja = pq.poll();
-											Jugador ppplayer = (Jugador) pareja.getValue();
-											System.out.println(ppplayer.getNombre()+" "+pareja.getKey());
+										Iterator<Pair> value = pq.iterator();
+										while(value.hasNext()){
+											Pair pair = value.next();
+											Jugador ppplayer = (Jugador) pair.getValue();
+											puntos_equipo+=pair.getKey();
+											System.out.println(ppplayer.getNombre()+" "+pair.getKey());
+										}
+										Pair pair_equipo = new Pair(puntos_equipo, equipo_fantasy);
+										temporadaActual.addEquipoFantasyRanking(pair_equipo);
+										PriorityQueue<Pair> pq2 = temporadaActual.getRankingEquipoFantasia();
+										while(!pq2.isEmpty()){
+											Pair sapo = pq2.poll();
+											System.out.println(sapo.getValue()+" "+sapo.getKey());
 										}
 									}
 								} else {

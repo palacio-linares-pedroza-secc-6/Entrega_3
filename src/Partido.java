@@ -23,7 +23,6 @@ public class Partido {
 	public String getHora() {
 		return hora;
 	}
-
 	public Equipo getLocal() {
 		return local;
 	}
@@ -32,7 +31,10 @@ public class Partido {
 		return visitante;
 	}
 
-
+	public void setMarcador(int marcadorLocal, int marcadorVisitante){
+		this.marcadorLocal=marcadorLocal;
+		this.marcadorVisitante=marcadorVisitante;
+	}
 	public Pair getMarcador() {
 		Pair resultado = new Pair(marcadorLocal, marcadorVisitante);
 		return resultado;
@@ -41,7 +43,10 @@ public class Partido {
 	public void setfileReporte(String fileReporte) {
 		this.fileReporte = fileReporte;
 	}
-
+	public String getfileReporte(){
+		return fileReporte;
+	}
+	
 	public ArrayList<Jugador> getJugadores() {
 		System.out.println(local.getNombre() + " " + visitante.getNombre());
 		ArrayList<Jugador> listajugadorestotales = new ArrayList<Jugador>();
