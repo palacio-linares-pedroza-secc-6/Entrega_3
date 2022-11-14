@@ -1,26 +1,30 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
 
-public class Ventana {
+public class Ventana extends JFrame {
 
     // public static void main(String[] args) {
 
-    public void MiVentana() {
+    public Ventana() {
 
-        JFrame frame = new JFrame();
-        frame.setTitle("Prueba");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setSize(500, 500);
-        frame.setVisible(true);
+        this.setTitle("Football");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setLayout(new BorderLayout(0, 50));
+        this.setSize(850, 600);
+        this.getContentPane().setBackground(new Color(7, 7, 33, 255));
+        this.setVisible(true);
 
-        frame.getContentPane().setBackground(new Color(16, 254, 146)); // 10fe92
-        ImageIcon logo = new ImageIcon(System.getProperty("user.dir") + "/data/Fotos/logoPrueba.png");
-        frame.setIconImage(logo.getImage());
+        // Creacion de paneles de control
 
     }
 
