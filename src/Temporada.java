@@ -9,8 +9,8 @@ public class Temporada {
 	private int presupuesto;
 	private static HashMap<String, Equipo> equipos;
 	private HashMap<String, Fecha> fechas;
-	private static ArrayList<EquipoFantasia> equiposFantasy;
-	private PriorityQueue<EquipoFantasia> rankingEquipoFantasia;
+	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
+	private PriorityQueue<Pair> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
 			String fileJugadores) throws FileNotFoundException {
@@ -159,7 +159,7 @@ public class Temporada {
 	 * Retorna el ranking de los equipos de fantiasia
 	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta creada
 	 */
-	public PriorityQueue<EquipoFantasia> getRankingEquipoFantasia() {
+	public PriorityQueue<Pair> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
 	}
 	/**
@@ -168,6 +168,29 @@ public class Temporada {
 	 */
 	public Mercado getMercado() {
 		return mercado;
+	}
+	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
+		equiposFantasy.add(equipoFantasia);
+	}
+	public void addEquipoFantasyRanking(Pair pair_equipo){
+		EquipoFantasia equipo_fantasy = (EquipoFantasia) pair_equipo.getValue();
+		int puntos = pair_equipo.getKey();
+		Iterator<Pair> value = equipo_fantasy.getRankingJugadores().iterator();
+		boolean equipofound = false;
+		while(value.hasNext()){
+			Pair pair = value.next();
+			EquipoFantasia equipo = (EquipoFantasia) pair.getValue();
+			if (equipo==equipo_fantasy){
+				int puntos1 = pair.getKey();
+				puntos1= puntos1+puntos;
+				pair.setKey(puntos1);
+				equipofound=true;
+			}
+		}
+		if (equipofound==false){
+			rankingEquipoFantasia.add(pair_equipo);
+		}
+		
 	}
 
 }
