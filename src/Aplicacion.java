@@ -748,16 +748,20 @@ public class Aplicacion {
 								 */}
 
 							else if (opcion == 2) {
-								String fechapartido = input("Ingrese la fecha en la que desea buscar el partido");
-								String localpartido = input(
-										"Ingrese la abreviacion de el equipo local que juega en esa fecha");
-								String horaPartido = input("Ingrese la hora a la que inicia el partido");
-								String nombreFilePartido = input("Ingrese el nombre de el archivo del partido");
-								String nombrePartido = horaPartido + localpartido;
-								Fecha fecha = temporadaActual.getFecha(fechapartido);
-								Partido partido = fecha.getPartido(nombrePartido);
-								admin.finalizarPartido(partido, nombrePartido, nombreFilePartido, fecha);
-								partido.setfileReporte(nombreFilePartido);
+								/*
+								 * String fechapartido =
+								 * input("Ingrese la fecha en la que desea buscar el partido");
+								 * String localpartido = input(
+								 * "Ingrese la abreviacion de el equipo local que juega en esa fecha");
+								 * String horaPartido = input("Ingrese la hora a la que inicia el partido");
+								 * String nombreFilePartido =
+								 * input("Ingrese el nombre de el archivo del partido");
+								 * String nombrePartido = horaPartido + localpartido;
+								 * Fecha fecha = temporadaActual.getFecha(fechapartido);
+								 * Partido partido = fecha.getPartido(nombrePartido);
+								 * admin.finalizarPartido(partido, nombrePartido, nombreFilePartido, fecha);
+								 * partido.setfileReporte(nombreFilePartido);
+								 */
 								ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
 								if (lista_fantasy != null) {
 									System.out.println(lista_fantasy.size());
