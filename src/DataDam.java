@@ -68,13 +68,12 @@ public class DataDam {
 
     }
 
-    public static HashMap<String, Equipo> cargarEquipos(String fileEquipo, Temporada temporadaActual)
+    public static HashMap<String, Equipo> cargarEquipos(File fileEquipo, Temporada temporadaActual)
             throws FileNotFoundException {
 
         HashMap<String, Equipo> equipos = new HashMap<>();
         Scanner scanner;
-        scanner = new Scanner(
-                new FileReader(System.getProperty("user.dir") + "/data/" + fileEquipo + ".csv"));
+        scanner = new Scanner(new FileReader(fileEquipo));
 
         String linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
@@ -89,10 +88,10 @@ public class DataDam {
 
     }
 
-    public static void cargarJugadores(String fileJugadores, Temporada temporadaActual) throws FileNotFoundException {
+    public static void cargarJugadores(File fileJugadores, Temporada temporadaActual) throws FileNotFoundException {
 
         Scanner scanner;
-        scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/data/" + fileJugadores + ".csv"));
+        scanner = new Scanner(new FileReader(fileJugadores));
         String linea = scanner.nextLine();
         while (scanner.hasNextLine())
 
@@ -127,12 +126,12 @@ public class DataDam {
 
     }
 
-    public static HashMap<String, Fecha> cargarFechas(String fileTemporada, Temporada temporadaActual)
+    public static HashMap<String, Fecha> cargarFechas(File fileTemporada, Temporada temporadaActual)
             throws FileNotFoundException {
 
         HashMap<String, Fecha> fechas = new HashMap<>();
         Scanner scanner;
-        scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/data/" + fileTemporada + ".csv"));
+        scanner = new Scanner(new FileReader(fileTemporada));
         String linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();

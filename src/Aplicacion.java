@@ -11,8 +11,9 @@ import GUI.Ventana;
 public class Aplicacion {
 	// atributos clase
 	static DataDam dataDam = new DataDam();
+	static Administrador admin;
 	private HashMap<String, Temporada> historialTemporadas;
-	private static Temporada temporadaActual;
+	static Temporada temporadaActual;
 	private static ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private static HashMap<String, Administrador> findAdministrador = new HashMap<>();
@@ -35,7 +36,7 @@ public class Aplicacion {
 			for (int i = 0; i < administradores.size(); i++) {
 				Administrador adminlista = administradores.get(i);
 				if (adminlista.getNombre().equals(nombre)) {
-					return "Ese nombre de usuario ya existe";
+					return "ya existe";
 				}
 			}
 			Administrador Admin = new Administrador(nombre, contrasena);
@@ -43,12 +44,12 @@ public class Aplicacion {
 			findAdministrador.put(nombre, Admin);
 			dataDam.addAdministrador(nombre, contrasena);
 
-			return "Se ha creado con exito";
+			return "Se ha creado";
 		} else if (tipo == Tipo_Usuario.PARTICIPANTE) {
 			for (int i = 0; i < participantes.size(); i++) {
 				Participante userlista = participantes.get(i);
 				if (userlista.getNombre().equals(nombre)) {
-					return "Ese nombre de usuario ya existe";
+					return "ya existe";
 
 				}
 			}
@@ -57,7 +58,7 @@ public class Aplicacion {
 			findParticipantes.put(nombre, User);
 			dataDam.addParticipante(nombre, contrasena);
 
-			return "Se ha creado con exito";
+			return "Se ha creado";
 		} else {
 			return null;
 		}
@@ -84,21 +85,23 @@ public class Aplicacion {
 				Administrador adminlista = administradores.get(i);
 
 				if (adminlista.getNombre().equals(nombre) && adminlista.getContrasena().equals(contrasena)) {
-					return "\nLogIn Valido";
+					admin = adminlista;
+					return "LogIn Valido";
+
 				}
 			}
-			return "\nLogIn NO Valido";
+			return "LogIn NO Valido";
 		} else if (tipo == Tipo_Usuario.PARTICIPANTE) {
 			for (int i = 0; i < participantes.size(); i++) {
 				Participante userlista = participantes.get(i);
 
 				if (userlista.getNombre().equals(nombre) && userlista.getContrasena().equals(contrasena)) {
-					return "\nLogIn Valido";
+					return "LogIn Valido";
 				}
 			}
-			return "\nLogIn NO Valido";
+			return "LogIn NO Valido";
 		} else {
-			return "\nIngrese un tipo Valido";
+			return "Ingrese un tipo Valido";
 		}
 	}
 
@@ -158,23 +161,20 @@ public class Aplicacion {
 		return hora;
 	}
 
-	// public static void no se que iria aca por ahora (●'◡'●)
+	public Aplicacion() throws IOException {
 
-	public static void main(String[] args) throws IOException {
+		dataDam.creatFilesUsuarios();
+		dataDam.loadUsuarios();
+	}
 
-		Ventana ventana = new Ventana();
-		ventana.MiVentana();
-		;
+	public void cosas() throws IOException {
 
 		int opcion;
 		boolean continuar = true;
 
-		dataDam.creatFilesUsuarios();
-		dataDam.loadUsuarios();
 		System.out.println("Bienvenido a Equipo de Fantasia V1");
 
 		while (continuar) {
-			menuInicial();
 
 			opcion = Integer.parseInt(input("\nSeleccione una opcion valida"));
 
@@ -228,7 +228,6 @@ public class Aplicacion {
 						boolean continuarParticipante = true;
 
 						while (continuarParticipante) {
-							menuParticipante();
 							opcion = Integer.parseInt(input("Seleccione una opcion valida"));
 							if (opcion > 4 || opcion < 0) {
 								System.out.println("Opcion invalida, seleccione una opcion valida");
@@ -722,29 +721,31 @@ public class Aplicacion {
 						boolean continuarAdministrador = true;
 
 						while (continuarAdministrador) {
-							menuAdministrador();
 							opcion = Integer.parseInt(input("Seleccione una opcion valida"));
 							if (opcion > 3 || opcion < 0) {
 								System.out.println("Opcion invalida, seleccione una opcion valida");
 							}
 
 							else if (opcion == 1) {
-
-								String nombreTemp = input("Ingrese el nombre de la temporada");
-								String filePartidos = input("Ingrese el nombre de el archivo de la temporada");
-								String fileEquipos = input(
-										"Ingrese el nombre de el archivo de los equipos de la temporada");
-								String fileJugadores = input(
-										"Ingrese el nombre de el archivo de los jugadores de la temporada");
-
-								int presupuesto = Integer
-										.parseInt(input("Ingrese el presupuesto para los equipos de esta temporada"));
-								Temporada temporada = admin.crearTemporada(nombreTemp, presupuesto, filePartidos,
-										fileEquipos,
-										fileJugadores);
-								setTemporada(temporada);
-								temporada.crearMercado();
-							}
+								/*
+								 * String nombreTemp = input("Ingrese el nombre de la temporada");
+								 * String filePartidos =
+								 * input("Ingrese el nombre de el archivo de la temporada");
+								 * String fileEquipos = input(
+								 * "Ingrese el nombre de el archivo de los equipos de la temporada");
+								 * String fileJugadores = input(
+								 * "Ingrese el nombre de el archivo de los jugadores de la temporada");
+								 * 
+								 * int presupuesto = Integer
+								 * .parseInt(input("Ingrese el presupuesto para los equipos de esta temporada"))
+								 * ;
+								 * Temporada temporada = admin.crearTemporada(nombreTemp, presupuesto,
+								 * filePartidos,
+								 * fileEquipos,
+								 * fileJugadores);
+								 * setTemporada(temporada);
+								 * temporada.crearMercado();
+								 */}
 
 							else if (opcion == 2) {
 								String fechapartido = input("Ingrese la fecha en la que desea buscar el partido");
@@ -807,35 +808,6 @@ public class Aplicacion {
 			}
 		} // acaba el while aca
 
-	}
-
-	private static void menuAdministrador() {
-		System.out.println("\nOpciones de la aplicación\n");
-		System.out.println("============================");
-		System.out.println("1. Crear temporada");
-		System.out.println("2. Cerrar Partido");
-		System.out.println("3. Cerrar programa");
-		System.out.println("============================");
-
-	}
-
-	private static void menuParticipante() {
-		System.out.println("\nOpciones de la aplicación\n");
-		System.out.println("============================");
-		System.out.println("1. Crear Equipo de Fantasia");
-		System.out.println("2. Comprar Jugadores");
-		System.out.println("3. Editar Alineacion");
-		System.out.println("4. Cerrar programa");
-		System.out.println("============================");
-	}
-
-	public static void menuInicial() {
-		System.out.println("\nOpciones de la aplicación\n");
-		System.out.println("============================");
-		System.out.println("1. Crear Usuario");
-		System.out.println("2. Iniciar sesion");
-		System.out.println("3. Cerrar programa");
-		System.out.println("============================");
 	}
 
 	public static String input(String mensaje) {

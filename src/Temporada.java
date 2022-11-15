@@ -1,10 +1,11 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
 public class Temporada {
 	private String nombreTemporada;
-	private String fileTemporada;
+	private File fileTemporada;
 	private Mercado mercado;
 	private int presupuesto;
 	private static HashMap<String, Equipo> equipos;
@@ -12,8 +13,8 @@ public class Temporada {
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private PriorityQueue<Pair> rankingEquipoFantasia;
 
-	public Temporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
-			String fileJugadores) throws FileNotFoundException {
+	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
+			File fileJugadores) throws FileNotFoundException {
 
 		this.nombreTemporada = nombreTemporada;
 		this.presupuesto = presupuesto;
@@ -24,10 +25,13 @@ public class Temporada {
 		fechas = DataDam.cargarFechas(fileTemporada, this);
 
 	}
+
 	/**
 	 * Crea el mercado de los jugadores de la temporada <br>
-	 * <b> pre: </b> Debe haber estado inicializada la Temporada y la lista de equipos de esta no puede estar vacia <br>
-	 * <b> post: </b> Se pone el atributo de mercado de la Temporada como el mercado que se crea
+	 * <b> pre: </b> Debe haber estado inicializada la Temporada y la lista de
+	 * equipos de esta no puede estar vacia <br>
+	 * <b> post: </b> Se pone el atributo de mercado de la Temporada como el mercado
+	 * que se crea
 	 */
 	public void crearMercado() {
 		this.mercado = new Mercado();
@@ -111,16 +115,18 @@ public class Temporada {
 		return nombreTemporada;
 	}
 
-	public String getFileTemporada() {
+	public File getFileTemporada() {
 		return fileTemporada;
 	}
 
 	public int getPresupuesto() {
 		return presupuesto;
 	}
+
 	/**
 	 * Retorna los equipos de la temporada <br>
 	 * <b> pre: </b> Se debe haber inicializado la lista de equipos
+	 * 
 	 * @return Lista de equipos que juegan en la temporada
 	 */
 	public ArrayList<Equipo> getEquipos() {
@@ -132,65 +138,78 @@ public class Temporada {
 		}
 		return EQUIPOS;
 	}
+
 	/**
 	 * Retorna el mapa donde estan guardados los equipos por nombre
+	 * 
 	 * @return Mapa donde estan guardados los equipos por nombre
 	 */
 	public HashMap<String, Equipo> getEquiposMap() {
 		return equipos;
 	}
+
 	/**
 	 * Retorna el equipo buscado <br>
 	 * <b> pre:</b> Debe estar inicializado el mapa de los equipos
+	 * 
 	 * @param equipo Equipo a buscar
 	 * @return Equipo buscado, null si no existe
 	 */
 	public Equipo getEquipo(String equipo) {
 		return equipos.get(equipo);
 	}
+
 	/**
 	 * Retorna los equipos de fantasia en la temporada <br>
+	 * 
 	 * @return Lista de equipos de fantasia de la temporada, null si no esta creada
 	 */
 	public static ArrayList<EquipoFantasia> getEquiposFantasy() {
 		return equiposFantasy;
 	}
+
 	/**
 	 * Retorna el ranking de los equipos de fantiasia
-	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta creada
+	 * 
+	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta
+	 *         creada
 	 */
 	public PriorityQueue<Pair> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
 	}
+
 	/**
 	 * Retorna el mercado de la temporada
+	 * 
 	 * @return Mercado de la temporada, null si no esta creadod
 	 */
 	public Mercado getMercado() {
 		return mercado;
 	}
+
 	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
 		equiposFantasy.add(equipoFantasia);
 	}
-	public void addEquipoFantasyRanking(Pair pair_equipo){
+
+	public void addEquipoFantasyRanking(Pair pair_equipo) {
 		EquipoFantasia equipo_fantasy = (EquipoFantasia) pair_equipo.getValue();
 		int puntos = pair_equipo.getKey();
 		Iterator<Pair> value = equipo_fantasy.getRankingJugadores().iterator();
 		boolean equipofound = false;
-		while(value.hasNext()){
+		while (value.hasNext()) {
 			Pair pair = value.next();
 			EquipoFantasia equipo = (EquipoFantasia) pair.getValue();
-			if (equipo==equipo_fantasy){
+			if (equipo == equipo_fantasy) {
 				int puntos1 = pair.getKey();
-				puntos1= puntos1+puntos;
+				puntos1 = puntos1 + puntos;
 				pair.setKey(puntos1);
-				equipofound=true;
+				equipofound = true;
 			}
 		}
-		if (equipofound==false){
+		if (equipofound == false) {
 			rankingEquipoFantasia.add(pair_equipo);
 		}
-		
+
 	}
 
 }

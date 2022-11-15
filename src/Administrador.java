@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -23,8 +24,8 @@ public class Administrador extends Usuario {
 	 *                               1. Si no se encuentran los archivos indicados
 	 *                               por parametro
 	 */
-	public Temporada crearTemporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
-			String fileJugadores) throws FileNotFoundException {
+	public Temporada crearTemporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
+			File fileJugadores) throws FileNotFoundException {
 
 		Temporada temporada = new Temporada(nombreTemporada, presupuesto, fileTemporada, fileEquipo, fileJugadores);
 		return temporada;
@@ -63,8 +64,8 @@ public class Administrador extends Usuario {
 			linea = scanner.nextLine();
 			String[] info = linea.split(";");
 			String nombreJugador = info[0];
-			golesMap.put(partido.getLocal(),0);
-			golesMap.put(partido.getVisitante(),0);
+			golesMap.put(partido.getLocal(), 0);
+			golesMap.put(partido.getVisitante(), 0);
 			for (int i = 0; i < jugadoresTotal.size(); i++) {
 				Jugador jugador = jugadoresTotal.get(i);
 				if (jugador.getNombre().equals(nombreJugador)) {
