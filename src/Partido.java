@@ -25,7 +25,6 @@ public class Partido implements Serializable {
 	public String getHora() {
 		return hora;
 	}
-
 	public Equipo getLocal() {
 		return local;
 	}
@@ -34,11 +33,10 @@ public class Partido implements Serializable {
 		return visitante;
 	}
 
-	public void setMarcador(int marcadorLocal, int marcadorVisitante) {
-		this.marcadorLocal = marcadorLocal;
-		this.marcadorVisitante = marcadorVisitante;
+	public void setMarcador(int marcadorLocal, int marcadorVisitante){
+		this.marcadorLocal=marcadorLocal;
+		this.marcadorVisitante=marcadorVisitante;
 	}
-
 	public Pair getMarcador() {
 		Pair resultado = new Pair(marcadorLocal, marcadorVisitante);
 		return resultado;
@@ -47,8 +45,7 @@ public class Partido implements Serializable {
 	public void setfileReporte(File fileReporte) {
 		this.fileReporte = fileReporte;
 	}
-
-	public File getfileReporte() {
+	public File getfileReporte(){
 		return fileReporte;
 	}
 
