@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.*;
 
 public class Partido {
@@ -6,7 +7,7 @@ public class Partido {
 	private Equipo visitante;
 	private int marcadorLocal;
 	private int marcadorVisitante;
-	private String fileReporte;
+	private File fileReporte;
 
 	public Partido(String hora, Equipo local, Equipo visitante) {
 		this.hora = hora;
@@ -40,13 +41,13 @@ public class Partido {
 		return resultado;
 	}
 
-	public void setfileReporte(String fileReporte) {
+	public void setfileReporte(File fileReporte) {
 		this.fileReporte = fileReporte;
 	}
-	public String getfileReporte(){
+	public File getfileReporte(){
 		return fileReporte;
 	}
-	
+
 	public ArrayList<Jugador> getJugadores() {
 		System.out.println(local.getNombre() + " " + visitante.getNombre());
 		ArrayList<Jugador> listajugadorestotales = new ArrayList<Jugador>();

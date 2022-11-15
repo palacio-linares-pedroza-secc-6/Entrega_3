@@ -24,7 +24,7 @@ public class GUIAplicacion extends JFrame implements ActionListener {
 
     public GUIAplicacion() throws IOException {
         aplicacion = new Aplicacion();
-
+        
         // Creacion de paneles
 
         JPanel titulo = new JPanel();
