@@ -47,7 +47,7 @@ public class Administrador extends Usuario {
 	 * @throws FileNotFoundException Si no se encuentra el archivo del partido
 	 *
 	 */
-	public void finalizarPartido(Partido partido, String partidoBus, String filePartido, Fecha fecha)
+	public void finalizarPartido(Partido partido, String partidoBus, File filePartido, Fecha fecha)
 			throws FileNotFoundException {
 		partido.setfileReporte(filePartido);
 		ArrayList<Jugador> jugadoresTotal = partido.getJugadores();
@@ -56,8 +56,7 @@ public class Administrador extends Usuario {
 		}
 		// local
 		Scanner scanner = new Scanner(
-				new FileReader(System.getProperty("user.dir") + "/data/partidos/" + filePartido
-						+ ".csv"));
+				new FileReader(filePartido));
 		String linea = scanner.nextLine();
 		HashMap<Equipo, Integer> golesMap = new HashMap<Equipo, Integer>();
 		while (scanner.hasNextLine()) {

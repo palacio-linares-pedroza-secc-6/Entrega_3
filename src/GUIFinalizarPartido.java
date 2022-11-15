@@ -145,28 +145,32 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
 
             if (response == JFileChooser.APPROVE_OPTION) {
                 filePartido = new File(fileChooser.getSelectedFile().getAbsolutePath());
-
-            } else if (e.getSource() == cerrar) {
-
-                try {
-
-                    String nombrePartido = horaPartido.getText() + localPartido.getText();
-                    Fecha fecha = Aplicacion.temporadaActual.getFecha(fechaPartido.getText());
-                    Partido partido = fecha.getPartido(nombrePartido);
-                    Aplicacion.admin.finalizarPartido(null, getWarningString(), getName(), null);
-
-                } catch (Exception e1) {
-
-                }
-
             }
+        }
 
-            else if (e.getSource() == volver) {
+        else if (e.getSource() == cerrar) {
+
+            try {
+                String nombrePartido = horaPartido.getText() + localPartido.getText();
+                Fecha fecha = Aplicacion.temporadaActual.getFecha(fechaPartido.getText());
+                Partido partido = fecha.getPartido(nombrePartido);
+                Aplicacion.admin.finalizarPartido(partido, nombrePartido, filePartido, fecha);
+                partido.setfileReporte(filePartido);
+
                 frame.dispose();
                 new GUIAdministrador(Aplicacion.admin.getNombre());
 
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, "Error encontrando el archivo", "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                e1.printStackTrace();
+                ;
             }
+        }
 
+        else if (e.getSource() == volver) {
+            frame.dispose();
+            new GUIAdministrador(Aplicacion.admin.getNombre());
         }
 
     }
