@@ -1,10 +1,12 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.*;
 
-public class Temporada {
+public class Temporada implements Serializable{
 	private String nombreTemporada;
-	private String fileTemporada;
+	private File fileTemporada;
 	private Mercado mercado;
 	private int presupuesto;
 	private static HashMap<String, Equipo> equipos;
@@ -12,8 +14,8 @@ public class Temporada {
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private PriorityQueue<Pair> rankingEquipoFantasia;
 
-	public Temporada(String nombreTemporada, int presupuesto, String fileTemporada, String fileEquipo,
-			String fileJugadores) throws FileNotFoundException {
+	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
+			File fileJugadores) throws FileNotFoundException {
 
 		this.nombreTemporada = nombreTemporada;
 		this.presupuesto = presupuesto;
@@ -24,6 +26,7 @@ public class Temporada {
 		fechas = DataDam.cargarFechas(fileTemporada, this);
 
 	}
+
 	/**
 	 * Crea el mercado de los jugadores de la temporada <br>
 	 * <b> pre: </b> Debe haber estado inicializada la Temporada y la lista de equipos de esta no puede estar vacia <br>
@@ -102,19 +105,32 @@ public class Temporada {
 	}
 
 	// Funciones de busqueda
-
+	/**
+	 * Retorna la fecha indicada
+	 * @param fecha Nombre de la fecha que debe retornar
+	 * @return Fecha inidcada por el parametro
+	 */
 	public Fecha getFecha(String fecha) {
 		return fechas.get(fecha);
 	}
-
+	/**
+	 * Retorna el nombre de la temporada
+	 * @return Nombre de la temporada
+	 */
 	public String getNombreTemporada() {
 		return nombreTemporada;
 	}
-
-	public String getFileTemporada() {
+	/**
+	 * Retorna el nombre del archivo utilizado para cargar la temporada
+	 * @return Nombre del archivo utilizado para cargar la temporada
+	 */
+	public File getFileTemporada() {
 		return fileTemporada;
 	}
-
+	/**
+	 * Retorna el presupuesto de los equipos de la temporada
+	 * @return Presupuesto de los equipos de la temporada
+	 */
 	public int getPresupuesto() {
 		return presupuesto;
 	}
@@ -169,6 +185,11 @@ public class Temporada {
 	public Mercado getMercado() {
 		return mercado;
 	}
+	/**
+	 * <b> pre: </b> Debe estar inicializada la lista de equipos de la temporada <br>
+	 * <b> post: </b> Añade el equipo especificado a la lista de equipos
+	 * @param equipoFantasia
+	 */
 	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
 		equiposFantasy.add(equipoFantasia);
 	}

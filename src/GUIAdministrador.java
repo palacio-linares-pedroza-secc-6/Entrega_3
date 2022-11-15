@@ -119,6 +119,25 @@ public class GUIAdministrador extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+        if (e.getSource() == cargarTemporada) {
+            frame.dispose();
+            new GUICargarTemporada();
+        }
+        if (e.getSource() == cerrarPartido) {
+            frame.dispose();
+            new GUIFinalizarPartido();
+        }
+
+        else if (e.getSource() == logOut) {
+            frame.dispose();
+            try {
+                new GUIAplicacion();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+        }
 
     }
 
