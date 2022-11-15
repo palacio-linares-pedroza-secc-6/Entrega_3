@@ -1,7 +1,8 @@
 import java.io.File;
+import java.io.Serializable;
 import java.util.*;
 
-public class Partido {
+public class Partido implements Serializable {
 	private String hora;
 	private Equipo local;
 	private Equipo visitante;

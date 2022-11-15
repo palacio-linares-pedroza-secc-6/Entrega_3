@@ -11,8 +11,6 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 
-import GUI.Ventana;
-
 public class GUIRegister extends JFrame implements ActionListener {
 
     JTextField usuario;

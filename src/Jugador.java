@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Jugador {
+public class Jugador implements Serializable {
 	private String nombre;
 	private Posicion posicion;
 	private Equipo equipo;
@@ -35,7 +36,8 @@ public class Jugador {
 	public Equipo getEquipo() {
 		return equipo;
 	}
-	public ReporteJugador getReporte(String nombrePartido){
+
+	public ReporteJugador getReporte(String nombrePartido) {
 		return reportes.get(nombrePartido);
 	}
 

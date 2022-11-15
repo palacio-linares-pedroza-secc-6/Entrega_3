@@ -1,4 +1,3 @@
-package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,8 +22,15 @@ public class Ventana extends JFrame {
         this.setSize(850, 600);
         this.getContentPane().setBackground(new Color(7, 7, 33, 255));
         this.setVisible(true);
-
-        // Creacion de paneles de control
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (Aplicacion.getTemporadaActual() != null) {
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
+                }
+            }
+        });
 
     }
 

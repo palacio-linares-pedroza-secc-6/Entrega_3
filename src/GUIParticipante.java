@@ -11,15 +11,16 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 
-public class GUIAdministrador extends JFrame implements ActionListener {
+public class GUIParticipante extends JFrame implements ActionListener {
 
-    JButton cargarTemporada;
-    JButton cerrarPartido;
-    JButton logOut;
     Ventana frame;
-    JLabel estado;
+    JButton crearEquipo;
+    JButton comprarJugador;
+    JButton editarAlineacion;
+    JButton estadisticas;
+    JButton logOut;
 
-    public GUIAdministrador(String nombre) {
+    public GUIParticipante(String nombre) {
 
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(25, 24, 55, 255));
@@ -46,28 +47,48 @@ public class GUIAdministrador extends JFrame implements ActionListener {
         // Creacion de texto
 
         JLabel tituloTxt = new JLabel();
-        tituloTxt.setText("Bienvenido admin " + nombre);
+        tituloTxt.setText("Bienvenido " + nombre);
         tituloTxt.setFont(new Font("Times New Roman", Font.PLAIN, 55));
         tituloTxt.setForeground(Color.WHITE);
         tituloTxt.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // creacion de botones
+        // Creacion de botones
 
-        cargarTemporada = new JButton("Cargar Temporada");
-        cargarTemporada.setFocusable(false);
-        cargarTemporada.setBackground(new Color(37, 32, 70, 255));
-        cargarTemporada.setBorder(BorderFactory.createEtchedBorder());
-        cargarTemporada.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        cargarTemporada.setForeground(Color.WHITE);
-        cargarTemporada.addActionListener(this);
+        crearEquipo = new JButton("Crear Equipo");
+        crearEquipo.setFocusable(false);
+        crearEquipo.setBackground(new Color(37, 32, 70, 255));
+        crearEquipo.setBorder(BorderFactory.createEtchedBorder());
+        crearEquipo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        crearEquipo.setForeground(Color.WHITE);
+        crearEquipo.addActionListener(this);
+        crearEquipo.setPreferredSize(new Dimension(100, 50));
 
-        cerrarPartido = new JButton("Cerrar Partido");
-        cerrarPartido.setFocusable(false);
-        cerrarPartido.setBackground(new Color(37, 32, 70, 255));
-        cerrarPartido.setBorder(BorderFactory.createEtchedBorder());
-        cerrarPartido.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        cerrarPartido.setForeground(Color.WHITE);
-        cerrarPartido.addActionListener(this);
+        comprarJugador = new JButton("Comprar Jugadores");
+        comprarJugador.setFocusable(false);
+        comprarJugador.setBackground(new Color(37, 32, 70, 255));
+        comprarJugador.setBorder(BorderFactory.createEtchedBorder());
+        comprarJugador.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        comprarJugador.setForeground(Color.WHITE);
+        comprarJugador.addActionListener(this);
+        comprarJugador.setPreferredSize(new Dimension(100, 50));
+
+        editarAlineacion = new JButton("Editar Alineacion");
+        editarAlineacion.setFocusable(false);
+        editarAlineacion.setBackground(new Color(37, 32, 70, 255));
+        editarAlineacion.setBorder(BorderFactory.createEtchedBorder());
+        editarAlineacion.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        editarAlineacion.setForeground(Color.WHITE);
+        editarAlineacion.addActionListener(this);
+        editarAlineacion.setPreferredSize(new Dimension(100, 50));
+
+        estadisticas = new JButton("Estadisticas");
+        estadisticas.setFocusable(false);
+        estadisticas.setBackground(new Color(37, 32, 70, 255));
+        estadisticas.setBorder(BorderFactory.createEtchedBorder());
+        estadisticas.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        estadisticas.setForeground(Color.WHITE);
+        estadisticas.addActionListener(this);
+        estadisticas.setPreferredSize(new Dimension(100, 50));
 
         logOut = new JButton("Log out");
         logOut.setFocusable(false);
@@ -85,19 +106,19 @@ public class GUIAdministrador extends JFrame implements ActionListener {
         titulo.add(tituloTxt);
 
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
-        menu.add(Box.createRigidArea(new Dimension(5, 0)));
-        menu.add(Box.createRigidArea(new Dimension(5, 0)));
-
-        menu.add(Box.createRigidArea(new Dimension(5, 0)));
-        menu.add(cargarTemporada);
+        menu.add(crearEquipo);
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
 
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
-        menu.add(cerrarPartido);
+        menu.add(comprarJugador);
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
 
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
+        menu.add(editarAlineacion);
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
+
+        menu.add(Box.createRigidArea(new Dimension(5, 0)));
+        menu.add(estadisticas);
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
 
         vacioS.add(logOut);
@@ -112,13 +133,9 @@ public class GUIAdministrador extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        if (e.getSource() == cargarTemporada) {
+        if (e.getSource() == crearEquipo) {
             frame.dispose();
-            new GUICargarTemporada();
-        }
-        if (e.getSource() == cerrarPartido) {
-            frame.dispose();
-            new GUIFinalizarPartido();
+            new GUICrearEquipo();
         }
 
         else if (e.getSource() == logOut) {

@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
+
 @SuppressWarnings("unchecked")
-public class Fecha {
+public class Fecha implements Serializable {
 
     String fecha;
     PriorityQueue<Pair> rankingJugadores;

@@ -11,8 +11,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import GUI.Ventana;
-
 public class GUICargarTemporada extends JFrame implements ActionListener {
 
     JButton archivoTemporada;

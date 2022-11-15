@@ -12,8 +12,6 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 
-import GUI.Ventana;
-
 public class GUIAplicacion extends JFrame implements ActionListener {
 
     Aplicacion aplicacion;

@@ -8,10 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 import javax.swing.*;
-
-import GUI.Ventana;
 
 public class GUIFinalizarPartido extends JFrame implements ActionListener {
 
@@ -157,6 +156,28 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                 Aplicacion.admin.finalizarPartido(partido, nombrePartido, filePartido, fecha);
                 partido.setfileReporte(filePartido);
 
+                ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
+                if (lista_fantasy != null) {
+                    System.out.println(lista_fantasy.size());
+                    for (int c = 0; c < lista_fantasy.size(); c++) {
+                        EquipoFantasia equipo_fantasy = lista_fantasy.get(c);
+                        System.out.println(equipo_fantasy.getNombre());
+                        Alineacion all = equipo_fantasy.getAlineacion();
+                        all.jugarPartido(partido, fecha);
+                        int puntos_equipo = 0;
+                        PriorityQueue<Pair> pq = equipo_fantasy.getRankingJugadores();
+                        Iterator<Pair> value = pq.iterator();
+                        while (value.hasNext()) {
+                            Pair pair = value.next();
+                            Jugador ppplayer = (Jugador) pair.getValue();
+                            puntos_equipo += pair.getKey();
+                            System.out.println(ppplayer.getNombre() + " " + pair.getKey());
+                        }
+                        Pair pair_equipo = new Pair(puntos_equipo, equipo_fantasy);
+                        Aplicacion.temporadaActual.addEquipoFantasyRanking(pair_equipo);
+                    }
+                }
+
                 frame.dispose();
                 new GUIAdministrador(Aplicacion.admin.getNombre());
 
@@ -166,6 +187,7 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                 e1.printStackTrace();
                 ;
             }
+
         }
 
         else if (e.getSource() == volver) {
