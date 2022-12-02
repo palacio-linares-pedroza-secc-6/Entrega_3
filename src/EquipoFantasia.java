@@ -94,17 +94,15 @@ public class EquipoFantasia extends Equipo {
 	public void removeJugador(Jugador jugador) {
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = this.getJugadoresPosicion(pos);
-		setPresupuesto(presupuesto + jugador.getValorVenta());
-		int index = 0;
-		for (int i = 0; i < players.size(); ++i) {
-			if (players.get(i) == jugador) {
-				index = i;
-			}
+		for (Jugador player: players ){
+			System.out.println(player.getNombre());
 		}
-		System.out.println(index);
-		players.remove(index);
+		setPresupuesto(presupuesto + jugador.getValorVenta());
+		players.remove(jugador);
 		Jugadores.put(pos, players);
-
+		for (Jugador player: players ){
+			System.out.println(player.getNombre());
+		}
 	}
 
 	public void addJugadorRanking(Pair playerpuntos) {
