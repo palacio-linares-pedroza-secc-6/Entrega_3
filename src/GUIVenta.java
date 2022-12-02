@@ -14,11 +14,11 @@ import java.util.List;
 
 import javax.swing.*;
 
-public class GUIMercado extends JFrame implements ActionListener {
+public class GUIVenta extends JFrame implements ActionListener {
     Ventana frame;
     JScrollPane mostron;
     JButton volver;
-    JButton comprar;
+    JButton vender;
     JButton confirmar;
     JLabel presupuesto;
     JLabel delanteros;
@@ -32,7 +32,7 @@ public class GUIMercado extends JFrame implements ActionListener {
     JScrollPane jcp = new JScrollPane();
     EquipoFantasia equipoFantasia = Aplicacion.user.getEquipo();
 
-    public GUIMercado() {
+    public GUIVenta() {
 
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(25, 24, 55, 255));
@@ -67,7 +67,7 @@ public class GUIMercado extends JFrame implements ActionListener {
         tituloTxt.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         presupuesto = new JLabel();
-        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+        presupuesto.setText("Presupuesto : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
         presupuesto.setFont(new Font("Times New Roman", Font.PLAIN, 25));
         presupuesto.setForeground(Color.WHITE);
         presupuesto.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -137,7 +137,8 @@ public class GUIMercado extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ArrayList<Jugador> jugadores = mercado.getJugadoresporPosicion((Posicion) posiciones.getSelectedItem());
+                ArrayList<Jugador> jugadores = equipoFantasia
+                        .getJugadoresPosicion((Posicion) posiciones.getSelectedItem());
                 String[] list = new String[jugadores.size()];
 
                 for (int a = 0; a < jugadores.size(); a++) {
@@ -150,17 +151,18 @@ public class GUIMercado extends JFrame implements ActionListener {
 
                 playerList = new JList<String>(list);
                 jcp.setViewportView(playerList);
+
             }
         });
 
-        comprar = new JButton("Comprar");
-        comprar.setFocusable(false);
-        comprar.setBackground(new Color(37, 32, 70, 255));
-        comprar.setBorder(BorderFactory.createEtchedBorder());
-        comprar.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        comprar.setForeground(Color.WHITE);
-        comprar.addActionListener(this);
-        comprar.setPreferredSize(new Dimension(85, 35));
+        vender = new JButton("Vender");
+        vender.setFocusable(false);
+        vender.setBackground(new Color(37, 32, 70, 255));
+        vender.setBorder(BorderFactory.createEtchedBorder());
+        vender.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        vender.setForeground(Color.WHITE);
+        vender.addActionListener(this);
+        vender.setPreferredSize(new Dimension(85, 35));
 
         volver = new JButton("Volver");
         volver.setFocusable(false);
@@ -185,7 +187,7 @@ public class GUIMercado extends JFrame implements ActionListener {
         titulo.add(tituloTxt);
         menuOpciones.add(presupuesto);
         menuOpciones.add(posiciones);
-        menuOpciones.add(comprar);
+        menuOpciones.add(vender);
         menuOpciones.add(porteros);
         menuOpciones.add(defensas);
         menuOpciones.add(medioCampos);
@@ -207,114 +209,33 @@ public class GUIMercado extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
-        if (e.getSource() == comprar) {
-            try {
-                int index = playerList.getSelectedIndex();
-                String jugador = (String) playerList.getSelectedValue();
-                jugador = jugador.split("/")[0];
-                Posicion pos = (Posicion) posiciones.getSelectedItem();
-                Jugador jugadorCompra = mercado.getJugadoresporPosicion(pos).get(index);
+        if (e.getSource() == vender) {
+            int index = playerList.getSelectedIndex();
+            String jugador = (String) playerList.getSelectedValue();
+            jugador = jugador.split("/")[0];
+            Posicion pos = (Posicion) posiciones.getSelectedItem();
+            Jugador jugadorVender = mercado.getJugadoresporPosicion(pos).get(index);
 
-                if (equipoFantasia.getJugadores().contains(jugadorCompra)) {
-                    JOptionPane.showMessageDialog(null, "Ya contiene ese jugador en su equipo", "Error",
-                            JOptionPane.WARNING_MESSAGE);
-                } else if (equipoFantasia.getPresupuesto() < jugadorCompra.getValor()) {
-                    JOptionPane.showMessageDialog(null, "No tiene el presupuesto para comprar ese jugador", "Error",
-                            JOptionPane.WARNING_MESSAGE);
-
-                } else if (pos == Posicion.PORTERO) {
-                    if (equipoFantasia.getJugadoresPosicion(Posicion.PORTERO) == null) {
-
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        porteros.setText("Porteros que faltan : "
-                                + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
-                    }
-
-                    else if (equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size() == 2) {
-                        JOptionPane.showMessageDialog(null, "No puede tener mas de 2 porteros en tu equipo",
-                                "Error",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        porteros.setText("Porteros que faltan : "
-                                + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
-                    }
-                } else if (pos == Posicion.DEFENSA) {
-                    if (equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA) == null) {
-
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        defensas.setText("Defensas que faltan : "
-                                + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
-                    }
-
-                    else if (equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size() == 5) {
-                        JOptionPane.showMessageDialog(null, "No puede tener mas de 5 defensas en tu equipo",
-                                "Error",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        defensas.setText("Defensas que faltan : "
-                                + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
-                    }
-
+            if (pos == Posicion.PORTERO) {
+                if (equipoFantasia.getJugadoresPosicion(Posicion.PORTERO) == null) {
+                } else {
+                    Aplicacion.user.venderJugador(jugadorVender);
+                    presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                    porteros.setText("Porteros que faltan : "
+                            + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
                 }
 
-                else if (pos == Posicion.MEDIOCAMPISTA) {
-                    if (equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA) == null) {
-
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        medioCampos.setText("Medios que faltan : "
-                                + Integer.toString(
-                                        5 - equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size()));
-                    }
-
-                    else if (equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size() == 5) {
-                        JOptionPane.showMessageDialog(null, "No puede tener mas de 5 Medio Campistas en tu equipo",
-                                "Error",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        medioCampos.setText("Medios que faltan : "
-                                + Integer.toString(
-                                        5 - equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size()));
-                    }
-
-                } else if (pos == Posicion.DELANTERO) {
-                    if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO) == null) {
-
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        delanteros.setText("Delanteros que faltan : "
-                                + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
-                    }
-
-                    else if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3) {
-                        JOptionPane.showMessageDialog(null, "No puede tener mas de 3 delanteros en tu equipo",
-                                "Error",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
-                        presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                        delanteros.setText("Delanteros que faltan : "
-                                + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
-                    }
-
-                }
-            } catch (Exception e1) {
-                JOptionPane.showMessageDialog(null, "Seleccione un jugador",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-
+            } else {
+                Aplicacion.user.venderJugador(jugadorVender);
+                presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                porteros.setText("Porteros que faltan : "
+                        + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
             }
         }
 
-        else if (e.getSource() == confirmar) {
+        else if (e.getSource() == confirmar)
+
+        {
 
             try {
                 if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3

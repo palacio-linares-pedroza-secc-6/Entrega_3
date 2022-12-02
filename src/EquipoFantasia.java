@@ -77,9 +77,11 @@ public class EquipoFantasia extends Equipo {
 		this.alineacionpasada = alineacion;
 
 	}
-	public PriorityQueue<Pair> getRankingJugadores(){
+
+	public PriorityQueue<Pair> getRankingJugadores() {
 		return rankingJugadores;
 	}
+
 	public Alineacion getAlineacion() {
 		return alineacionpasada;
 	}
@@ -93,8 +95,16 @@ public class EquipoFantasia extends Equipo {
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = this.getJugadoresPosicion(pos);
 		setPresupuesto(presupuesto + jugador.getValorVenta());
-		players.remove(jugador);
+		int index = 0;
+		for (int i = 0; i < players.size(); ++i) {
+			if (players.get(i) == jugador) {
+				index = i;
+			}
+		}
+		System.out.println(index);
+		players.remove(index);
 		Jugadores.put(pos, players);
+
 	}
 
 	public void addJugadorRanking(Pair playerpuntos) {
@@ -102,20 +112,20 @@ public class EquipoFantasia extends Equipo {
 		int puntos = playerpuntos.getKey();
 		Iterator<Pair> value = rankingJugadores.iterator();
 		boolean playerfound = false;
-		while(value.hasNext()){
+		while (value.hasNext()) {
 			Pair pair = value.next();
 			Jugador player = (Jugador) pair.getValue();
-			if (jugador==player){
+			if (jugador == player) {
 				int puntos1 = pair.getKey();
-				puntos1= puntos1+puntos;
+				puntos1 = puntos1 + puntos;
 				pair.setKey(puntos1);
-				playerfound=true;
+				playerfound = true;
 			}
 		}
-		if (playerfound==false){
+		if (playerfound == false) {
 			rankingJugadores.add(playerpuntos);
 		}
-		
+
 	}
 
 }

@@ -138,6 +138,18 @@ public class GUIParticipante extends JFrame implements ActionListener {
             new GUICrearEquipo();
         }
 
+        else if (e.getSource() == comprarJugador) {
+
+            try {
+                new GUIVenta();
+                frame.dispose();
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, "No tiene un equipo",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
         else if (e.getSource() == logOut) {
             frame.dispose();
             new GUILogIn();
