@@ -77,12 +77,15 @@ public class Administrador extends Usuario {
 					int penaltisErrados = Integer.parseInt(info[11]);
 					int tarjetasAmarillas = Integer.parseInt(info[12]);
 					int tarjetasRojas = Integer.parseInt(info[13]);
+					int tiros_libres = Integer.parseInt(info[14]);
+					int manos = Integer.parseInt(info[15]);
+					int goles_de_tiro_libre = Integer.parseInt(info[16]);
 					Integer num_goles = golesMap.get(jugador.getEquipo());
 					num_goles += goles;
 					golesMap.put(jugador.getEquipo(), num_goles);
 					ReporteJugador reporte = new ReporteJugador(partidoBus, minJugados, minIngresado, minSalido, goles,
 							golesPenaltis, autogoles, asistencias, golesRecibidos, penaltisDetenidos, penaltisErrados,
-							tarjetasAmarillas, tarjetasRojas);
+							tarjetasAmarillas, tarjetasRojas, tiros_libres, manos, goles_de_tiro_libre);
 					jugador.addReporte(reporte, partidoBus);
 				}
 			}

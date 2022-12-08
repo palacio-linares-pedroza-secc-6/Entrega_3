@@ -1,4 +1,4 @@
-jugadores;posicion;min_jugados;min_ingreso;min_salio;goles;penaltis;autogoles;asistencias;goles_recibidos;penaltis_detenidos;penaltis errados;tarjetas_amariilas;tarjetas_rojas
+jugadores;posicion;min_jugados;min_ingreso;min_salio;goles;penaltis;autogoles;asistencias;goles_recibidos;penaltis_detenidos;penaltis errados;tarjetas_amariilas;tarjetas_rojas;tiros_libres;manos;goles_de_tiro_libre;
 Gerónimo Rulli;Porteros;90;1;90;0;0;0;0;1;0;0;0;0
 Filip Jörgensen;Porteros;0;0;0;0;0;0;0;0;0;0;0;0
 Pau Torres;Defensas;90;1;90;0;0;0;0;0;0;0;0;0
