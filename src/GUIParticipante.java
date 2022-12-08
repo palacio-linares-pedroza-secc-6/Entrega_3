@@ -150,7 +150,20 @@ public class GUIParticipante extends JFrame implements ActionListener {
             }
         }
 
-        else if (e.getSource() == logOut) {
+        else if (e.getSource() == editarAlineacion) {
+            if (Aplicacion.user.equipo == null) {
+                JOptionPane.showMessageDialog(null, "No tiene un equipo",
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                new GUIAlineacion();
+                frame.dispose();
+            }
+
+        }
+
+        else if (e.getSource() == logOut)
+
+        {
             frame.dispose();
             new GUILogIn();
         }

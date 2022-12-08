@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.*;
 
 public class GUIMercado extends JFrame implements ActionListener {
+    boolean primeraVez;
     Ventana frame;
     JScrollPane mostron;
     JButton volver;
@@ -32,8 +33,8 @@ public class GUIMercado extends JFrame implements ActionListener {
     JScrollPane jcp = new JScrollPane();
     EquipoFantasia equipoFantasia = Aplicacion.user.getEquipo();
 
-    public GUIMercado() {
-
+    public GUIMercado(boolean primeraVez) {
+        this.primeraVez = primeraVez;
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(25, 24, 55, 255));
         titulo.setPreferredSize(new Dimension(0, 85));
@@ -314,7 +315,7 @@ public class GUIMercado extends JFrame implements ActionListener {
             }
         }
 
-        else if (e.getSource() == confirmar) {
+        else if (e.getSource() == confirmar && primeraVez) {
 
             try {
                 if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3
@@ -340,7 +341,28 @@ public class GUIMercado extends JFrame implements ActionListener {
             }
         }
 
-        else if (e.getSource() == volver) {
+        else if (e.getSource() == confirmar && !primeraVez) {
+            try {
+                if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3
+                        && equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size() == 5
+                        && equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size() == 5
+                        && equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size() == 2) {
+                    frame.dispose();
+                    new GUIParticipante(Aplicacion.user.getNombre());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception e2) {
+                JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+
+            }
+        }
+
+        else if (e.getSource() == volver && primeraVez) {
             int input = JOptionPane.showConfirmDialog(null, "Seguro quiere salir? esta deicision borrara su equipo",
                     "Select an Option...",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -351,6 +373,9 @@ public class GUIMercado extends JFrame implements ActionListener {
                 frame.dispose();
                 new GUIParticipante(Aplicacion.user.getNombre());
             }
+        } else if (e.getSource() == volver && !primeraVez) {
+            frame.dispose();
+            new GUIVenta();
         }
 
     }

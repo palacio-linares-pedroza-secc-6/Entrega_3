@@ -127,7 +127,7 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
                     EquipoFantasia equipoFantasia = Aplicacion.user.crearEquipoFantasia(nombre.getText(),
                             Aplicacion.temporadaActual);
                     frame.dispose();
-                    new GUIMercado();
+                    new GUIMercado(true);
                 }
 
             }

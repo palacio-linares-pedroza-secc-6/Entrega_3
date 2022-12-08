@@ -62,10 +62,10 @@ public class Participante extends Usuario {
      * 
      * @param jugador Jugador que desea remover
      */
-    public void venderJugador(Jugador jugador) {
+    public void venderJugador(Jugador jugador, int index) {
         // equipo.setPresupuesto(equipo.getPresupuesto() + jugador.getValorVenta()); aca
         // estas sumando dos veces el presupuesto
-        equipo.removeJugador(jugador);
+        equipo.removeJugador(jugador, index);
     }
 
     public void borrarEquipo() {

@@ -17,7 +17,6 @@ import javax.swing.*;
 public class GUIVenta extends JFrame implements ActionListener {
     Ventana frame;
     JScrollPane mostron;
-    JButton volver;
     JButton vender;
     JButton confirmar;
     JLabel presupuesto;
@@ -164,15 +163,6 @@ public class GUIVenta extends JFrame implements ActionListener {
         vender.addActionListener(this);
         vender.setPreferredSize(new Dimension(85, 35));
 
-        volver = new JButton("Volver");
-        volver.setFocusable(false);
-        volver.setBackground(new Color(37, 32, 70, 255));
-        volver.setBorder(BorderFactory.createEtchedBorder());
-        volver.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        volver.setForeground(Color.WHITE);
-        volver.addActionListener(this);
-        volver.setPreferredSize(new Dimension(100, 50));
-
         confirmar = new JButton("Confirmar");
         confirmar.setFocusable(false);
         confirmar.setBackground(new Color(37, 32, 70, 255));
@@ -194,7 +184,6 @@ public class GUIVenta extends JFrame implements ActionListener {
         menuOpciones.add(delanteros);
         menuOpciones.add(confirmar);
 
-        vacioS.add(volver);
         jugadoresMenu.add(jcp);
 
         frame.add(titulo, BorderLayout.NORTH);
@@ -211,66 +200,65 @@ public class GUIVenta extends JFrame implements ActionListener {
 
         if (e.getSource() == vender) {
             int index = playerList.getSelectedIndex();
+            System.out.println(index);
             String jugador = (String) playerList.getSelectedValue();
             jugador = jugador.split("/")[0];
             Posicion pos = (Posicion) posiciones.getSelectedItem();
             Jugador jugadorVender = mercado.getJugadoresporPosicion(pos).get(index);
 
             if (pos == Posicion.PORTERO) {
-                if (equipoFantasia.getJugadoresPosicion(Posicion.PORTERO) == null) {
-                } else {
-                    Aplicacion.user.venderJugador(jugadorVender);
-                    presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
-                    porteros.setText("Porteros que faltan : "
-                            + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
-                }
 
-            } else {
-                Aplicacion.user.venderJugador(jugadorVender);
-                presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                Aplicacion.user.venderJugador(jugadorVender, index);
+                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                 porteros.setText("Porteros que faltan : "
                         + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
+                posiciones.actionPerformed(e);
+
+            } else if (pos == Posicion.DEFENSA) {
+
+                Aplicacion.user.venderJugador(jugadorVender, index);
+                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                defensas.setText("Defensas que faltan : "
+                        + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
+                posiciones.actionPerformed(e);
+            } else if (pos == Posicion.MEDIOCAMPISTA) {
+
+                Aplicacion.user.venderJugador(jugadorVender, index);
+                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                defensas.setText("Medios que faltan : "
+                        + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size()));
+                posiciones.actionPerformed(e);
+            } else if (pos == Posicion.DELANTERO) {
+
+                Aplicacion.user.venderJugador(jugadorVender, index);
+                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                defensas.setText("Delanteros que faltan : "
+                        + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
+                posiciones.actionPerformed(e);
             }
+
         }
 
         else if (e.getSource() == confirmar)
 
         {
 
-            try {
-                if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3
-                        && equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size() == 5
-                        && equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size() == 5
-                        && equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size() == 2) {
+            if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size() == 3
+                    && equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size() == 5
+                    && equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size() == 5
+                    && equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size() == 2) {
 
-                    JOptionPane.showMessageDialog(null, "Se creo el equipo " + Aplicacion.user.getEquipo().getNombre(),
-                            "Felicitaciones",
-                            JOptionPane.PLAIN_MESSAGE);
+                int input = JOptionPane.showConfirmDialog(null,
+                        "No ha hecho cambios en su equipo, quiere salir y dejarlo asi?",
+                        "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (input == 0) {
                     frame.dispose();
                     new GUIParticipante(Aplicacion.user.getNombre());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
-                            "Error",
-                            JOptionPane.WARNING_MESSAGE);
                 }
-            } catch (Exception e2) {
-                JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-
-            }
-        }
-
-        else if (e.getSource() == volver) {
-            int input = JOptionPane.showConfirmDialog(null, "Seguro quiere salir? esta deicision borrara su equipo",
-                    "Select an Option...",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            // 0=yes, 1=no,
-
-            if (input == 0) {
-                Aplicacion.user.borrarEquipo();
+            } else {
                 frame.dispose();
-                new GUIParticipante(Aplicacion.user.getNombre());
+                new GUIMercado(false);
             }
         }
 

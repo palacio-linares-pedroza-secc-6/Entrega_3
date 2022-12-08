@@ -51,9 +51,6 @@ public class Administrador extends Usuario {
 			throws FileNotFoundException {
 		partido.setfileReporte(filePartido);
 		ArrayList<Jugador> jugadoresTotal = partido.getJugadores();
-		for (int i = 0; i < jugadoresTotal.size(); i++) {
-			System.out.println(jugadoresTotal.get(i).getNombre() + " " + jugadoresTotal.get(i).getEquipo().getNombre());
-		}
 		// local
 		Scanner scanner = new Scanner(
 				new FileReader(filePartido));

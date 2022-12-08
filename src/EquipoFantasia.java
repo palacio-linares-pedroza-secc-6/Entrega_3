@@ -91,16 +91,10 @@ public class EquipoFantasia extends Equipo {
 		return mercado;
 	}
 
-	public void removeJugador(Jugador jugador) {
+	public void removeJugador(Jugador jugador, int index) {
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = this.getJugadoresPosicion(pos);
 		setPresupuesto(presupuesto + jugador.getValorVenta());
-		int index = 0;
-		for (int i = 0; i < players.size(); ++i) {
-			if (players.get(i) == jugador) {
-				index = i;
-			}
-		}
 		System.out.println(index);
 		players.remove(index);
 		Jugadores.put(pos, players);

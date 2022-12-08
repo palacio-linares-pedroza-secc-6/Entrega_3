@@ -88,7 +88,7 @@ public class DataDam {
 
     }
 
-    public static void cargarJugadores(File fileJugadores, Temporada temporadaActual) throws FileNotFoundException {
+    public static void  cargarJugadores(File fileJugadores, Temporada temporadaActual) throws FileNotFoundException {
 
         Scanner scanner;
         scanner = new Scanner(new FileReader(fileJugadores));

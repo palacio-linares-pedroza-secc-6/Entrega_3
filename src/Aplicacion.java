@@ -405,7 +405,7 @@ public class Aplicacion {
 											"Que jugador le gustaria vender"));
 									Jugador jugadoravender = jugadoresequipofantasy.get(posicionjugador - 1);
 									Posicion posicion = jugadoravender.getPosicion();
-									user.venderJugador(jugadoravender);
+									user.venderJugador(jugadoravender, 1);
 
 									System.out.println("Bienvenido al Mercado de jugadores");
 									Mercado mercado = temporadaActual.getMercado();
