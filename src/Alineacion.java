@@ -119,48 +119,28 @@ public class Alineacion {
         }
     }
 
-    public void calcularPuntos(Partido partido) throws AlineacionIncompleta {
+    public void calcularPuntos(Partido partido) {
         if (checkAlineacioncompleta()) {
-            int puntos_equipo=0;
             Object[] posiciones = jugadores.keySet().toArray();
-            Boolean ganaron_todos = true;
-            Boolean empataron = false;
-            Boolean mas_de_60 = true;
             for (int i = 0; i < posiciones.length; i++) {
                 Posicion posicion = (Posicion) posiciones[i];
                 for (Jugador jugador : jugadores.get(posicion)) {
                     int puntos = 0;
                     ReporteJugador reporte = jugador.getReporte(partido.getNombre());
                     if (reporte != null) {
-                        HashMap<String, ReporteJugador> reportes_pasados_map = jugador.getReportesMap();
-                        Collection<ReporteJugador> reportes_pasados = reportes_pasados_map.values();
-                        
                         if (reporte.getminutosJugados() > 0) {
                             if (jugador == capitan) {
                                 if (partido.getLocal() == jugador.getEquipo()) {
                                     if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()) {
                                         puntos += 5;
                                     }
-                                    else if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()){
-                                        ganaron_todos=false;
-                                    }
-                                    else{
-                                        empataron=true;
-                                    }
                                 } else {
                                     if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()) {
                                         puntos += 5;
                                     }
-                                    else if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()){
-                                        ganaron_todos=false;
-                                    }
-                                    else{
-                                        empataron=true;
-                                    }
                                 }
 
                             }
-                            puntos = puntos - reporte.getManos();
                             puntos = puntos + reporte.getAsistencias() * 3;
                             puntos = puntos - reporte.getAutogoles() * 2;
                             puntos = puntos - reporte.getPenaltisErrados() * 2;
@@ -168,7 +148,6 @@ public class Alineacion {
                             puntos = puntos - reporte.getTarjetasAmarillas();
                             if (reporte.getminutosJugados() <= 60) {
                                 puntos += 1;
-                                mas_de_60=false;
                             } else {
                                 puntos += 2;
                             }
@@ -197,19 +176,6 @@ public class Alineacion {
                     equipo.addJugadorRanking(playerpuntos);
                 }
             }
-            if (ganaron_todos==true && empataron==false){
-                puntos_equipo+=15;
-            }
-            else if (ganaron_todos==true && empataron==true){
-                puntos_equipo+=10;
-            }
-            if (mas_de_60){
-                puntos_equipo+=5;
-            }
-            equipo.addPuntos(puntos_equipo);
-        }
-        else{
-            throw AlineacionIncompleta;
         }
 
     }

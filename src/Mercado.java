@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.*;
 
-public class Mercado implements Serializable{
+public class Mercado implements Serializable {
 
     HashMap<Posicion, ArrayList<Jugador>> mercadoPosiciones = new HashMap<Posicion, ArrayList<Jugador>>();
+    HashMap<String, Jugador> mercadoJugadores = new HashMap<String, Jugador>();
 
     public Mercado() {
         mercadoPosiciones.put(Posicion.PORTERO, null);
@@ -21,11 +22,12 @@ public class Mercado implements Serializable{
             String nombre = jugador.getNombre();
             String equipoShort = jugador.getEquipo().getNombreShort();
             int valor = jugador.getValor();
-            System.out.println(String.valueOf(a+1)+"||"+nombre + "||" + equipoShort + "||" + valor);
+            System.out.println(String.valueOf(a + 1) + "||" + nombre + "||" + equipoShort + "||" + valor);
 
         }
     }
-    public ArrayList<Jugador> getJugadoresporPosicion(Posicion pos){
+
+    public ArrayList<Jugador> getJugadoresporPosicion(Posicion pos) {
         ArrayList<Jugador> lista = mercadoPosiciones.get(pos);
         return lista;
     }

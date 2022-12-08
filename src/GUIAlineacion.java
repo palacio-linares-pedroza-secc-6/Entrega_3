@@ -83,7 +83,7 @@ public class GUIAlineacion extends JFrame implements ActionListener {
             susDelantero = "Missing";
         }
         delantero.setText("Delantero suplente: " + susDelantero);
-        delantero.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        delantero.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         delantero.setForeground(Color.WHITE);
 
         medioCampo = new JLabel();
@@ -94,7 +94,7 @@ public class GUIAlineacion extends JFrame implements ActionListener {
             susMedioCampo = "Missing";
         }
         medioCampo.setText("Medio suplente: " + susMedioCampo);
-        medioCampo.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        medioCampo.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         medioCampo.setForeground(Color.WHITE);
 
         defensa = new JLabel();
@@ -105,7 +105,7 @@ public class GUIAlineacion extends JFrame implements ActionListener {
             susDefensa = "Missing";
         }
         defensa.setText("Defensa suplente: " + susDefensa);
-        defensa.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        defensa.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         defensa.setForeground(Color.WHITE);
 
         portero = new JLabel();
@@ -116,7 +116,7 @@ public class GUIAlineacion extends JFrame implements ActionListener {
             susPortero = "Missing";
         }
         portero.setText("Portero suplente: " + susPortero);
-        portero.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        portero.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         portero.setForeground(Color.WHITE);
 
         capitan = new JLabel();
@@ -127,7 +127,7 @@ public class GUIAlineacion extends JFrame implements ActionListener {
             capitanE = "Missing";
         }
         capitan.setText("Capitan: " + capitanE);
-        capitan.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        capitan.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         capitan.setForeground(Color.WHITE);
 
         // JComboBox
