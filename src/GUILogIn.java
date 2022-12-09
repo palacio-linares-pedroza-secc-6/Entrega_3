@@ -137,7 +137,7 @@ public class GUILogIn extends JFrame implements ActionListener {
                         Tipo_Usuario.PARTICIPANTE);
                 estado.setText(resultado);
                 frame.dispose();
-                new GUIParticipante(usuario.getText());
+                new GUIParticipante(usuario.getText(), null);
             }
 
             else if (tipoUsuario.getSelectedItem().equals(Tipo_Usuario.ADMINISTRADOR)) {

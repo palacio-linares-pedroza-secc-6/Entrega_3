@@ -17,6 +17,7 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
     JButton volver;
     JButton crear;
     JTextField nombre;
+    JButton escoger;
 
     public GUICrearEquipo() {
 
@@ -61,6 +62,15 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
         crear.addActionListener(this);
         crear.setPreferredSize(new Dimension(100, 50));
 
+        escoger = new JButton("Crear Equipo");
+        escoger.setFocusable(false);
+        escoger.setBackground(new Color(37, 32, 70, 255));
+        escoger.setBorder(BorderFactory.createEtchedBorder());
+        escoger.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        escoger.setForeground(Color.WHITE);
+        escoger.addActionListener(this);
+        escoger.setPreferredSize(new Dimension(100, 50));
+
         volver = new JButton("Volver");
         volver.setFocusable(false);
         volver.setBackground(new Color(37, 32, 70, 255));
@@ -94,7 +104,7 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
 
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
-        menu.add(Box.createRigidArea(new Dimension(5, 0)));
+        menu.add(escoger);
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
 
         vacioS.add(volver);
@@ -118,8 +128,8 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
             }
 
             else {
-                if (Aplicacion.user.getEquipo() != null) {
-                    JOptionPane.showMessageDialog(null, "Ya tienes un equipo", "Error",
+                if (Aplicacion.user.getNombresEquiposFantasy().contains(nombre.getText())) {
+                    JOptionPane.showMessageDialog(null, "Ya tienes un equipo con ese nombre", "Error",
                             JOptionPane.WARNING_MESSAGE);
                 }
 
@@ -132,6 +142,9 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
 
             }
 
+        }
+        else if (e.getSource() == escoger){
+            
         }
 
         else if (e.getSource() == volver) {

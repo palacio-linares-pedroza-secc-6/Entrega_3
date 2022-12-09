@@ -20,7 +20,7 @@ public class GUIParticipante extends JFrame implements ActionListener {
     JButton estadisticas;
     JButton logOut;
 
-    public GUIParticipante(String nombre) {
+    public GUIParticipante(String nombre, String nombre_equipo) {
 
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(25, 24, 55, 255));
@@ -151,8 +151,8 @@ public class GUIParticipante extends JFrame implements ActionListener {
         }
 
         else if (e.getSource() == editarAlineacion) {
-            if (Aplicacion.user.equipo == null) {
-                JOptionPane.showMessageDialog(null, "No tiene un equipo",
+            if (Aplicacion.user.getNombresEquiposFantasy() == null) {
+                JOptionPane.showMessageDialog(null, "No tienes equipos",
                         "Error", JOptionPane.WARNING_MESSAGE);
             } else {
                 new GUIAlineacion();
