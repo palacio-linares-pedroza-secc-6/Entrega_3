@@ -776,16 +776,14 @@ public class Aplicacion {
 										System.out.println(equipo_fantasy.getNombre());
 										Alineacion all = equipo_fantasy.getAlineacion();
 										all.jugarPartido(partido, fecha);
-										int puntos_equipo = 0;
 										PriorityQueue<Pair> pq = equipo_fantasy.getRankingJugadores();
 										Iterator<Pair> value = pq.iterator();
 										while (value.hasNext()) {
 											Pair pair = value.next();
 											Jugador ppplayer = (Jugador) pair.getValue();
-											puntos_equipo += pair.getKey();
+											equipo_fantasy.addPuntos(pair.getKey());
 											System.out.println(ppplayer.getNombre() + " " + pair.getKey());
-										}
-										Pair pair_equipo = new Pair(puntos_equipo, equipo_fantasy);
+										Pair pair_equipo = new Pair(equipo_fantasy.getPuntos(), equipo_fantasy);
 										temporadaActual.addEquipoFantasyRanking(pair_equipo);
 										PriorityQueue<Pair> pq2 = temporadaActual.getRankingEquipoFantasia();
 										while (!pq2.isEmpty()) {

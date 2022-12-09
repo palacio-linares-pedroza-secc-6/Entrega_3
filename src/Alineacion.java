@@ -81,8 +81,11 @@ public class Alineacion {
                 }
             }
         }
+        ReporteJugador.calcularPuntosPartido(partido, this);
         equipo.addFechaJugadas(fecha, this);
-        calcularPuntos(partido);
+        if (partido.getFecha().esUltimoPartido(partido)){
+            
+        }
     }
 
     public void Sustituir(Jugador jugadoractual) {
@@ -119,65 +122,8 @@ public class Alineacion {
         }
     }
 
-    public void calcularPuntos(Partido partido) {
-        if (checkAlineacioncompleta()) {
-            Object[] posiciones = jugadores.keySet().toArray();
-            for (int i = 0; i < posiciones.length; i++) {
-                Posicion posicion = (Posicion) posiciones[i];
-                for (Jugador jugador : jugadores.get(posicion)) {
-                    int puntos = 0;
-                    ReporteJugador reporte = jugador.getReporte(partido.getNombre());
-                    if (reporte != null) {
-                        if (reporte.getminutosJugados() > 0) {
-                            if (jugador == capitan) {
-                                if (partido.getLocal() == jugador.getEquipo()) {
-                                    if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()) {
-                                        puntos += 5;
-                                    }
-                                } else {
-                                    if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()) {
-                                        puntos += 5;
-                                    }
-                                }
-
-                            }
-                            puntos = puntos + reporte.getAsistencias() * 3;
-                            puntos = puntos - reporte.getAutogoles() * 2;
-                            puntos = puntos - reporte.getPenaltisErrados() * 2;
-                            puntos = puntos - reporte.getTarjetasRojas() * 3;
-                            puntos = puntos - reporte.getTarjetasAmarillas();
-                            if (reporte.getminutosJugados() <= 60) {
-                                puntos += 1;
-                            } else {
-                                puntos += 2;
-                            }
-                            if (jugador.getPosicion() == Posicion.DELANTERO) {
-                                puntos = puntos + reporte.getGoles() * 4;
-                            } else if (jugador.getPosicion() == Posicion.MEDIOCAMPISTA) {
-                                puntos = puntos + reporte.getGoles() * 5;
-                            } else {
-                                puntos = puntos + reporte.getGoles() * 6;
-                                if (partido.getLocal() == jugador.getEquipo()) {
-                                    if ((int) partido.getMarcador().getValue() == 0) {
-                                        puntos += 4;
-                                    }
-                                } else {
-                                    if (partido.getMarcador().getKey() == 0) {
-                                        puntos += 4;
-                                    }
-                                }
-                                if (jugador.getPosicion() == Posicion.PORTERO) {
-                                    puntos = puntos + reporte.getPenaltisDetenidos() * 5;
-                                }
-                            }
-                        }
-                    }
-                    Pair playerpuntos = new Pair(puntos, jugador);
-                    equipo.addJugadorRanking(playerpuntos);
-                }
-            }
-        }
-
+    public EquipoFantasia getEquipo(){
+        return equipo;
     }
 
     /**

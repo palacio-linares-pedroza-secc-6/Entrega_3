@@ -2,9 +2,10 @@ import java.util.*;
 
 public class EquipoFantasia extends Equipo {
 	private String nombre;
+	private int puntos;
 	private int presupuesto;
 	private Alineacion alineacionpasada;
-	private HashMap<Fecha, Alineacion> fechasJugadas;
+	private HashMap<Fecha, ArrayList<Alineacion>> fechasJugadas;
 	private HashMap<Posicion, ArrayList<Jugador>> Jugadores;
 	private PriorityQueue<Pair> rankingJugadores = new PriorityQueue<>(new Comparador());
 	private Jugador susMedio;
@@ -32,12 +33,37 @@ public class EquipoFantasia extends Equipo {
 		this.presupuesto = presupuesto;
 	}
 
-	public Alineacion getFechaJugadas(Fecha fecha) {
+	public ArrayList<Alineacion> getFechaJugada(Fecha fecha) {
 		return fechasJugadas.get(fecha);
 	}
 
 	public void addFechaJugadas(Fecha fechajugada, Alineacion alineacion) {
-		fechasJugadas.put(fechajugada, alineacion);
+		if (fechasJugadas.containsKey(fechajugada)){
+			ArrayList<Alineacion> lista_ali =getFechaJugada(fechajugada);
+			lista_ali.add(alineacion);
+			fechasJugadas.put(fechajugada, lista_ali);
+		}
+		else{
+			ArrayList<Alineacion> lista_ali = new ArrayList<Alineacion>();
+			fechasJugadas.put(fechajugada, lista_ali);
+		}
+		
+	}
+	public ArrayList<Alineacion> getAlineaciones(){
+		ArrayList<Alineacion> alinaciones = new ArrayList<Alineacion>();
+		for (Fecha fecha: (Fecha[]) fechasJugadas.keySet().toArray()){
+			ArrayList<Alineacion> all = getFechaJugada(fecha);
+			alinaciones.addAll(all);
+		}
+		return alinaciones;
+	}
+
+	public void addPuntos( int puntosadd){
+		puntos= puntos + puntosadd;
+	}
+
+	public int getPuntos(){
+		return puntos;
 	}
 
 	public Jugador getSusMedio() {
@@ -75,7 +101,6 @@ public class EquipoFantasia extends Equipo {
 	public void crearAlineacion(ArrayList<Jugador> listajugadores) {
 		Alineacion alineacion = new Alineacion(listajugadores, this);
 		this.alineacionpasada = alineacion;
-
 	}
 
 	public PriorityQueue<Pair> getRankingJugadores() {

@@ -12,9 +12,16 @@ public class Fecha implements Serializable {
     public Fecha(String fecha) {
         this.fecha = fecha;
     }
+    public boolean esUltimoPartido(Partido partido){
+        String[] llaves = (String[]) partidos.keySet().toArray();
+        if (llaves[llaves.length-1].equals(partido.getNombre())){
+            return true;
+        }
+        return false;
+    }
 
     public Partido crearPartido(String hora, Equipo local, Equipo visitante) {
-        Partido partido = new Partido(hora, local, visitante);
+        Partido partido = new Partido(hora, local, visitante, this);
         return partido;
     }
 
@@ -29,6 +36,23 @@ public class Fecha implements Serializable {
 
     public Partido getPartido(String nombrePartido) {
         return partidos.get(nombrePartido);
+    }
+    public ArrayList<Partido> getPartidos(){
+        List<Partido> list= Arrays.asList((Partido[]) partidos.values().toArray());
+        ArrayList<Partido> lista_partidos= new ArrayList<Partido>(list);
+        return lista_partidos;
+    }
+
+    public int getIndexPartido(Partido partido){
+        for (int i=0; i<partidos.values().toArray().length; i++){
+            if (partido.equals((Partido) partidos.values().toArray()[i])){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public Partido getPartidoporIndex(int index){
+        return (Partido) partidos.values().toArray()[index];
     }
 
     public Pair[] calcularRankingEquipos() {

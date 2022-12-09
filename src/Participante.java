@@ -1,9 +1,17 @@
+import java.util.*;
+
 public class Participante extends Usuario {
-    EquipoFantasia equipo;
+    HashMap<String, EquipoFantasia> equipos;
 
     public Participante(String nombre, String contrasena) {
         super(nombre, contrasena);
-
+        equipos = new HashMap<String, EquipoFantasia>();
+    }
+    public ArrayList<String> getNombresEquiposFantasy(){
+        String[] nombres_equipos = (String[]) equipos.keySet().toArray();
+        List<String> nombres = Arrays.asList(nombres_equipos);
+        ArrayList<String> nombres_list = new ArrayList<String>(nombres);
+        return nombres_list;
     }
 
     /**
@@ -11,8 +19,8 @@ public class Participante extends Usuario {
      * 
      * @return El equipo de fantasia creado por el usuario, null si no ha creado uno
      */
-    public EquipoFantasia getEquipo() {
-        return equipo;
+    public EquipoFantasia getEquipo(String nombreEquipo) {
+        return equipos.get(nombreEquipo);
     }
 
     /**
@@ -22,12 +30,12 @@ public class Participante extends Usuario {
      * 
      * @param equipo
      */
-    public void setEquipo(EquipoFantasia equipo) {
-        this.equipo = equipo;
+    public void putEquipo(EquipoFantasia equipo) {
+        equipos.put(equipo.getNombre(), equipo);
     }
 
     /**
-     * Crea un equipo de fantasia y lo pone como el equipo de fantasia del usuario
+     * Crea un equipo de fantasia y lo pone como un equipo de fantasia del usuario
      * 
      * @param nombreEquipo    Nombre del equipo de fantasia, no valida si ese nombre
      *                        ya lo tiene alguien mas
@@ -37,7 +45,7 @@ public class Participante extends Usuario {
     public EquipoFantasia crearEquipoFantasia(String nombreEquipo, Temporada temporadaActual) {
 
         EquipoFantasia equipoFantasia = new EquipoFantasia(nombreEquipo, temporadaActual);
-        setEquipo(equipoFantasia);
+        putEquipo(equipoFantasia);
         return equipoFantasia;
     }
 
@@ -49,7 +57,8 @@ public class Participante extends Usuario {
      * 
      * @param jugador Jugador al que desea añadir
      */
-    public void comprarJugador(Jugador jugador) {
+    public void comprarJugador(Jugador jugador, String nombreEquipo) {
+        EquipoFantasia equipo = equipos.get(nombreEquipo);
         equipo.setPresupuesto(equipo.getPresupuesto() - jugador.getValor());
         equipo.addJugador(jugador);
     }
@@ -62,14 +71,15 @@ public class Participante extends Usuario {
      * 
      * @param jugador Jugador que desea remover
      */
-    public void venderJugador(Jugador jugador, int index) {
+    public void venderJugador(Jugador jugador, int index, String nombreEquipo) {
         // equipo.setPresupuesto(equipo.getPresupuesto() + jugador.getValorVenta()); aca
         // estas sumando dos veces el presupuesto
+        EquipoFantasia equipo = equipos.get(nombreEquipo);
         equipo.removeJugador(jugador, index);
     }
 
-    public void borrarEquipo() {
-        equipo = null;
+    public void borrarEquipo(EquipoFantasia equipo) {
+        equipos.remove(equipo.getNombre());
     }
 
 }

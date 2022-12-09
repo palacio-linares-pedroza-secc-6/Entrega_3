@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Partido implements Serializable {
+	private Fecha fecha;
 	private String hora;
 	private Equipo local;
 	private Equipo visitante;
@@ -10,7 +11,8 @@ public class Partido implements Serializable {
 	private int marcadorVisitante;
 	private File fileReporte;
 
-	public Partido(String hora, Equipo local, Equipo visitante) {
+	public Partido(String hora, Equipo local, Equipo visitante, Fecha fecha) {
+		this.fecha = fecha;
 		this.hora = hora;
 		this.local = local;
 		this.visitante = visitante;
@@ -25,8 +27,13 @@ public class Partido implements Serializable {
 	public String getHora() {
 		return hora;
 	}
+	
 	public Equipo getLocal() {
 		return local;
+	}
+
+	public Fecha getFecha(){
+		return fecha;
 	}
 
 	public Equipo getVisitante() {
@@ -63,6 +70,7 @@ public class Partido implements Serializable {
 		ArrayList<Jugador> listajugadoreslocal = local.getJugadores();
 		return listajugadoreslocal;
 	}
+
 
 	public ArrayList<Jugador> getJugadoresVisitante() {
 		ArrayList<Jugador> listajugadoreslocal = visitante.getJugadores();

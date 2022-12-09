@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ReporteJugador implements Serializable{
 
@@ -100,4 +101,116 @@ public int getManos(){
 public int getGolesdeTiroLibre(){
     return goles_de_tiro_libre;
 }
+
+public static void calcularPuntosPartido(Partido partido, Alineacion alineacion) {
+    if (alineacion.checkAlineacioncompleta()) {
+        EquipoFantasia equipo = alineacion.getEquipo();
+        Fecha fecha = partido.getFecha();
+        ArrayList<Jugador> jugadores = alineacion.getJugadores();
+        for (Jugador jugador : jugadores) {
+            int puntos = 0;
+            ReporteJugador reporte = jugador.getReporte(partido.getNombre());
+            if (reporte != null) {
+                if (reporte.getminutosJugados() > 0) {
+                    if  (fecha.getIndexPartido(partido)>=2){
+                        int index = fecha.getIndexPartido(partido);
+                        Partido partido1 = fecha.getPartidoporIndex(index-2);
+                        int goles1 = jugador.getReporte(partido1.getNombre()).getGoles();
+                        int minutos1= jugador.getReporte(partido1.getNombre()).getminutosJugados();
+                        Partido partido2 = fecha.getPartidoporIndex(index-1);
+                        int goles2 = jugador.getReporte(partido2.getNombre()).getGoles();
+                        int minutos2= jugador.getReporte(partido2.getNombre()).getminutosJugados();
+                        if (goles1>1 && goles2>1 && reporte.getGoles()>1){
+                            puntos = puntos + 10;
+                        }
+                        if (minutos1>60 && minutos2>60 && reporte.getminutosJugados()>60){
+                            puntos = puntos + 5;
+                        }
+                    if (jugador.equals(alineacion.getCapitan())) {
+                        if (partido.getLocal() == jugador.getEquipo()) {
+                            if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()) {
+                                puntos += 5;
+                            }
+                        } else {
+                            if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()) {
+                                puntos += 5;
+                            }
+                        }
+
+                    }
+                    puntos = puntos + reporte.getAsistencias() * 3;
+                    puntos = puntos - reporte.getAutogoles() * 2;
+                    puntos = puntos - reporte.getPenaltisErrados() * 2;
+                    puntos = puntos - reporte.getTarjetasRojas() * 3;
+                    puntos = puntos - reporte.getTarjetasAmarillas();
+                    if (reporte.getminutosJugados() <= 60) {
+                        puntos += 1;
+                    } else {
+                        puntos += 2;
+                    }
+                    if (jugador.getPosicion() == Posicion.DELANTERO) {
+                        puntos = puntos + reporte.getGoles() * 4;
+                    } else if (jugador.getPosicion() == Posicion.MEDIOCAMPISTA) {
+                        puntos = puntos + reporte.getGoles() * 5;
+                    } else {
+                        puntos = puntos + reporte.getGoles() * 6;
+                        if (partido.getLocal() == jugador.getEquipo()) {
+                            if ((int) partido.getMarcador().getValue() == 0) {
+                                puntos += 4;
+                            }
+                        } else {
+                            if (partido.getMarcador().getKey() == 0) {
+                                puntos += 4;
+                            }
+                        }
+                        if (jugador.getPosicion() == Posicion.PORTERO) {
+                            puntos = puntos + reporte.getPenaltisDetenidos() * 5;
+                        }
+                    }
+                }
+            }
+            Pair playerpuntos = new Pair(puntos, jugador);
+            equipo.addJugadorRanking(playerpuntos);
+        }
+        }
+    }
+    }  
+    public static void calcularPuntosFecha (Fecha fecha){
+        ArrayList<EquipoFantasia> equipos = Temporada.getEquiposFantasy();
+        for (Partido partido : fecha.getPartidos()){
+            for (EquipoFantasia equipo : equipos){
+                boolean perdieron=false;
+                boolean empataron=false;
+                ArrayList<Alineacion> alineaciones_fecha = equipo.getFechaJugada(fecha);
+                for (Alineacion alineacion : alineaciones_fecha){
+                    for (Jugador jugador : alineacion.getJugadores()){
+                        ReporteJugador reporte = jugador.getReporte(partido.getNombre());
+                        if (reporte != null) {
+                            if (reporte.getminutosJugados() > 0) {
+                                if (partido.getMarcador().getKey() == (int) partido.getMarcador().getValue()) {
+                                    empataron=true;
+                                }
+                                if (partido.getLocal() == jugador.getEquipo()) {
+                                    if (partido.getMarcador().getKey() < (int) partido.getMarcador().getValue()) {
+                                        perdieron=true;
+                                    }
+                                } 
+                                else {
+                                    if (partido.getMarcador().getKey() > (int) partido.getMarcador().getValue()) {
+                                        perdieron=true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!perdieron && !empataron){
+                    equipo.addPuntos(15);
+                }
+                else if (!perdieron && empataron){
+                    equipo.addPuntos(10);
+                }
+            }
+        }
+    }
 }
