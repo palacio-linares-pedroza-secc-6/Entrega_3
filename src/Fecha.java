@@ -59,7 +59,7 @@ public class Fecha implements Serializable {
     }
 
     public Pair[] calcularRankingEquipos() {
-        ArrayList<EquipoFantasia> equipos = Temporada.getEquiposFantasy();
+        ArrayList<EquipoFantasia> equipos = Aplicacion.getTemporadaActual().getEquiposFantasy();
         Iterable<Pair> pares = (Iterable<Pair>) rankingJugadores.iterator();
         for (EquipoFantasia equipo : equipos) {
             int puntosEquipo = 0;
