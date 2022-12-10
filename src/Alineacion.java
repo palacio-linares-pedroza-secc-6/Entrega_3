@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class Alineacion {
+public class Alineacion implements Serializable {
     private HashMap<Posicion, ArrayList<Jugador>> jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
     private EquipoFantasia equipo;
     private Jugador capitan;
@@ -83,8 +84,8 @@ public class Alineacion {
         }
         ReporteJugador.calcularPuntosPartido(partido, this);
         equipo.addFechaJugadas(fecha, this);
-        if (partido.getFecha().esUltimoPartido(partido)){
-            
+        if (partido.getFecha().esUltimoPartido(partido)) {
+
         }
     }
 
@@ -122,7 +123,7 @@ public class Alineacion {
         }
     }
 
-    public EquipoFantasia getEquipo(){
+    public EquipoFantasia getEquipo() {
         return equipo;
     }
 

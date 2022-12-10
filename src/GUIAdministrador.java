@@ -114,15 +114,21 @@ public class GUIAdministrador extends JFrame implements ActionListener {
         // TODO Auto-generated method stub
         if (e.getSource() == cargarTemporada) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUICargarTemporada();
         }
         if (e.getSource() == cerrarPartido) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUIFinalizarPartido();
         }
 
         else if (e.getSource() == logOut) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUILogIn();
         }
 

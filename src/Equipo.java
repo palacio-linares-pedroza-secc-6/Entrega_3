@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.*;
 
-public class Equipo implements Serializable{
+public class Equipo implements Serializable {
 	private String nombre;
 	private String nombreShort;
 	private Temporada temporada;
@@ -13,7 +13,8 @@ public class Equipo implements Serializable{
 		this.temporada = temporada;
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
 	}
-	public Equipo (String nombre, Temporada temporada){
+
+	public Equipo(String nombre, Temporada temporada) {
 		this.nombre = nombre;
 		this.temporada = temporada;
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
@@ -40,19 +41,16 @@ public class Equipo implements Serializable{
 	public String getNombreShort() {
 		return nombreShort;
 	}
-	public Temporada getTemporada(){
+
+	public Temporada getTemporada() {
 		return temporada;
 	}
+
 	public ArrayList<Jugador> getJugadores() {
-		System.out.println(this.getNombre()+"---------------");
 		Object[] listallaves = Jugadores.keySet().toArray();
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		for (int i = 0; i < listallaves.length; i++) {
-			System.out.println(listallaves[i]);
 			ArrayList<Jugador> jugposicon = Jugadores.get(listallaves[i]);
-			for (int j=0; j< jugposicon.size(); j++){
-				System.out.println(jugposicon.get(j).getNombre()+" "+jugposicon.get(j).getEquipo().getNombre());
-			}
 			jugadores.addAll(jugposicon);
 		}
 		return jugadores;

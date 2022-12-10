@@ -200,7 +200,6 @@ public class GUIVenta extends JFrame implements ActionListener {
 
         if (e.getSource() == vender) {
             int index = playerList.getSelectedIndex();
-            System.out.println(index);
             String jugador = (String) playerList.getSelectedValue();
             jugador = jugador.split("/")[0];
             Posicion pos = (Posicion) posiciones.getSelectedItem();
@@ -254,10 +253,14 @@ public class GUIVenta extends JFrame implements ActionListener {
                         JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (input == 0) {
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIParticipante(Aplicacion.user.getNombre());
                 }
             } else {
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
                 new GUIMercado(false);
             }
         }

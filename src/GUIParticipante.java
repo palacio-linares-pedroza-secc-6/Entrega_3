@@ -167,6 +167,8 @@ public class GUIParticipante extends JFrame implements ActionListener {
         // TODO Auto-generated method stub
         if (e.getSource() == crearEquipo) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUICrearEquipo();
         }
 
@@ -175,6 +177,8 @@ public class GUIParticipante extends JFrame implements ActionListener {
             try {
                 new GUIVenta();
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
             } catch (Exception e1) {
                 JOptionPane.showMessageDialog(null, "No tiene un equipo",
                         "Error",
@@ -189,6 +193,8 @@ public class GUIParticipante extends JFrame implements ActionListener {
             } else {
                 new GUIAlineacion();
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
             }
 
         }
@@ -197,6 +203,8 @@ public class GUIParticipante extends JFrame implements ActionListener {
 
         {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUILogIn();
         }
 

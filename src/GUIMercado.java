@@ -327,6 +327,8 @@ public class GUIMercado extends JFrame implements ActionListener {
                             "Felicitaciones",
                             JOptionPane.PLAIN_MESSAGE);
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIParticipante(Aplicacion.user.getNombre());
                 } else {
                     JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
@@ -348,6 +350,8 @@ public class GUIMercado extends JFrame implements ActionListener {
                         && equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size() == 5
                         && equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size() == 2) {
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIParticipante(Aplicacion.user.getNombre());
                 } else {
                     JOptionPane.showMessageDialog(null, "Su equipo no esta completo",
@@ -371,10 +375,14 @@ public class GUIMercado extends JFrame implements ActionListener {
             if (input == 0) {
                 Aplicacion.user.borrarEquipo(Aplicacion.user.getEquipo());
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
                 new GUIParticipante(Aplicacion.user.getNombre());
             }
         } else if (e.getSource() == volver && !primeraVez) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUIVenta();
         }
 

@@ -46,6 +46,7 @@ public class Aplicacion {
 
 			return "Se ha creado";
 		} else if (tipo == Tipo_Usuario.PARTICIPANTE) {
+			System.out.println("=================");
 			for (int i = 0; i < participantes.size(); i++) {
 				Participante userlista = participantes.get(i);
 				System.out.println(userlista.getNombre());
@@ -174,7 +175,12 @@ public class Aplicacion {
 				.deserializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt", Temporada.class);
 		if (temp != null) {
 			temporadaActual = temp;
-			Aplicacion.participantes = temp.getParticipantes();
+			if (temp.getParticipantes() == null) {
+				System.out.println("Vacio");
+			} else {
+				Aplicacion.participantes = temp.getParticipantes();
+			}
+
 		}
 		dataDam.loadUsuarios();
 		dataDam.creatFilesUsuarios();

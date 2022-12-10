@@ -12,9 +12,10 @@ public class Fecha implements Serializable {
     public Fecha(String fecha) {
         this.fecha = fecha;
     }
-    public boolean esUltimoPartido(Partido partido){
-        String[] llaves = (String[]) partidos.keySet().toArray();
-        if (llaves[llaves.length-1].equals(partido.getNombre())){
+
+    public boolean esUltimoPartido(Partido partido) {
+        String[] llaves = partidos.keySet().toArray(new String[0]);
+        if (llaves[llaves.length - 1].equals(partido.getNombre())) {
             return true;
         }
         return false;
@@ -37,21 +38,23 @@ public class Fecha implements Serializable {
     public Partido getPartido(String nombrePartido) {
         return partidos.get(nombrePartido);
     }
-    public ArrayList<Partido> getPartidos(){
-        List<Partido> list= Arrays.asList((Partido[]) partidos.values().toArray());
-        ArrayList<Partido> lista_partidos= new ArrayList<Partido>(list);
+
+    public ArrayList<Partido> getPartidos() {
+        List<Partido> list = Arrays.asList(partidos.values().toArray(new Partido[0]));
+        ArrayList<Partido> lista_partidos = new ArrayList<Partido>(list);
         return lista_partidos;
     }
 
-    public int getIndexPartido(Partido partido){
-        for (int i=0; i<partidos.values().toArray().length; i++){
-            if (partido.equals((Partido) partidos.values().toArray()[i])){
+    public int getIndexPartido(Partido partido) {
+        for (int i = 0; i < partidos.values().toArray().length; i++) {
+            if (partido.equals((Partido) partidos.values().toArray()[i])) {
                 return i;
             }
         }
         return -1;
     }
-    public Partido getPartidoporIndex(int index){
+
+    public Partido getPartidoporIndex(int index) {
         return (Partido) partidos.values().toArray()[index];
     }
 

@@ -142,6 +142,8 @@ public class GUILogIn extends JFrame implements ActionListener {
 
                 } else if ((resultado.equals("LogIn Valido"))) {
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIParticipante(usuario.getText());
                 }
             }
@@ -156,6 +158,8 @@ public class GUILogIn extends JFrame implements ActionListener {
 
                 } else if ((resultado.equals("LogIn Valido"))) {
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIAdministrador(usuario.getText());
                 }
 
@@ -165,6 +169,8 @@ public class GUILogIn extends JFrame implements ActionListener {
 
         else if (e.getSource() == volver) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             try {
                 new GUIAplicacion();
             } catch (IOException e1) {

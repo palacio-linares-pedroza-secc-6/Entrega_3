@@ -209,6 +209,8 @@ public class GUICargarTemporada extends JFrame implements ActionListener {
                                         Integer.parseInt(presupuesto.getText()),
                                         fileTemporada, fileEquipos, fileJugadores));
                         frame.dispose();
+                        SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                                Aplicacion.getTemporadaActual());
                         new GUIAdministrador(Aplicacion.admin.getNombre());
                     } catch (Exception e2) {
                         JOptionPane.showMessageDialog(null, "los archivos cargados no son los correctos", "Error",
@@ -225,6 +227,8 @@ public class GUICargarTemporada extends JFrame implements ActionListener {
 
         else if (e.getSource() == volver) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUIAdministrador(Aplicacion.admin.getNombre());
 
         }

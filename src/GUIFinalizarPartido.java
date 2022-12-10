@@ -179,6 +179,8 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                 }
 
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
                 new GUIAdministrador(Aplicacion.admin.getNombre());
 
             } catch (Exception e1) {
@@ -192,6 +194,8 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
 
         else if (e.getSource() == volver) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUIAdministrador(Aplicacion.admin.getNombre());
         }
 

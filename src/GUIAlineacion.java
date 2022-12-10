@@ -214,7 +214,6 @@ public class GUIAlineacion extends JFrame implements ActionListener {
 
         if (e.getSource() == sustituir) {
             int index = playerList.getSelectedIndex();
-            System.out.println(index);
             String jugador = (String) playerList.getSelectedValue();
             jugador = jugador.split("/")[0];
             Posicion pos = (Posicion) posiciones.getSelectedItem();
@@ -241,7 +240,6 @@ public class GUIAlineacion extends JFrame implements ActionListener {
         else if (e.getSource() == susCapitan) {
 
             int index = playerList.getSelectedIndex();
-            System.out.println(index);
             String jugador = (String) playerList.getSelectedValue();
             jugador = jugador.split("/")[0];
             Posicion pos = (Posicion) posiciones.getSelectedItem();
@@ -269,11 +267,15 @@ public class GUIAlineacion extends JFrame implements ActionListener {
                 // 0=yes, 1=no,
                 if (input == 0) {
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIParticipante(Aplicacion.user.getNombre());
                 }
 
             } else {
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
                 new GUIParticipante(Aplicacion.user.getNombre());
             }
 

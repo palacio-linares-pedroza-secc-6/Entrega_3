@@ -12,7 +12,7 @@ public class Temporada implements Serializable {
 	private static HashMap<String, Equipo> equipos;
 	private HashMap<String, Fecha> fechas;
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
-	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
+	private ArrayList<Participante> participantes;
 	private PriorityQueue<Pair> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
@@ -227,13 +227,11 @@ public class Temporada implements Serializable {
 	}
 
 	public void addParticipante(Participante participante) {
-		System.out.println("Afuera");
-		if (Temporada.participantes.contains(participante)) {
+		if (this.participantes == null) {
+			participantes = new ArrayList<Participante>();
 			participantes.add(participante);
-			System.out.println("Lo logramos");
-		}
-		if (Temporada.participantes == null) {
-			System.out.println("Corazon Vacio");
+		} else if (this.participantes.contains(participante)) {
+			participantes.add(participante);
 		}
 
 	}

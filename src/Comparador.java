@@ -1,6 +1,7 @@
 import java.util.Comparator;
+import java.io.Serializable;
 
-public class Comparador implements Comparator<Pair> {
+public class Comparador implements Comparator<Pair>, Serializable {
     @Override
     public int compare(Pair jug1, Pair jug2) {
 
@@ -10,8 +11,7 @@ public class Comparador implements Comparator<Pair> {
 
         else if (jug1.getKey() > jug2.getKey()) {
             return -1;
-        }
-        else{
+        } else {
             return 0;
         }
     }

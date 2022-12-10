@@ -161,6 +161,10 @@ public class GUIRegister extends JFrame implements ActionListener {
 
         else if (e.getSource() == volver) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             try {
                 new GUIAplicacion();
             } catch (IOException e1) {

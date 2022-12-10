@@ -143,12 +143,16 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
                         EquipoFantasia equipoFantasia = Aplicacion.user.crearEquipoFantasia(nombre.getText(),
                                 Aplicacion.temporadaActual);
                         frame.dispose();
+                        SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                                Aplicacion.getTemporadaActual());
                         new GUIMercado(true);
                     }
                 } catch (Exception e1) {
                     EquipoFantasia equipoFantasia = Aplicacion.user.crearEquipoFantasia(nombre.getText(),
                             Aplicacion.temporadaActual);
                     frame.dispose();
+                    SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                            Aplicacion.getTemporadaActual());
                     new GUIMercado(true);
                 }
             }
@@ -161,6 +165,8 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
             try {
                 Aplicacion.user.setEquipo(Aplicacion.user.getEquipoPorNombre(nombreEquipo));
                 frame.dispose();
+                SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                        Aplicacion.getTemporadaActual());
                 new GUIParticipante(Aplicacion.user.getNombre());
 
             } catch (Exception e1) {
@@ -171,6 +177,8 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
 
         else if (e.getSource() == volver) {
             frame.dispose();
+            SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
+                    Aplicacion.getTemporadaActual());
             new GUIParticipante(Aplicacion.user.getNombre());
         }
 
