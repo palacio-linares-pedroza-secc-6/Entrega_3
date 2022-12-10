@@ -222,14 +222,13 @@ public static void calcularPuntosPartido(Partido partido, Alineacion alineacion)
                 if (temporada.esUltimaFecha(fecha)){
                     mejor_equipo= (EquipoFantasia) ranking.poll().getValue();
                     equipo.addPuntos(10);
-                    ranking.add(new Pair(equipo.getPuntos(), equipo));
                     EquipoFantasia segundo_mejor = (EquipoFantasia) ranking.poll().getValue();
                     segundo_mejor.addPuntos(7);
-                    ranking.add(new Pair(segundo_mejor.getPuntos(), segundo_mejor));
                     EquipoFantasia tercero = (EquipoFantasia) ranking.poll().getValue();
                     tercero.addPuntos(5);
+                    ranking.add(new Pair(equipo.getPuntos(), equipo));
+                    ranking.add(new Pair(segundo_mejor.getPuntos(), segundo_mejor));
                     ranking.add(new Pair(tercero.getPuntos(), tercero));
-
                 }
                 else{
                     equipo.addPuntos(10);
