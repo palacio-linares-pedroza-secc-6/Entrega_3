@@ -13,7 +13,7 @@ public class Temporada implements Serializable {
 	private HashMap<String, Fecha> fechas;
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private ArrayList<Participante> participantes;
-	private PriorityQueue<Pair> rankingEquipoFantasia;
+	private static PriorityQueue<Pair> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
 			File fileJugadores) throws FileNotFoundException {
@@ -236,15 +236,7 @@ public class Temporada implements Serializable {
 	}
 
 	public boolean esUltimaFecha(Fecha fecha) {
-		String[] llaves = (String[]) fechas.keySet().toArray();
-		if (llaves[llaves.length - 1].equals(fecha.getFecha())) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean esUltimaFecha(Fecha fecha) {
-		String[] llaves = (String[]) fechas.keySet().toArray();
+		String[] llaves = fechas.keySet().toArray(new String[0]);
 		if (llaves[llaves.length - 1].equals(fecha.getFecha())) {
 			return true;
 		}
@@ -266,7 +258,11 @@ public class Temporada implements Serializable {
 				equipofound = true;
 			}
 		}
-		if (equipofound == false) {
+		if (rankingEquipoFantasia == null) {
+			rankingEquipoFantasia = new PriorityQueue<Pair>();
+			rankingEquipoFantasia.add(pair_equipo);
+
+		} else if (equipofound == false) {
 			rankingEquipoFantasia.add(pair_equipo);
 		}
 
