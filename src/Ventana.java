@@ -29,6 +29,7 @@ public class Ventana extends JFrame {
                     SerializarObjeto.serializarObjeto(System.getProperty("user.dir") + "/data/TemporadaActual.txt",
                             Aplicacion.getTemporadaActual());
                 }
+
             }
         });
 

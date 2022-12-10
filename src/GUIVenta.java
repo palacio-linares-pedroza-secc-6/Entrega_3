@@ -204,34 +204,34 @@ public class GUIVenta extends JFrame implements ActionListener {
             String jugador = (String) playerList.getSelectedValue();
             jugador = jugador.split("/")[0];
             Posicion pos = (Posicion) posiciones.getSelectedItem();
-            Jugador jugadorVender = mercado.getJugadoresporPosicion(pos).get(index);
+            Jugador jugadorVender = Aplicacion.user.getEquipo().getJugadoresPosicion(pos).get(index);
 
             if (pos == Posicion.PORTERO) {
 
-                Aplicacion.user.venderJugador(jugadorVender, index);
-                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                Aplicacion.user.venderJugador(jugadorVender, index, Aplicacion.user.getEquipo().getNombre());
+                presupuesto.setText("Presupuesto : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                 porteros.setText("Porteros que faltan : "
                         + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
                 posiciones.actionPerformed(e);
 
             } else if (pos == Posicion.DEFENSA) {
 
-                Aplicacion.user.venderJugador(jugadorVender, index);
-                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                Aplicacion.user.venderJugador(jugadorVender, index, Aplicacion.user.getEquipo().getNombre());
+                presupuesto.setText("Presupuesto : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                 defensas.setText("Defensas que faltan : "
                         + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
                 posiciones.actionPerformed(e);
             } else if (pos == Posicion.MEDIOCAMPISTA) {
 
-                Aplicacion.user.venderJugador(jugadorVender, index);
-                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                Aplicacion.user.venderJugador(jugadorVender, index, Aplicacion.user.getEquipo().getNombre());
+                presupuesto.setText("Presupuesto : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                 defensas.setText("Medios que faltan : "
                         + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA).size()));
                 posiciones.actionPerformed(e);
             } else if (pos == Posicion.DELANTERO) {
 
-                Aplicacion.user.venderJugador(jugadorVender, index);
-                presupuesto.setText("Presupuest : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
+                Aplicacion.user.venderJugador(jugadorVender, index, Aplicacion.user.getEquipo().getNombre());
+                presupuesto.setText("Presupuesto: " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                 defensas.setText("Delanteros que faltan : "
                         + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
                 posiciones.actionPerformed(e);

@@ -50,16 +50,8 @@ public class DataDam {
     public void loadUsuarios() throws IOException {
 
         Scanner scanner = new Scanner(
-                new FileReader(System.getProperty("user.dir") + "/data/usuarios/participantes.csv"));
-        String linea = scanner.nextLine();
-        while (scanner.hasNextLine()) {
-            linea = scanner.nextLine();
-            String[] info = linea.split(";");
-            Aplicacion.reCrearUsuarios(info[0], info[1], Tipo_Usuario.PARTICIPANTE);
-        }
-        scanner = new Scanner(
                 new FileReader(System.getProperty("user.dir") + "/data/usuarios/administradores.csv"));
-        linea = scanner.nextLine();
+        String linea = scanner.nextLine();
         while (scanner.hasNextLine()) {
             linea = scanner.nextLine();
             String[] info = linea.split(";");

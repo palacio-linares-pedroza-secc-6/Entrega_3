@@ -136,16 +136,28 @@ public class GUILogIn extends JFrame implements ActionListener {
                 String resultado = Aplicacion.logIn(usuario.getText(), clave.getText(),
                         Tipo_Usuario.PARTICIPANTE);
                 estado.setText(resultado);
-                frame.dispose();
-                new GUIParticipante(usuario.getText(), null);
+                if (resultado.equals("LogIn NO Valido")) {
+                    JOptionPane.showMessageDialog(null, "El usuario no existe", "Erros de usuario",
+                            JOptionPane.ERROR_MESSAGE);
+
+                } else if ((resultado.equals("LogIn Valido"))) {
+                    frame.dispose();
+                    new GUIParticipante(usuario.getText());
+                }
             }
 
             else if (tipoUsuario.getSelectedItem().equals(Tipo_Usuario.ADMINISTRADOR)) {
                 String resultado = Aplicacion.logIn(usuario.getText(), clave.getText(),
                         Tipo_Usuario.ADMINISTRADOR);
                 estado.setText(resultado);
-                frame.dispose();
-                new GUIAdministrador(usuario.getText());
+                if (resultado.equals("LogIn NO Valido")) {
+                    JOptionPane.showMessageDialog(null, "El usuario no existe", "Erros de usuario",
+                            JOptionPane.ERROR_MESSAGE);
+
+                } else if ((resultado.equals("LogIn Valido"))) {
+                    frame.dispose();
+                    new GUIAdministrador(usuario.getText());
+                }
 
             }
 

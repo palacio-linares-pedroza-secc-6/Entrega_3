@@ -226,7 +226,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                 } else if (pos == Posicion.PORTERO) {
                     if (equipoFantasia.getJugadoresPosicion(Posicion.PORTERO) == null) {
 
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         porteros.setText("Porteros que faltan : "
                                 + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
@@ -237,7 +237,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                                 "Error",
                                 JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         porteros.setText("Porteros que faltan : "
                                 + Integer.toString(2 - equipoFantasia.getJugadoresPosicion(Posicion.PORTERO).size()));
@@ -245,7 +245,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                 } else if (pos == Posicion.DEFENSA) {
                     if (equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA) == null) {
 
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         defensas.setText("Defensas que faltan : "
                                 + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
@@ -256,7 +256,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                                 "Error",
                                 JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         defensas.setText("Defensas que faltan : "
                                 + Integer.toString(5 - equipoFantasia.getJugadoresPosicion(Posicion.DEFENSA).size()));
@@ -267,7 +267,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                 else if (pos == Posicion.MEDIOCAMPISTA) {
                     if (equipoFantasia.getJugadoresPosicion(Posicion.MEDIOCAMPISTA) == null) {
 
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         medioCampos.setText("Medios que faltan : "
                                 + Integer.toString(
@@ -279,7 +279,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                                 "Error",
                                 JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         medioCampos.setText("Medios que faltan : "
                                 + Integer.toString(
@@ -289,7 +289,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                 } else if (pos == Posicion.DELANTERO) {
                     if (equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO) == null) {
 
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         delanteros.setText("Delanteros que faltan : "
                                 + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
@@ -300,7 +300,7 @@ public class GUIMercado extends JFrame implements ActionListener {
                                 "Error",
                                 JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Aplicacion.user.comprarJugador(jugadorCompra);
+                        Aplicacion.user.comprarJugador(jugadorCompra, Aplicacion.user.getEquipo().getNombre());
                         presupuesto.setText("Faltan : " + Integer.toString(equipoFantasia.getPresupuesto()) + "$");
                         delanteros.setText("Delanteros que faltan : "
                                 + Integer.toString(3 - equipoFantasia.getJugadoresPosicion(Posicion.DELANTERO).size()));
@@ -369,7 +369,7 @@ public class GUIMercado extends JFrame implements ActionListener {
             // 0=yes, 1=no,
 
             if (input == 0) {
-                Aplicacion.user.borrarEquipo();
+                Aplicacion.user.borrarEquipo(Aplicacion.user.getEquipo());
                 frame.dispose();
                 new GUIParticipante(Aplicacion.user.getNombre());
             }

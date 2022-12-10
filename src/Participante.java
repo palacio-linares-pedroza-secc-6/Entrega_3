@@ -2,16 +2,20 @@ import java.util.*;
 
 public class Participante extends Usuario {
     HashMap<String, EquipoFantasia> equipos;
+    private EquipoFantasia equipoActual;
 
     public Participante(String nombre, String contrasena) {
         super(nombre, contrasena);
         equipos = new HashMap<String, EquipoFantasia>();
     }
-    public ArrayList<String> getNombresEquiposFantasy(){
-        String[] nombres_equipos = (String[]) equipos.keySet().toArray();
-        List<String> nombres = Arrays.asList(nombres_equipos);
-        ArrayList<String> nombres_list = new ArrayList<String>(nombres);
-        return nombres_list;
+
+    public Object[] getNombresEquiposFantasy() {
+        Object[] nombres_equipos = equipos.keySet().toArray();
+        return nombres_equipos;
+    }
+
+    public void setEquipo(EquipoFantasia equipo) {
+        this.equipoActual = equipo;
     }
 
     /**
@@ -19,7 +23,12 @@ public class Participante extends Usuario {
      * 
      * @return El equipo de fantasia creado por el usuario, null si no ha creado uno
      */
-    public EquipoFantasia getEquipo(String nombreEquipo) {
+
+    public EquipoFantasia getEquipo() {
+        return equipoActual;
+    }
+
+    public EquipoFantasia getEquipoPorNombre(String nombreEquipo) {
         return equipos.get(nombreEquipo);
     }
 
@@ -45,6 +54,7 @@ public class Participante extends Usuario {
     public EquipoFantasia crearEquipoFantasia(String nombreEquipo, Temporada temporadaActual) {
 
         EquipoFantasia equipoFantasia = new EquipoFantasia(nombreEquipo, temporadaActual);
+        setEquipo(equipoFantasia);
         putEquipo(equipoFantasia);
         return equipoFantasia;
     }

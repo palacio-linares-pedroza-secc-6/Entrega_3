@@ -19,8 +19,10 @@ public class GUIParticipante extends JFrame implements ActionListener {
     JButton editarAlineacion;
     JButton estadisticas;
     JButton logOut;
+    JLabel equipoSelect;
+    JLabel puntaje;
 
-    public GUIParticipante(String nombre, String nombre_equipo) {
+    public GUIParticipante(String nombre) {
 
         JPanel titulo = new JPanel();
         titulo.setBackground(new Color(25, 24, 55, 255));
@@ -29,7 +31,7 @@ public class GUIParticipante extends JFrame implements ActionListener {
 
         JPanel menu = new JPanel();
         menu.setBackground(new Color(25, 24, 55, 255));
-        menu.setLayout(new GridLayout(4, 3, 20, 20));
+        menu.setLayout(new GridLayout(5, 3, 20, 20));
         menu.setBorder(BorderFactory.createEtchedBorder());
 
         JPanel vacioW = new JPanel();
@@ -52,9 +54,35 @@ public class GUIParticipante extends JFrame implements ActionListener {
         tituloTxt.setForeground(Color.WHITE);
         tituloTxt.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JLabel equipo = new JLabel();
+        equipo.setText("Equipo:  ");
+        equipo.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+        equipo.setForeground(Color.WHITE);
+        equipo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel equipoSelect = new JLabel();
+        try {
+            equipoSelect.setText(Aplicacion.user.getEquipo().getNombre());
+        } catch (Exception e) {
+            equipoSelect.setText("No hay equipo seleccionado");
+        }
+        equipoSelect.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        equipoSelect.setForeground(Color.WHITE);
+        equipoSelect.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel puntaje = new JLabel();
+        try {
+            puntaje.setText("puntaje: " + Aplicacion.user.getEquipo().getPuntos());
+        } catch (Exception e) {
+            puntaje.setText("Puntaje: 0");
+        }
+        puntaje.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        puntaje.setForeground(Color.WHITE);
+        puntaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         // Creacion de botones
 
-        crearEquipo = new JButton("Crear Equipo");
+        crearEquipo = new JButton("Gestionar equipo");
         crearEquipo.setFocusable(false);
         crearEquipo.setBackground(new Color(37, 32, 70, 255));
         crearEquipo.setBorder(BorderFactory.createEtchedBorder());
@@ -104,6 +132,10 @@ public class GUIParticipante extends JFrame implements ActionListener {
         frame = new Ventana();
 
         titulo.add(tituloTxt);
+
+        menu.add(equipo);
+        menu.add(equipoSelect);
+        menu.add(puntaje);
 
         menu.add(Box.createRigidArea(new Dimension(5, 0)));
         menu.add(crearEquipo);

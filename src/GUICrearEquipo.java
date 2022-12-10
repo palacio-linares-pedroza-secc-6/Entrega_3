@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -62,7 +63,7 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
         crear.addActionListener(this);
         crear.setPreferredSize(new Dimension(100, 50));
 
-        escoger = new JButton("Crear Equipo");
+        escoger = new JButton("Escoger Equipo");
         escoger.setFocusable(false);
         escoger.setBackground(new Color(37, 32, 70, 255));
         escoger.setBorder(BorderFactory.createEtchedBorder());
@@ -128,23 +129,44 @@ public class GUICrearEquipo extends JFrame implements ActionListener {
             }
 
             else {
-                if (Aplicacion.user.getNombresEquiposFantasy().contains(nombre.getText())) {
-                    JOptionPane.showMessageDialog(null, "Ya tienes un equipo con ese nombre", "Error",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-
-                else {
+                Boolean igual = false;
+                try {
+                    for (Object s : Aplicacion.user.getNombresEquiposFantasy()) {
+                        if (nombre.getText().equals((String) s)) {
+                            igual = true;
+                        }
+                    }
+                    if (igual) {
+                        JOptionPane.showMessageDialog(null, "Ya tienes un equipo con ese nombre", "Error",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        EquipoFantasia equipoFantasia = Aplicacion.user.crearEquipoFantasia(nombre.getText(),
+                                Aplicacion.temporadaActual);
+                        frame.dispose();
+                        new GUIMercado(true);
+                    }
+                } catch (Exception e1) {
                     EquipoFantasia equipoFantasia = Aplicacion.user.crearEquipoFantasia(nombre.getText(),
                             Aplicacion.temporadaActual);
                     frame.dispose();
                     new GUIMercado(true);
                 }
-
             }
 
-        }
-        else if (e.getSource() == escoger){
-            
+        } else if (e.getSource() == escoger) {
+            Object[] nombresEquipos = Aplicacion.user.getNombresEquiposFantasy();
+            String nombreEquipo = (String) (JOptionPane.showInputDialog(null,
+                    "Seleccione uno de sus equipos ya creados: ",
+                    "Equipos", JOptionPane.PLAIN_MESSAGE, null, nombresEquipos, "Selecciona"));
+            try {
+                Aplicacion.user.setEquipo(Aplicacion.user.getEquipoPorNombre(nombreEquipo));
+                frame.dispose();
+                new GUIParticipante(Aplicacion.user.getNombre());
+
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, "Escoga un equipo Valido", "Error escogiendo",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         else if (e.getSource() == volver) {

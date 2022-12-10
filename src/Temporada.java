@@ -12,6 +12,7 @@ public class Temporada implements Serializable {
 	private static HashMap<String, Equipo> equipos;
 	private HashMap<String, Fecha> fechas;
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
+	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private PriorityQueue<Pair> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
@@ -191,6 +192,10 @@ public class Temporada implements Serializable {
 		return equiposFantasy;
 	}
 
+	public ArrayList<Participante> getParticipantes() {
+		return participantes;
+	}
+
 	/**
 	 * Retorna el ranking de los equipos de fantiasia
 	 * 
@@ -219,6 +224,18 @@ public class Temporada implements Serializable {
 	 */
 	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
 		equiposFantasy.add(equipoFantasia);
+	}
+
+	public void addParticipante(Participante participante) {
+		System.out.println("Afuera");
+		if (Temporada.participantes.contains(participante)) {
+			participantes.add(participante);
+			System.out.println("Lo logramos");
+		}
+		if (Temporada.participantes == null) {
+			System.out.println("Corazon Vacio");
+		}
+
 	}
 
 	public void addEquipoFantasyRanking(Pair pair_equipo) {

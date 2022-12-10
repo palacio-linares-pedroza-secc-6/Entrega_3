@@ -17,7 +17,8 @@ public class EquipoFantasia extends Equipo {
 		super(nombre, temporada);
 		this.presupuesto = temporada.getPresupuesto();
 		this.Jugadores = new HashMap<Posicion, ArrayList<Jugador>>();
-		this.fechasJugadas = new HashMap<Fecha, Alineacion>();
+		this.fechasJugadas = new HashMap<Fecha, ArrayList<Alineacion>>();
+		Aplicacion.temporadaActual.addEquipoFantasy(this);
 
 	}
 
@@ -38,31 +39,31 @@ public class EquipoFantasia extends Equipo {
 	}
 
 	public void addFechaJugadas(Fecha fechajugada, Alineacion alineacion) {
-		if (fechasJugadas.containsKey(fechajugada)){
-			ArrayList<Alineacion> lista_ali =getFechaJugada(fechajugada);
+		if (fechasJugadas.containsKey(fechajugada)) {
+			ArrayList<Alineacion> lista_ali = getFechaJugada(fechajugada);
 			lista_ali.add(alineacion);
 			fechasJugadas.put(fechajugada, lista_ali);
-		}
-		else{
+		} else {
 			ArrayList<Alineacion> lista_ali = new ArrayList<Alineacion>();
 			fechasJugadas.put(fechajugada, lista_ali);
 		}
-		
+
 	}
-	public ArrayList<Alineacion> getAlineaciones(){
+
+	public ArrayList<Alineacion> getAlineaciones() {
 		ArrayList<Alineacion> alinaciones = new ArrayList<Alineacion>();
-		for (Fecha fecha: (Fecha[]) fechasJugadas.keySet().toArray()){
+		for (Fecha fecha : (Fecha[]) fechasJugadas.keySet().toArray()) {
 			ArrayList<Alineacion> all = getFechaJugada(fecha);
 			alinaciones.addAll(all);
 		}
 		return alinaciones;
 	}
 
-	public void addPuntos( int puntosadd){
-		puntos= puntos + puntosadd;
+	public void addPuntos(int puntosadd) {
+		puntos = puntos + puntosadd;
 	}
 
-	public int getPuntos(){
+	public int getPuntos() {
 		return puntos;
 	}
 
@@ -119,6 +120,7 @@ public class EquipoFantasia extends Equipo {
 	public void removeJugador(Jugador jugador, int index) {
 		Posicion pos = jugador.getPosicion();
 		ArrayList<Jugador> players = this.getJugadoresPosicion(pos);
+		System.out.println(jugador.getValor() + "||" + jugador.getValorVenta() + "||" + jugador.getNombre());
 		setPresupuesto(presupuesto + jugador.getValorVenta());
 		System.out.println(index);
 		players.remove(index);
