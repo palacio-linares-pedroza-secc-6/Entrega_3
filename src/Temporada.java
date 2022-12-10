@@ -11,9 +11,9 @@ public class Temporada implements Serializable {
 	private int presupuesto;
 	private static HashMap<String, Equipo> equipos;
 	private HashMap<String, Fecha> fechas;
-	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
+	private  ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private ArrayList<Participante> participantes;
-	private static PriorityQueue<Pair> rankingEquipoFantasia;
+	private PriorityQueue<Pair> rankingEquipoFantasia = new PriorityQueue<Pair>();
 
 	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
 			File fileJugadores) throws FileNotFoundException {
@@ -188,7 +188,7 @@ public class Temporada implements Serializable {
 	 * 
 	 * @return Lista de equipos de fantasia de la temporada, null si no esta creada
 	 */
-	public static ArrayList<EquipoFantasia> getEquiposFantasy() {
+	public  ArrayList<EquipoFantasia> getEquiposFantasy() {
 		return equiposFantasy;
 	}
 
@@ -202,7 +202,7 @@ public class Temporada implements Serializable {
 	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta
 	 *         creada
 	 */
-	public static PriorityQueue<Pair> getRankingEquipoFantasia() {
+	public PriorityQueue<Pair> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
 	}
 
@@ -223,14 +223,20 @@ public class Temporada implements Serializable {
 	 * @param equipoFantasia
 	 */
 	public void addEquipoFantasy(EquipoFantasia equipoFantasia) {
-		equiposFantasy.add(equipoFantasia);
+		if (this.equiposFantasy == null) {
+			ArrayList<EquipoFantasia> equipoFantasy = new ArrayList<EquipoFantasia>();
+			equipoFantasy.add(equipoFantasia);
+		} else if (!this.equiposFantasy.contains(equipoFantasia)) {
+			equiposFantasy.add(equipoFantasia);
+		}
 	}
+	
 
 	public void addParticipante(Participante participante) {
 		if (this.participantes == null) {
 			participantes = new ArrayList<Participante>();
 			participantes.add(participante);
-		} else if (this.participantes.contains(participante)) {
+		} else if (!this.participantes.contains(participante)) {
 			participantes.add(participante);
 		}
 	}
@@ -244,9 +250,11 @@ public class Temporada implements Serializable {
 	}
 
 	public void addEquipoFantasyRanking(Pair pair_equipo) {
+		System.out.println(pair_equipo.getValue()+" "+ pair_equipo.getKey());
 		EquipoFantasia equipo_fantasy = (EquipoFantasia) pair_equipo.getValue();
 		int puntos = pair_equipo.getKey();
-		Iterator<Pair> value = equipo_fantasy.getRankingJugadores().iterator();
+		Aplicacion.getTemporadaActual();
+		Iterator<Pair> value = rankingEquipoFantasia.iterator();
 		boolean equipofound = false;
 		while (value.hasNext()) {
 			Pair pair = value.next();

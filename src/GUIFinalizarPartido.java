@@ -155,8 +155,7 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                 Partido partido = fecha.getPartido(nombrePartido);
                 Aplicacion.admin.finalizarPartido(partido, nombrePartido, filePartido, fecha);
                 partido.setfileReporte(filePartido);
-
-                ArrayList<EquipoFantasia> lista_fantasy = Temporada.getEquiposFantasy();
+                ArrayList<EquipoFantasia> lista_fantasy = Aplicacion.temporadaActual.getEquiposFantasy();
                 if (lista_fantasy != null) {
                     System.out.println(lista_fantasy.size());
                     for (int c = 0; c < lista_fantasy.size(); c++) {
@@ -173,8 +172,10 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                             puntos_equipo += pair.getKey();
                             System.out.println(ppplayer.getNombre() + " " + pair.getKey());
                         }
+                        System.out.println(puntos_equipo);
                         Pair pair_equipo = new Pair(puntos_equipo, equipo_fantasy);
                         Aplicacion.temporadaActual.addEquipoFantasyRanking(pair_equipo);
+                        System.out.println("SAPOS");
                     }
                     if (fecha.esUltimoPartido(partido)) {
                         ReporteJugador.calcularPuntosFecha(fecha);

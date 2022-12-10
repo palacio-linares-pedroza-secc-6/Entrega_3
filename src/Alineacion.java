@@ -84,9 +84,6 @@ public class Alineacion implements Serializable {
         }
         ReporteJugador.calcularPuntosPartido(partido, this);
         equipo.addFechaJugadas(fecha, this);
-        if (partido.getFecha().esUltimoPartido(partido)) {
-
-        }
     }
 
     public void Sustituir(Jugador jugadoractual) {
