@@ -233,7 +233,14 @@ public class Temporada implements Serializable {
 		} else if (this.participantes.contains(participante)) {
 			participantes.add(participante);
 		}
+	}
 
+	public boolean esUltimaFecha(Fecha fecha) {
+		String[] llaves = (String[]) fechas.keySet().toArray();
+		if (llaves[llaves.length - 1].equals(fecha.getFecha())) {
+			return true;
+		}
+		return false;
 	}
 
 	public void addEquipoFantasyRanking(Pair pair_equipo) {
