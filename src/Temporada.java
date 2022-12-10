@@ -202,7 +202,7 @@ public class Temporada implements Serializable {
 	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta
 	 *         creada
 	 */
-	public PriorityQueue<Pair> getRankingEquipoFantasia() {
+	public static PriorityQueue<Pair> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
 	}
 
@@ -233,6 +233,14 @@ public class Temporada implements Serializable {
 		} else if (this.participantes.contains(participante)) {
 			participantes.add(participante);
 		}
+	}
+
+	public boolean esUltimaFecha(Fecha fecha) {
+		String[] llaves = (String[]) fechas.keySet().toArray();
+		if (llaves[llaves.length - 1].equals(fecha.getFecha())) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean esUltimaFecha(Fecha fecha) {
