@@ -79,4 +79,8 @@ public class Fecha implements Serializable {
         rankingJugadores.addAll(jugadores);
     }
 
+    public String getFecha(){
+        return fecha;
+    }
+
 }

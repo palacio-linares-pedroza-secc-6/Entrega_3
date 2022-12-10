@@ -176,6 +176,9 @@ public class GUIFinalizarPartido extends JFrame implements ActionListener {
                         Pair pair_equipo = new Pair(puntos_equipo, equipo_fantasy);
                         Aplicacion.temporadaActual.addEquipoFantasyRanking(pair_equipo);
                     }
+                    if (fecha.esUltimoPartido(partido)){
+                        ReporteJugador.calcularPuntosFecha(fecha);
+                    }
                 }
 
                 frame.dispose();

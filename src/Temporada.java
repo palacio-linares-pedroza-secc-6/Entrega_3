@@ -13,7 +13,7 @@ public class Temporada implements Serializable {
 	private HashMap<String, Fecha> fechas;
 	private static ArrayList<EquipoFantasia> equiposFantasy = new ArrayList<EquipoFantasia>();
 	private static ArrayList<Participante> participantes = new ArrayList<Participante>();
-	private PriorityQueue<Pair> rankingEquipoFantasia;
+	private static PriorityQueue<Pair> rankingEquipoFantasia;
 
 	public Temporada(String nombreTemporada, int presupuesto, File fileTemporada, File fileEquipo,
 			File fileJugadores) throws FileNotFoundException {
@@ -202,7 +202,7 @@ public class Temporada implements Serializable {
 	 * @return PrioirtyQueue de los equipos de fantasia en orden, null si no esta
 	 *         creada
 	 */
-	public PriorityQueue<Pair> getRankingEquipoFantasia() {
+	public static PriorityQueue<Pair> getRankingEquipoFantasia() {
 		return rankingEquipoFantasia;
 	}
 
@@ -237,7 +237,13 @@ public class Temporada implements Serializable {
 		}
 
 	}
-
+	public boolean esUltimaFecha(Fecha fecha){
+        String[] llaves = (String[]) fechas.keySet().toArray();
+        if (llaves[llaves.length-1].equals(fecha.getFecha())){
+            return true;
+        }
+        return false;
+    }
 	public void addEquipoFantasyRanking(Pair pair_equipo) {
 		EquipoFantasia equipo_fantasy = (EquipoFantasia) pair_equipo.getValue();
 		int puntos = pair_equipo.getKey();

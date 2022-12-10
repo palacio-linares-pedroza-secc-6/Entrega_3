@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class ReporteJugador implements Serializable{
 
@@ -176,7 +177,9 @@ public static void calcularPuntosPartido(Partido partido, Alineacion alineacion)
     }
     }  
     public static void calcularPuntosFecha (Fecha fecha){
+        Temporada temporada = Aplicacion.getTemporadaActual();
         ArrayList<EquipoFantasia> equipos = Temporada.getEquiposFantasy();
+        PriorityQueue<Pair> ranking = Temporada.getRankingEquipoFantasia();
         for (Partido partido : fecha.getPartidos()){
             for (EquipoFantasia equipo : equipos){
                 boolean perdieron=false;
@@ -211,6 +214,29 @@ public static void calcularPuntosPartido(Partido partido, Alineacion alineacion)
                     equipo.addPuntos(10);
                 }
             }
+        }
+        EquipoFantasia mejor_equipo=(EquipoFantasia) ranking.peek().getValue();
+        for (EquipoFantasia equipo : equipos){
+            
+            if (mejor_equipo.equals(equipo)){
+                if (temporada.esUltimaFecha(fecha)){
+                    mejor_equipo= (EquipoFantasia) ranking.poll().getValue();
+                    equipo.addPuntos(10);
+                    ranking.add(new Pair(equipo.getPuntos(), equipo));
+                    EquipoFantasia segundo_mejor = (EquipoFantasia) ranking.poll().getValue();
+                    segundo_mejor.addPuntos(7);
+                    ranking.add(new Pair(segundo_mejor.getPuntos(), segundo_mejor));
+                    EquipoFantasia tercero = (EquipoFantasia) ranking.poll().getValue();
+                    tercero.addPuntos(5);
+                    ranking.add(new Pair(tercero.getPuntos(), tercero));
+
+                }
+                else{
+                    equipo.addPuntos(10);
+                    ranking.add(new Pair(equipo.getPuntos(), equipo));
+                }
+            }
+
         }
     }
 }
